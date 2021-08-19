@@ -8,18 +8,58 @@ metadata:
     k8s-app: filebeat
 data:
   filebeat.yml: |-
-
-    filebeat.inputs:
-    - type: container
-      paths:
-        - /var/lib/docker/containers/*/*-json.log
-      processors:
-        - add_kubernetes_metadata:
-            host: ${NODE_NAME}
-            matchers:
-            - logs_path:
-                logs_path: "/var/lib/docker/containers/"
-
+    filebeat:
+    # Either use inputs or autodiscover
+      # inputs:
+      # - type: container
+      #   paths:
+      #     - /var/lib/docker/containers/*/*-json.log
+      #   processors:
+      #     - add_kubernetes_metadata:
+      #         host: ${NODE_NAME}
+      #         matchers:
+      #         - logs_path:
+      #             logs_path: "/var/lib/docker/containers/"
+      autodiscover:
+        providers:
+          - type: kubernetes
+            node: ${NODE_NAME}
+            templates:
+              - condition:
+                  or:
+                    - equals:
+                        kubernetes.namespace: "echo"
+                    - equals:
+                        kubernetes.namespace: "ingress-nginx"
+                config:
+                  # type docker is deprecated
+                  # - type: docker
+                  #   containers.ids:
+                  #     - "${data.kubernetes.container.id}"
+                  - type: container
+                    paths:
+                      - "/var/lib/docker/containers/*/${data.kubernetes.container.id}-json.log"
+                    multiline.type: pattern
+                    multiline.pattern: '^[[:space:]]'
+                    multiline.negate: false
+                    multiline.match: after
+                    #scan_frequency: 1s
+                    #close_inactive: 5m
+                    #ignore_older: 10m
+    max_procs: 4
+    filebeat.shutdown_timeout: 5s
+    # logging.level: debug
+    processors:
+      - drop_event:
+          when.or:
+            - equals:
+                kubernetes.namespace: "kube-system"
+            - equals:
+                kubernetes.namespace: "default"
+            - equals:
+                kubernetes.namespace: "kube-monitor"
+            - equals:
+                kubernetes.namespace: "kube-logging"
     processors:
       - add_cloud_metadata:
       - add_host_metadata:
