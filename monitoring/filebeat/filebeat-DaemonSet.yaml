@@ -43,9 +43,9 @@ data:
                     multiline.pattern: '^[[:space:]]'
                     multiline.negate: false
                     multiline.match: after
-                    #scan_frequency: 1s
-                    #close_inactive: 5m
-                    #ignore_older: 10m
+                    scan_frequency: 10s
+                    close_inactive: 5m
+                    ignore_older: 10m
     max_procs: 4
     filebeat.shutdown_timeout: 5s
     # logging.level: debug
