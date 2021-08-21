@@ -69,7 +69,7 @@ data:
       # console:
       #   pretty: true
       logstash:
-        hosts: '${LOGSTASH_URL}'
+        hosts: '${LOGSTASH_HOST}:${LOGSTASH_PORT}'
     # elasticsearch:
       # hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
       # username: ${ELASTICSEARCH_USERNAME}
@@ -105,8 +105,10 @@ spec:
         env:
         - name: ELASTICSEARCH_HOST
           value: es.kube-monitor.svc.cluster.local
-        - name: LOGSTASH_URL
-          value: logstash.kube-monitor.svc.cluster.local:5044
+        - name: LOGSTASH_HOST
+          value: logstash.kube-monitor.svc.cluster.local
+        - name: LOGSTASH_PORT
+          value: "5044"
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: NODE_NAME
