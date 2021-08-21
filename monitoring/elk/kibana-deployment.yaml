@@ -46,7 +46,7 @@ spec:
             memory: 400Mi
         env:
           - name: ELASTICSEARCH_URL
-            value: http://es.default.svc.cluster.local:9200
+            value: http://es.kube-monitor.svc.cluster.local:9200
           # - name: SERVER_BASEPATH 
           #   value: /kibana
         ports:
