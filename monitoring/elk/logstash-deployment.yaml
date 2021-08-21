@@ -20,7 +20,7 @@ data:
     output {
       elasticsearch {
         index => "logstash-%{[@metadata][beat]}"
-        hosts => [ "es.default.svc.cluster.local:9200" ]
+        hosts => [ "es.kube-monitor.svc.cluster.local:9200" ]
       }
     }
 ---
