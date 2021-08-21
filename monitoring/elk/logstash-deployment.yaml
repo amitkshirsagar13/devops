@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: logstash-configmap
+  namespace: kube-monitor
 data:
   logstash.yml: |
     http.host: "0.0.0.0"
@@ -29,6 +30,7 @@ metadata:
   labels:
     app: logstash
   name: logstash
+  namespace: kube-monitor
 spec:
   ports:
   - name: "25826"
@@ -48,6 +50,7 @@ metadata:
   labels:
     app: logstash
   name: logstash
+  namespace: kube-monitor
 spec:
   containers:
   - image: docker.elastic.co/logstash/logstash:7.8.0
