@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "value": "368eb6b3-4e02-4d22-a05d-767dc9dc4819"
+    },
+    "functionName": {
+      "value": "sample-function-service"
+    },
+    "location": {
+      "value": "Central US"
+    },
+    "hostingPlanName": {
+      "value": "ASP-dev-886d"
+    },
+    "serverFarmResourceGroup": {
+      "value": "dev"
+    },
+    "alwaysOn": {
+      "value": true
+    },
+    "storageAccountName": {
+      "value": "storeaccountsample"
+    },
+    "sku": {
+      "value": "Basic"
+    },
+    "skuCode": {
+      "value": "B1"
+    },
+    "workerSize": {
+      "value": "0"
+    },
+    "workerSizeId": {
+      "value": "0"
+    },
+    "numberOfWorkers": {
+      "value": "1"
+    },
+    "use32BitWorkerProcess": {
+      "value": false
+    },
+    "linuxFxVersion": {
+      "value": "Java|8"
+    }
+  }
+}

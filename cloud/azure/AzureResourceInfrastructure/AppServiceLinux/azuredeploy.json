@@ -1,0 +1,114 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ServicePlanName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ServiceAppName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ServicePlanSkuName": {
+      "type": "string",
+      "defaultValue": "F1",
+      "allowedValues": [
+        "F1",
+        "D1",
+        "B1",
+        "B2",
+        "B3",
+        "S1",
+        "S2",
+        "S3",
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "metadata": {
+        "description": "Describes plan's pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
+      }
+    },
+    "numberOfWorkers": {
+      "type": "int",
+      "defaultValue": 1
+    }
+  },
+  "variables": {
+    "ServiceName": "[concat(parameters('ServiceAppName'), uniqueString(resourceGroup().id))]",
+    "ServicePrefix": "10.0.0.0/16",
+    "PublicSubnet": "PublicSubnet",
+    "PublicSubnetPrefix": "10.0.0.0/24",
+    "PrivateSubnet": "PrivateSubnet",
+    "PrivateSubnetPrefix": "10.0.1.0/24"
+  },
+  "resources": [
+    {
+      "name": "[parameters('ServicePlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-08-01",
+      "sku": {
+        "name": "[parameters('ServicePlanSkuName')]"
+      },
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "ServicePlan"
+      },
+      "properties": {
+        "name": "[parameters('ServicePlanName')]",
+        "numberOfWorkers": "[parameters('numberOfWorkers')]"
+      }
+    },
+    {
+      "name": "[parameters('ServiceAppName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-08-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('ServicePlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceId('Microsoft.Web/serverfarms', parameters('ServicePlanName')))]": "Resource",
+        "displayName": "ServiceAppName"
+      },
+      "properties": {
+        "name": "[parameters('ServiceAppName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('ServicePlanName'))]"
+      }
+    },
+    {
+      "name": "SampleService",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-03-30",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "SampleService"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('ServicePrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('PublicSubnet')]",
+            "properties": {
+              "addressPrefix": "[variables('PublicSubnetPrefix')]"
+            }
+          },
+          {
+            "name": "[variables('PrivateSubnet')]",
+            "properties": {
+              "addressPrefix": "[variables('PrivateSubnetPrefix')]"
+            }
+          }
+        ]
+      }
+    }],
+  "outputs": {}
+}
