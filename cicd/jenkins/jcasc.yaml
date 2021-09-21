@@ -107,6 +107,18 @@ tool:
           installers:
           - maven:
               id: "3.5.4"
+  dockerTool:
+    installations:
+    - name: "docker"
+      properties:
+      - installSource:
+          installers:
+          - fromDocker:
+              version: "latest"
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
 unclassified:
   globalLibraries:
     libraries:
@@ -117,3 +129,17 @@ unclassified:
               git:
                 remote: "git@github.com:amitkshirsagar13/base-pipeline.git"
                 credentialsId: "github-ci-user"
+  templateGlobalConfig:
+    tier:
+      configurationProvider: "null"
+      librarySources:
+      - libraryProvider:
+          scm:
+            baseDir: "libraries"
+            scm:
+              git:
+                branches:
+                - name: "*/main"
+                buildChooser: "default"
+                userRemoteConfigs:
+                - url: "file:///libraries"

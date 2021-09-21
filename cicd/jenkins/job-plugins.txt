@@ -1,1 +1,2 @@
 job-dsl:latest
+templating-engine:latest
