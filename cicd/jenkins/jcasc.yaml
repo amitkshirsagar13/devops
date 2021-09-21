@@ -1,15 +1,107 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+        - id: "dev"
+          password: "dev"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Job/Build:dev"
+        - "Job/Cancel:dev"
+        - "Job/Read:dev"
+        - "Job/Workspace:dev"
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+        - "Run/Replay:dev"
+        - "Run/Update:dev"
+  # globalNodeProperties:
+  # - envVars:
+  #     env:
+  #     - key: VARIABLE1
+  #       value: foo
+  #     - key: VARIABLE2
+  #       value: bar
+  # nodes:
+  #   - permanent:
+  #       name: "static-agent"
+  #       remoteFS: "/home/jenkins"
+  #       launcher:
+  #         jnlp:
+  #           workDirSettings:
+  #             disabled: true
+  #             failIfWorkDirIsMissing: false
+  #             internalDir: "remoting"
+  #             workDirPath: "/tmp"
+  # slaveAgentPort: 50000
+  # agentProtocols:
+  #   - "jnlp2"
+
+jobs:
+  - script: |
+      multibranchPipelineJob('sample-service') {
+          branchSources {
+              git {
+                  id = 'sample-service'
+                  remote('https://github.com/amitkshirsagar13/sample-service.git')
+              }
+          }
+      }
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          #######
+          # User Auth
+          #######
+          - usernamePassword:
+              scope: "GLOBAL"
+              id: "github-ci-user"
+              description: "Github CI User Credentials"
+              username: "${jenkins-basic-auth-credentials/github-ci-user}"
+              password: "${jenkins-basic-auth-credentials/github-ci-password}"
+          ########
+          # Tokens
+          ########
+          # - string:
+          #     scope: "GLOBAL"
+          #     id: "github-ci-token"
+          #     description: "Github CI User Token"
+          #     secret: "${jenkins-tokens/github-ci-token}"
+          ########
+          # SSH Keys
+          ########
+          # - basicSSHUserPrivateKey:
+          #     scope: "GLOBAL"
+          #     id: "deploy-key-shared-library"
+          #     username: "root"
+          #     passphrase: ""
+          #     description: "Deploy key for global shared library"
+          #     privateKeySource:
+          #       directEntry:
+          #         privateKey: "${jenkins-ssh-keys/deploy-key-shared-library}"
+          # - basicSSHUserPrivateKey:
+          #     scope: "GLOBAL"
+          #     id: "ssh-agent-access-key"
+          #     username: "ubuntu"
+          #     passphrase: ""
+          #     description: "SSH key to access agents"
+          #     privateKeySource:
+          #       directEntry:
+          #         privateKey: "${jenkins-ssh-keys/ssh-agent-access-key}"
+
 unclassified:
-  templateGlobalConfig:
-    tier:
-      configurationProvider: "null"
-      librarySources:
-      - libraryProvider:
-          scm:
-            baseDir: "libraries"
+  globalLibraries:
+    libraries:
+      - name: "devops-ci-lib"
+        retriever:
+          modernSCM:
             scm:
               git:
-                branches:
-                - name: "*/demo-branch"
-                buildChooser: "default"
-                userRemoteConfigs:
-                - url: "file:///libraries"
+                remote: "git@github.com:amitkshirsagar13/base-pipeline.git"
+                credentialsId: "github-ci-user"
