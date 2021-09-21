@@ -141,6 +141,21 @@ credentials:
           #         privateKey: "${jenkins-ssh-keys/ssh-agent-access-key}"
 
 tool:
+  jdk:
+    installations:
+      - name: "open-jdk8"
+        properties:
+          - installSource:
+              installers:
+                - adoptOpenJdkInstaller:
+                    id: "jdk8u232-b09"
+      - name: "oracle-jdk8"
+        properties:
+          - installSource:
+              installers:
+                - jdkInstaller:
+                    acceptLicense: true
+                    id: "jdk-8u221-oth-JPR"
   maven: # (1)
     installations:
     - name: "maven"
@@ -148,7 +163,7 @@ tool:
       - installSource:
           installers:
           - maven:
-              id: "3.5.4"
+              id: "3.8.2"
   dockerTool:
     installations:
     - name: "docker"
