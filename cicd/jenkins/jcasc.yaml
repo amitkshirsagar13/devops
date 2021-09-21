@@ -56,15 +56,21 @@ jobs:
       }
 
       pipelineJob('jte-demo') {
-        branchSources {
-            git {
-              id = 'sample-service'
-              remoteName = 'origin'
-              remote('https://github.com/amitkshirsagar13/sample-service.git')
-              includes('feature*')
-              excludes('')
+              
+        def repo = 'https://github.com/amitkshirsagar13/sample-service.git'
+        description("Pipeline for jte-demo")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { url(repo) }
+                branches('master', '**/feature*')
+                scriptPath('Jenkinsfile.jte')
+                extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+              }
             }
           }
+        }
       }
 
 credentials:
