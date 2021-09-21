@@ -142,4 +142,5 @@ unclassified:
                 - name: "*/main"
                 buildChooser: "default"
                 userRemoteConfigs:
-                - url: "file:///libraries"
+                - credentialsId: "github-ci-user"
+                  url: "https://github.com/amitkshirsagar13/devops.git"
