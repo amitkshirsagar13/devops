@@ -58,11 +58,15 @@ jobs:
       pipelineJob('jte-demo-scripted') {
         def repo = 'https://github.com/amitkshirsagar13/sample-service.git'
         description("Pipeline for jte-scripted")
+        displayName("Sample-Service-jte-scripted")
         definition {
           cpsScm {
             scm {
               git {
-                remote { url(repo) }
+                remote { 
+                  url(repo) 
+                  credentials('github-ci-user')
+                }
                 branches('master', '**/feature*')
                 scriptPath('Jenkinsfile.jte-scripted')
                 extensions { }  // required as otherwise it may try to tag the repo, which you may not want
@@ -75,11 +79,15 @@ jobs:
       pipelineJob('jte-demo-declarative') {
         def repo = 'https://github.com/amitkshirsagar13/sample-service.git'
         description("Pipeline for jte-declarative")
+        displayName("Sample-Service-jte-declarative")
         definition {
           cpsScm {
             scm {
               git {
-                remote { url(repo) }
+                remote { 
+                  url(repo) 
+                  credentials('github-ci-user')
+                }
                 branches('master', '**/feature*')
                 scriptPath('Jenkinsfile.jte-declarative')
                 extensions { }  // required as otherwise it may try to tag the repo, which you may not want
