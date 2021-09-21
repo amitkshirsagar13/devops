@@ -2,6 +2,6 @@ void call(gitUrl) {
   sh "rm -rf *"
   sh "rm -rf .git"
   sh "git clone ${gitUrl} ."
-  sh "ls -ltr"
+  sh "ls -ltra"
 }
 
