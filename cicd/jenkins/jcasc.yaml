@@ -44,14 +44,26 @@ jenkins:
 jobs:
   - script: |
       multibranchPipelineJob('sample-service') {
-          branchSources {
-              git {
-                  id = 'sample-service'
-                  remoteName = 'origin'
-                  remote('https://github.com/amitkshirsagar13/sample-service.git')
-                  includes('feature*')
-                  excludes('')
-              }
+        branchSources {
+          git {
+            id = 'sample-service'
+            remoteName = 'origin'
+            remote('https://github.com/amitkshirsagar13/sample-service.git')
+            includes('feature*')
+            excludes('')
+          }
+        }
+      }
+
+      pipelineJob('jte-demo') {
+        branchSources {
+            git {
+              id = 'sample-service'
+              remoteName = 'origin'
+              remote('https://github.com/amitkshirsagar13/sample-service.git')
+              includes('feature*')
+              excludes('')
+            }
           }
       }
 
