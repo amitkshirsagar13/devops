@@ -1,0 +1,48 @@
+ace-editor:latest
+ant:latest
+antisamy-markup-formatter:latest
+# apache-httpcomponents-client-4-api:latest
+authentication-tokens:latest
+# bootstrap4-api:latest
+# bouncycastle-api:latest
+branch-api:latest
+build-timeout:latest
+# checks-api:latest
+# cloudbees-folder:latest
+# command-launcher:latest
+configuration-as-code:latest
+config-file-provider:latest
+credentials:latest
+credentials-binding:latest
+# display-url-api:latest
+# docker-commons:latest
+# docker-workflow:latest
+durable-task:latest
+# echarts-api:latest
+# email-ext:latest
+font-awesome-api:latest
+gradle:latest
+# handlebars:latest
+# jackson2-api:latest
+jdk-tool:latest
+# jquery-detached:latest
+# jquery3-api:latest
+jsch:latest
+junit:latest
+# ldap:latest
+maven-plugin:latest
+mailer:latest
+metrics:latest
+oauth-credentials:latest
+plain-credentials:latest
+scm-api:latest
+script-security:latest
+snakeyaml-api:latest
+ssh-agent:latest
+ssh-credentials:latest
+ssh-slaves:latest
+structs:latest
+subversion:latest
+timestamper:latest
+# token-macro:latest
+# resource-disposer:latest

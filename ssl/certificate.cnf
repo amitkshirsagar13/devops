@@ -1,0 +1,18 @@
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+x509_extensions = v3_req
+distinguished_name = dn
+[dn]
+C = IN
+ST = Maharashtra
+L = Pune
+O = k8cluster
+OU = DevOps
+emailAddress = amitkshirsagar13@gmail.com
+CN = integration.k8cluster.com
+[v3_req]
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = localhost
