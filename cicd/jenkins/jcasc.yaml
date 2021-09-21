@@ -55,17 +55,33 @@ jobs:
         }
       }
 
-      pipelineJob('jte-demo') {
-              
+      pipelineJob('jte-demo-scripted') {
         def repo = 'https://github.com/amitkshirsagar13/sample-service.git'
-        description("Pipeline for jte-demo")
+        description("Pipeline for jte-scripted")
         definition {
           cpsScm {
             scm {
               git {
                 remote { url(repo) }
                 branches('master', '**/feature*')
-                scriptPath('Jenkinsfile.jte')
+                scriptPath('Jenkinsfile.jte-scripted')
+                extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+              }
+            }
+          }
+        }
+      }
+
+      pipelineJob('jte-demo-declarative') {
+        def repo = 'https://github.com/amitkshirsagar13/sample-service.git'
+        description("Pipeline for jte-declarative")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { url(repo) }
+                branches('master', '**/feature*')
+                scriptPath('Jenkinsfile.jte-declarative')
                 extensions { }  // required as otherwise it may try to tag the repo, which you may not want
               }
             }
