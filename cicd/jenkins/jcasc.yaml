@@ -47,7 +47,10 @@ jobs:
           branchSources {
               git {
                   id = 'sample-service'
+                  remoteName = 'origin'
                   remote('https://github.com/amitkshirsagar13/sample-service.git')
+                  includes('feature*')
+                  excludes('')
               }
           }
       }
@@ -95,6 +98,15 @@ credentials:
           #       directEntry:
           #         privateKey: "${jenkins-ssh-keys/ssh-agent-access-key}"
 
+tool:
+  maven: # (1)
+    installations:
+    - name: "maven"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.5.4"
 unclassified:
   globalLibraries:
     libraries:
