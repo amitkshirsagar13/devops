@@ -1,5 +1,5 @@
 void call(gitUrl) {
-  sh '''srcDir=`pwd`"
+  sh '''srcDir=`pwd`
         git clone ${gitUrl} $srcDir
         ls -ltr'''
 }
