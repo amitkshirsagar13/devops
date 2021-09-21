@@ -1,5 +1,5 @@
 void call() {
   println "Building from maven"
-  mvn package
+  sh "mvn -Dmaven.test.skip=true clean install"
 }
 
