@@ -143,12 +143,12 @@ credentials:
 tool:
   jdk:
     installations:
-      - name: "open-jdk8"
-        properties:
-          - installSource:
-              installers:
-                - adoptOpenJdkInstaller:
-                    id: "jdk8u232-b09"
+      # - name: "open-jdk8"
+      #   properties:
+      #     - installSource:
+      #         installers:
+      #           - adoptOpenJdkInstaller:
+      #               id: "jdk8u232-b09"
       - name: "oracle-jdk8"
         properties:
           - installSource:

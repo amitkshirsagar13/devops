@@ -24,6 +24,8 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/job-plugins.txt
 ENV CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs
 COPY jcasc.yaml /var/jenkins_home/casc_configs/jcasc.yaml
 
+# RUN apt-get update && apt-get install -y maven
+
 ENV SECRETS="/var/jenkins_home/seed_secrets"
 COPY secrets /var/jenkins_home/seed_secrets
 
