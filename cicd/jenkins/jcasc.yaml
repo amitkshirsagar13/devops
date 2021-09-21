@@ -149,13 +149,13 @@ tool:
       #         installers:
       #           - adoptOpenJdkInstaller:
       #               id: "jdk8u232-b09"
-      # - name: "jdk8"
-      #   properties:
-      #     - installSource:
-      #         installers:
-      #           - jdkInstaller:
-      #               acceptLicense: true
-      #               id: "jdk-8u221-oth-JPR"
+      - name: "jdk8"
+        properties:
+          - installSource:
+              installers:
+                - jdkInstaller:
+                    acceptLicense: true
+                    id: "jdk-8u221-oth-JPR"
   maven: # (1)
     installations:
     - name: "maven"
