@@ -34,4 +34,8 @@ Below link is to youtube video, nice demo and explaination for JTE [Nice JTE Dem
 
 ### JTE Pipeline Sample-Service
 
+#### sample-service with Scripted Pipeline
+  <img src="./img/jte-scripted.png" width="600">
 
+#### sample-service with Declarative Pipeline
+  <img src="./img/jte-declarative.png" width="600">
