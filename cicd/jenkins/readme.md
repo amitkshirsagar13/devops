@@ -22,7 +22,7 @@
                 - credentialsId: "github-ci-user"
                   url: "https://github.com/amitkshirsagar13/devops.git"
   ```
-<img src="./img/jte-settings.png" width="600" style="margin: 2.3rem">
+  <img src="./img/jte-settings.png" width="600">
 
 
 
