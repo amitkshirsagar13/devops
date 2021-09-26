@@ -106,18 +106,18 @@ credentials:
           #######
           - usernamePassword:
               scope: "GLOBAL"
-              id: "github-ci-user"
-              description: "Github CI User Credentials"
+              id: "github-ci-${jenkins-basic-auth-credentials/github-ci-user}"
+              description: "Github CI ${jenkins-basic-auth-credentials/github-ci-user} Credentials"
               username: "${jenkins-basic-auth-credentials/github-ci-user}"
               password: "${jenkins-basic-auth-credentials/github-ci-password}"
           ########
           # Tokens
           ########
-          # - string:
-          #     scope: "GLOBAL"
-          #     id: "github-ci-token"
-          #     description: "Github CI User Token"
-          #     secret: "${jenkins-tokens/github-ci-token}"
+          - string:
+              scope: "GLOBAL"
+              id: "github-ci-token"
+              description: "Github CI Global Token"
+              secret: "${github-ci-token}"
           ########
           # SSH Keys
           ########

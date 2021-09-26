@@ -27,6 +27,7 @@ COPY jcasc.yaml /var/jenkins_home/casc_configs/jcasc.yaml
 # RUN apt-get update && apt-get install -y maven
 
 ENV SECRETS="/var/jenkins_home/seed_secrets"
+ENV CASC_VAULT_FILE="/var/jenkins_home/seed_secrets/jcasc_vault"
 COPY secrets /var/jenkins_home/seed_secrets
 
 EXPOSE 8080
