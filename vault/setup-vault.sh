@@ -34,3 +34,4 @@ services:
     entrypoint: vault server -config=/vault/config/vault.json
 EOF
 
+docker-compose up
