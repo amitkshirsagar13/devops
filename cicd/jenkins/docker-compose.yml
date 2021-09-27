@@ -1,0 +1,20 @@
+version: "3.6"
+
+services:
+  jenkins:
+    environment:
+      CASC_VAULT_FILE: /run/secrets/jcasc_vault
+    restart: always
+    container_name: jenkins
+    image: amitkshirsagar13/devops/jenkins:latest
+    ports:
+      - 3000:8080
+      - 50000:50000
+    secrets:
+      - jcasc_vault
+    extra_hosts:
+        - "vault:192.168.1.111" #host and ip
+        
+secrets:
+  jcasc_vault:
+    file: ./secrets/jcasc_vault

@@ -17,7 +17,7 @@ cat > ./vault/volumes/config/vault.json << EOF
 EOF
 
 cat > ./vault/docker-compose.yml << EOF
-version: '2'
+version: "3.6"
 services:
   vault:
     image: vault
@@ -26,12 +26,13 @@ services:
       - "8200:8200"
     restart: always
     volumes:
-      - ./vault/volumes/logs:/vault/logs
-      - ./vault/volumes/file:/vault/file
-      - ./vault/volumes/config:/vault/config
+      - ./volumes/logs:/vault/logs
+      - ./volumes/file:/vault/file
+      - ./volumes/config:/vault/config
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config=/vault/config/vault.json
+
 EOF
 
 docker-compose up

@@ -14,24 +14,3 @@ services:
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config=/vault/config/vault.json
-
-  jenkins:
-    environment:
-      CASC_VAULT_FILE: /run/secrets/jcasc_vault
-    restart: always
-    container_name: jenkins
-    image: amitkshirsagar13/devops/jenkins:latest
-    ports:
-      - 3000:8080
-      - 50000:50000
-    secrets:
-      - jcasc_vault
-    links:
-      - "vault:vault"
-    depends_on:
-      - "vault"
-
-
-secrets:
-  jcasc_vault:
-    file: ./secrets/jcasc_vault
