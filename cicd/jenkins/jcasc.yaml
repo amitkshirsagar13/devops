@@ -116,8 +116,8 @@ credentials:
           - string:
               scope: "GLOBAL"
               id: "github-ci-token"
-              description: "Github CI Global Token ${jenkins-token.github-ci-token} from File"
-              secret: "${jenkins-token.github-ci-token}"
+              description: "Github CI Global Token ${jenkins-token/github-ci-token} from File"
+              secret: "${jenkins-token/github-ci-token}"
           ########
           # SSH Keys
           ########
