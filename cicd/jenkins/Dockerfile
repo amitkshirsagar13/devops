@@ -30,4 +30,7 @@ ENV SECRETS="/var/secrets/seed_secrets"
 ENV CASC_VAULT_FILE="/var/secrets/seed_secrets/jcasc_vault"
 COPY secrets /var/secrets/seed_secrets
 
+# RUN addgroup --gid 2222 --system docker
+# RUN usermod -aG docker 
+
 EXPOSE 8080
