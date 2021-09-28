@@ -1,2 +1,3 @@
 job-dsl:latest
 templating-engine:latest
+docker-plugin:latest
