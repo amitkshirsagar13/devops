@@ -1,5 +1,24 @@
 jenkins:
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  clouds:
+    - docker:
+        name: "docker"
+        dockerApi:
+          dockerHost:
+            uri: "unix:///var/run/docker.sock"
+        templates:
+          - labelString: "generic-docker-slave"
+            dockerTemplateBase:
+              image: "jenkins/slave"
+              volumes:
+                - /var/run/docker.sock:/var/run/docker.sock
+            remoteFs: "/home/jenkins/agent"
+            connector:
+              attach:
+                user: "jenkins"
+            instanceCapStr: "3"
+            retentionStrategy:
+              idleMinutes: 1
   securityRealm:
     local:
       allowsSignup: false
@@ -51,6 +70,83 @@ jobs:
             remote('https://github.com/amitkshirsagar13/sample-service.git')
             includes('feature*')
             excludes('')
+          }
+        }
+      }
+
+      pipelineJob('job-name') {
+        description("Need to have defined docker cloud plugin with label generic-docker-slave agent")
+        definition {
+          cps {
+            script('''
+              agentName = "generic-docker-slave"
+              agentLabel = "${println 'Right Now the Agent Name is ' + agentName; return agentName}"
+
+              pipeline {
+                agent { label 'generic-docker-slave' }
+                stages {
+                  stage('Location') {
+                    steps {
+                      script {
+                        agentName = "generic-docker-slave"
+                      }
+                      sh '''
+                        pwd
+                        ls -ltr
+                      '''
+                    }
+                  }
+                  stage('Checking') {
+                    steps {
+                      script {
+                        println agentLabel
+                        println agentName
+                      }
+                    }
+                  }
+                  stage('Run Tests') {
+                    parallel ({
+                      stage('Test On Windows') {
+                        agent {
+                          label agentName
+                        }
+                        steps {
+                          sh "sleep 2m"
+                        }
+                      }
+                      stage('Test On Linux') {
+                        agent {
+                          label agentName
+                        }
+                        steps {
+                          sh "sleep 1m"
+                        }
+                      }
+                      stage('Test On Mac') {
+                        agent {
+                          label agentName
+                        }
+                        steps {
+                          sh "sleep 90"
+                          error 'Error in group2 processing'
+                        }
+                      }
+                    }, failFast: true)
+                  }
+                  stage('Final') {
+                    agent { label agentLabel }
+
+                    steps {
+                      script {
+                        println agentLabel
+                        println agentName
+                      }
+                    }
+                  }
+                }
+              }
+            '''.stripIndent())
+            sandbox()     
           }
         }
       }
