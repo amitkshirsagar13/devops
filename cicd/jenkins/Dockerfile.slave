@@ -2,5 +2,8 @@ FROM jenkins/agent:alpine
 
 USER root
 RUN apk add --update docker openrc
+RUN apk add shadow
 RUN rc-update add docker boot
+
+RUN usermod -aG docker jenkins
 USER jenkins
