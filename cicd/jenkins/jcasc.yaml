@@ -10,13 +10,14 @@ jenkins:
           - labelString: "generic-docker-slave"
             dockerTemplateBase:
               image: "jenkins/inbound-agent:latest-alpine"
-              volumes:
-                - /var/run/docker.sock:/var/run/docker.sock
+              mounts:
+                - "type=bind,source=/var/jenkins/.m2,destination=/home/jenkins/.m2"
+                - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
             remoteFs: "/home/jenkins"
             connector:
               attach:
                 user: "jenkins"
-            instanceCapStr: "3"
+            instanceCapStr: "5"
             retentionStrategy:
               idleMinutes: 1
   securityRealm:
@@ -74,7 +75,7 @@ jobs:
         }
       }
 
-      pipelineJob('job-name') {
+      pipelineJob('generic-docker-slave-test') {
         description("Need to have defined docker cloud plugin with label generic-docker-slave agent")
         definition {
           cps {
@@ -90,10 +91,8 @@ jobs:
                       script {
                         agentName = "generic-docker-slave"
                       }
-                      sh '''
-                        pwd
-                        ls -ltr
-                      '''
+                      sh "pwd"
+                      sh "ls -ltraR /home/jenkins"
                     }
                   }
                   stage('Checking') {
@@ -128,6 +127,7 @@ jobs:
                         }
                         steps {
                           sh "sleep 90"
+                          docker ps
                           error 'Error in group2 processing'
                         }
                       }
