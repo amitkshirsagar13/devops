@@ -7,3 +7,11 @@ RUN rc-update add docker boot
 
 RUN usermod -aG docker jenkins
 USER jenkins
+
+
+amitkshirsagar13/devops-jenkins-agent-docker:latest
+
+docker run --rm -it -p 8081:8080 -p 50001:50000 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --user jenkins:docker \
+  amitkshirsagar13/devops-jenkins-agent-docker:latest
