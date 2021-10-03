@@ -9,10 +9,10 @@ jenkins:
         templates:
           - labelString: "generic-docker-slave"
             dockerTemplateBase:
-              image: "jenkins/slave"
+              image: "jenkins/inbound-agent:latest-alpine"
               volumes:
                 - /var/run/docker.sock:/var/run/docker.sock
-            remoteFs: "/home/jenkins/agent"
+            remoteFs: "/home/jenkins"
             connector:
               attach:
                 user: "jenkins"

@@ -9,8 +9,8 @@ services:
     image: amitkshirsagar13/devops/jenkins:latest
     user: root
     volumes:
-      - "/var/jenkins:/var/jenkins_home"
       - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/var/jenkins:/var/jenkins_home"
     # group_add:
     #   - 994 #docker group id
     ports:
