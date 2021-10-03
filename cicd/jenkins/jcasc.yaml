@@ -11,7 +11,7 @@ jenkins:
             dockerTemplateBase:
               image: "amitkshirsagar13/devops-jenkins-agent-docker:latest"
               mounts:
-                - "type=bind,source=/var/jenkins/.m2,destination=/home/jenkins/.m2"
+                - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
                 - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
             remoteFs: "/home/jenkins"
             connector:
