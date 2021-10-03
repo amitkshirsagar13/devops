@@ -1,13 +1,14 @@
 FROM jenkins/agent:alpine
 
 USER root
+
 RUN apk add --update docker openrc
 RUN apk add shadow
 RUN rc-update add docker boot
+
 RUN apk add --no-cache \
   git \
   curl wget
-
 
 RUN usermod -aG docker jenkins
 USER jenkins
