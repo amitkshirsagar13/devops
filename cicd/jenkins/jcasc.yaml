@@ -91,11 +91,12 @@ jobs:
                       script {
                         agentName = "generic-docker-slave"
                       }
-                      sh '''hostname
-                      pwd
-                      whoami
-                      ls -ltraR /home/jenkins
-                      '''
+                      sh """
+                        hostname
+                        pwd
+                        whoami
+                        ls -ltraR /home/jenkins
+                      """
                     }
                   }
                   stage('Checking') {
@@ -129,8 +130,10 @@ jobs:
                           label agentName
                         }
                         steps {
-                          sh "sleep 90"
-                          sh "docker ps"
+                          sh """
+                            sleep 90
+                            docker ps
+                          """
                           error 'Error in group2 processing'
                         }
                       }
