@@ -9,7 +9,7 @@ jenkins:
         templates:
           - labelString: "generic-docker-slave"
             dockerTemplateBase:
-              image: "jenkins/inbound-agent:latest-alpine"
+              image: "amitkshirsagar13/devops-jenkins-agent-docker:latest"
               mounts:
                 - "type=bind,source=/var/jenkins/.m2,destination=/home/jenkins/.m2"
                 - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
@@ -127,7 +127,7 @@ jobs:
                         }
                         steps {
                           sh "sleep 90"
-                          docker ps
+                          sh "docker ps"
                           error 'Error in group2 processing'
                         }
                       }

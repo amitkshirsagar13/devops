@@ -6,7 +6,7 @@ services:
       CASC_VAULT_FILE: /run/secrets/jcasc_vault
     restart: always
     container_name: jenkins
-    image: amitkshirsagar13/devops/jenkins:latest
+    image: amitkshirsagar13/devops-jenkins:latest
     user: root
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
