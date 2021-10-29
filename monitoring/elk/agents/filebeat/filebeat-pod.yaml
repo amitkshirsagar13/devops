@@ -1,0 +1,262 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-config
+  namespace: kube-monitor
+  labels:
+    k8s-app: filebeat
+data:
+  filebeat.yml: |-
+    filebeat:
+    # Either use inputs or autodiscover
+      # inputs:
+      # - type: container
+      #   paths:
+      #     - /var/lib/docker/containers/*/*-json.log
+      #   processors:
+      #     - add_kubernetes_metadata:
+      #         host: ${NODE_NAME}
+      #         matchers:
+      #         - logs_path:
+      #             logs_path: "/var/lib/docker/containers/"
+      autodiscover:
+        providers:
+          - type: kubernetes
+            node: ${NODE_NAME}
+            templates:
+              - condition:
+                  or:
+                    - equals:
+                        kubernetes.namespace: "echo"
+                    - equals:
+                        kubernetes.namespace: "ingress-nginx"
+                config:
+                  # type docker is deprecated
+                  # - type: docker
+                  #   containers.ids:
+                  #     - "${data.kubernetes.container.id}"
+                  - type: container
+                    paths:
+                      - "/var/lib/docker/containers/*/${data.kubernetes.container.id}-json.log"
+                    multiline.type: pattern
+                    multiline.pattern: '^[[:space:]]'
+                    multiline.negate: false
+                    multiline.match: after
+                    scan_frequency: 10s
+                    close_inactive: 5m
+                    ignore_older: 10m
+    max_procs: 4
+    filebeat.shutdown_timeout: 5s
+    # logging.level: debug
+    processors:
+      - drop_event:
+          when.or:
+            - equals:
+                kubernetes.namespace: "kube-monitor"
+            - equals:
+                kubernetes.namespace: "default"
+            - equals:
+                kubernetes.namespace: "kube-monitor"
+            - equals:
+                kubernetes.namespace: "kube-logging"
+    processors:
+      - add_cloud_metadata:
+      - add_host_metadata:
+      - add_docker_metadata:
+           match_source_index: 3
+    output:
+      console:
+        pretty: true
+      # logstash:
+      #   hosts: '${LOGSTASH_HOST}:${LOGSTASH_PORT}'
+    # elasticsearch:
+      # hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+      # username: ${ELASTICSEARCH_USERNAME}
+      # password: ${ELASTICSEARCH_PASSWORD}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: filebeat
+  namespace: kube-monitor
+  labels:
+    k8s-app: filebeat
+spec:
+  containers:
+  - name: filebeat
+    image: docker.elastic.co/beats/filebeat:7.14.0
+    args: [
+      "-c", "/etc/filebeat.yml",
+      "-e",
+    ]
+    env:
+    - name: ELASTICSEARCH_HOST
+      value: es.kube-monitor.svc.cluster.local
+    - name: LOGSTASH_HOST
+      value: logstash.kube-monitor.svc.cluster.local
+    - name: LOGSTASH_PORT
+      value: "5044"
+    - name: ELASTICSEARCH_PORT
+      value: "9200"
+    - name: NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    securityContext:
+      runAsUser: 0
+      # If using Red Hat OpenShift uncomment this:
+      #privileged: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    volumeMounts:
+    - name: filebeat-config
+      mountPath: /etc/filebeat.yml
+      readOnly: true
+      subPath: filebeat.yml
+    - name: docker-container-storage
+      mountPath: /var/lib/docker/containers
+      readOnly: true
+  volumes:
+  - name: docker-container-storage
+    persistentVolumeClaim:
+      claimName: docker-container-claim
+  - name: filebeat-config
+    configMap:
+      name: filebeat-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: docker-container-claim
+  namespace: kube-monitor
+  labels:
+    k8s-app: filebeat
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: docker-container-logs
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /var/lib/docker/containers
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: filebeat
+subjects:
+- kind: ServiceAccount
+  name: filebeat
+  namespace: kube-monitor
+roleRef:
+  kind: ClusterRole
+  name: filebeat
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: filebeat
+  namespace: kube-monitor
+subjects:
+  - kind: ServiceAccount
+    name: filebeat
+    namespace: kube-monitor
+roleRef:
+  kind: Role
+  name: filebeat
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: filebeat-kubeadm-config
+  namespace: kube-monitor
+subjects:
+  - kind: ServiceAccount
+    name: filebeat
+    namespace: kube-monitor
+roleRef:
+  kind: Role
+  name: filebeat-kubeadm-config
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: filebeat
+  labels:
+    k8s-app: filebeat
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources:
+  - namespaces
+  - pods
+  - nodes
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups: ["apps"]
+  resources:
+    - replicasets
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: filebeat
+  # should be the namespace where filebeat is running
+  namespace: kube-monitor
+  labels:
+    k8s-app: filebeat
+rules:
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs: ["get", "create", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: filebeat-kubeadm-config
+  namespace: kube-monitor
+  labels:
+    k8s-app: filebeat
+rules:
+  - apiGroups: [""]
+    resources:
+      - configmaps
+    resourceNames:
+      - kubeadm-config
+    verbs: ["get"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: filebeat
+  namespace: kube-monitor
+  labels:
+    k8s-app: filebeat
+---

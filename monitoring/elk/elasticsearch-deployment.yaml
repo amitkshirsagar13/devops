@@ -1,3 +1,23 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   namespace: kube-monitor
+#   name: elasticsearch-master-config
+#   labels:
+#     app: elasticsearch
+#     role: master
+# data:
+#   elasticsearch.yml: |-
+#     # cluster.name: ${CLUSTER_NAME}
+#     # node.name: ${NODE_NAME}
+#     # cluster.initial_master_nodes: ${MASTER_NODES}
+#     # network.host: 0.0.0.0
+#     # node:
+#     #   master: true
+#     #   data: true
+#     #   ingest: true
+#     xpack.security.enabled: true
+#     xpack.monitoring.collection.enabled: true
 ---
 apiVersion: v1
 kind: Service
@@ -65,8 +85,7 @@ spec:
           privileged: true
       containers:
       - name: elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.5.0 
-        # 6.8.18
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
         ports:
         - containerPort: 9200
           name: http
@@ -80,17 +99,33 @@ spec:
         env:
           - name: cluster.name
             value: elasticsearch-cluster
+          - name: discovery.type
+            value: single-node
           - name: node.name
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
+            value: elasticsearch-master
+          - name: MASTER_NODES
+            value: elasticsearch-master
           - name: discovery.zen.ping.unicast.hosts
             value: "elasticsearch-0.es.default.svc.cluster.local"
           - name: ES_JAVA_OPTS
-            value: -Xms4g -Xmx4g
+            value: -Xms256m -Xmx256m
+          - name: xpack.security.enabled
+            value: 'true'
+          - name: xpack.monitoring.collection.enabled
+            value: 'true'
+          - name: ELASTIC_PASSWORD
+            value: changeme
         volumeMounts:
         - name: data
           mountPath: /usr/share/elasticsearch/data
+        # - name: config
+        #   mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+        #   readOnly: true
+        #   subPath: elasticsearch.yml
+      # volumes:
+      # - name: config
+      #   configMap:
+      #     name: elasticsearch-master-config
   volumeClaimTemplates:
   - metadata:
       name: data
@@ -117,3 +152,26 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: /run/desktop/mnt/host/c/opt/data/elasticsearch
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: elastic-search
+  namespace: kube-monitor
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  # http://elastic.k8cluster.local/
+  - host: elastic.k8cluster.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: es
+            port:
+              number: 9200
+
+# kubectl exec -it $(kubectl get pods -n kube-monitor | grep elasticsearch-0 | sed -n 1p | awk '{print $1}') -n kube-monitor -- bin/elasticsearch-setup-passwords auto -b
