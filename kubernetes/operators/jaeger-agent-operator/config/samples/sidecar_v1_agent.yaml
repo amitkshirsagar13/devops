@@ -1,0 +1,9 @@
+apiVersion: sidecar.jaeger.operator.amn.siemens.com/v1
+kind: Agent
+metadata:
+  name: jaeger-sidecar
+spec:
+  # TODO(user): Add fields here
+  agentName: jaeger-agent
+  agentImage: jaeger-agent-image
+  collector: jaeger-collector

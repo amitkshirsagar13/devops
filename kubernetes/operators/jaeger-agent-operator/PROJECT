@@ -1,0 +1,16 @@
+domain: jaeger.operator.amn.siemens.com
+layout:
+- go.kubebuilder.io/v3
+projectName: operators
+repo: jaeger.operator.amn.siemens.com/m/v2
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: jaeger.operator.amn.siemens.com
+  group: sidecar
+  kind: Agent
+  path: jaeger.operator.amn.siemens.com/m/v2/api/v1
+  version: v1
+version: "3"

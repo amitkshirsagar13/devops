@@ -1,0 +1,100 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger-service
+  namespace: echo
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true" # <1>
+spec:
+  selector:
+    matchLabels:
+      app: jaeger-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jaeger-service
+        group: api
+    spec:
+      hostname: jaeger-service
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "echo1.local"
+            - "echo2.local"
+      containers:
+        - name: jaeger-service
+#          image: gcr.io/google_containers/echoserver:1.10
+          image: amitkshirsagar13/jaeger-client
+          ports:
+            - name: jaeger-service
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "1Gi"
+            requests:
+              cpu: "0.3"
+              memory: "500Mi"
+        - name: jaeger-agent
+          image: jaegertracing/jaeger-agent:1.28 # 1.6.0 # 1.28
+          ports:
+            - containerPort: 5775
+              protocol: UDP
+            - containerPort: 5778
+              protocol: TCP
+            - containerPort: 6831
+              protocol: UDP
+            - containerPort: 6832
+              protocol: UDP
+          command:
+            - "/go/bin/agent-linux"
+            - "--admin.http.host-port=:14271"
+            - "--reporter.grpc.tls.enabled=false"
+            - "--processor.jaeger-compact.server-queue-size=10"
+            - "--reporter.grpc.host-port=jaeger-collector.monitoring:14250"
+#            - "--collector.host-port=jaeger-collector.monitoring:14267"
+          resources:
+            limits:
+              memory: 50M
+              cpu: 100m
+            requests:
+              memory: 50M
+              cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-service
+  namespace: echo
+spec:
+  ports:
+    - port: 8080
+      targetPort: jaeger-service
+      protocol: TCP
+      name: jaeger-service
+  selector:
+    app: jaeger-service
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jaeger-ingress
+  namespace: echo
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    # http://jaeger-service.local/api/v1/jaeger/random
+    - host: jaeger-service.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jaeger-service
+                port:
+                  number: 8080
+

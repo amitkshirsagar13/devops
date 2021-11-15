@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: logstash-configmap
-  namespace: kube-monitor
+  namespace: monitoring
 data:
   logstash.yml: |
     http.host: "0.0.0.0"
@@ -20,7 +20,7 @@ data:
     output {
       elasticsearch {
         index => "logstash-%{[@metadata][beat]}"
-        hosts => [ "es.kube-monitor.svc.cluster.local:9200" ]
+        hosts => [ "es.monitoring.svc.cluster.local:9200" ]
       }
     }
 ---
@@ -30,7 +30,7 @@ metadata:
   labels:
     app: logstash
   name: logstash
-  namespace: kube-monitor
+  namespace: monitoring
 spec:
   ports:
   - name: "25826"
@@ -50,7 +50,7 @@ metadata:
   labels:
     app: logstash
   name: logstash
-  namespace: kube-monitor
+  namespace: monitoring
 spec:
   containers:
   - image: docker.elastic.co/logstash/logstash:7.8.0
@@ -60,7 +60,7 @@ spec:
     - containerPort: 5044
     env:
     - name: ES_HOSTS
-      value: "https://es.kube-monitor.svc.cluster.local:9200"
+      value: "https://es.monitoring.svc.cluster.local:9200"
     - name: ES_USER
       value: "elastic"
     # - name: ES_PASSWORD
