@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: kibana
-        image: kibana:6.5.0
+        image: docker.elastic.co/kibana/kibana:7.15.0
         resources:
           limits:
             cpu: 1000m
@@ -45,8 +45,8 @@ spec:
             cpu: 100m
             memory: 400Mi
         env:
-          - name: ELASTICSEARCH_URL
-            value: http://es.monitoring.svc.cluster.local:9200
+          - name: ELASTICSEARCH_HOSTS
+            value: http://es.monitoring:9200
           # - name: SERVER_BASEPATH 
           #   value: /kibana
         ports:
@@ -61,8 +61,8 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  # http://kibana.k8cluster.local/
-  - host: kibana.k8cluster.local
+  # http://kibana.local/
+  - host: kibana.local
     http:
       paths:
       - path: /
