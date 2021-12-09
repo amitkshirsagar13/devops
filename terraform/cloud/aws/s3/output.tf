@@ -13,3 +13,7 @@ output "s3_hosted_zone_id" {
 output "s3_bucket_region" {
     value = "${aws_s3_bucket.bucket.region}"
 }
+
+output "aws_access_key" {
+    value = "${var.aws_access_key}"
+}

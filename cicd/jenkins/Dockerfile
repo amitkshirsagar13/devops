@@ -20,6 +20,7 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/user-auth.plugins
 COPY job-plugins.txt /usr/share/jenkins/ref/job-plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/job-plugins.txt
 
+
 # Add JCasC
 ENV CASC_JENKINS_CONFIG=/var/casc/casc_configs
 COPY jcasc.yaml /var/casc/casc_configs/jcasc.yaml
@@ -29,6 +30,8 @@ COPY jcasc.yaml /var/casc/casc_configs/jcasc.yaml
 ENV SECRETS="/var/secrets/seed_secrets"
 ENV CASC_VAULT_FILE="/var/secrets/seed_secrets/jcasc_vault"
 COPY secrets /var/secrets/seed_secrets
+
+COPY config/org.jenkinsci.plugins.terraform.TerraformBuildWrapper.xml /var/jenkins_home/org.jenkinsci.plugins.terraform.TerraformBuildWrapper.xml
 
 # RUN addgroup --gid 2222 --system docker
 # RUN usermod -aG docker 
