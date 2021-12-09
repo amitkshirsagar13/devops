@@ -46,3 +46,4 @@ subversion:latest
 timestamper:latest
 token-macro:latest
 resource-disposer:latest
+terraform:latest
