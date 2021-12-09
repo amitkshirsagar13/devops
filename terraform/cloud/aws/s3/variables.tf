@@ -5,7 +5,7 @@ variable "name" {
 
 variable "team" {
   type = string
-  default = "amn"
+  default = "k8cluster"
 }
 
 variable "level" {

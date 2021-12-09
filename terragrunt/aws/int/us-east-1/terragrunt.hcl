@@ -1,15 +1,15 @@
 terraform {
-  source = "git::ssh://git@xxxxxxxxxxxxxxxxxxxxx.git?ref=branch"
+  source = "git::https://github.com/amitkshirsagar13/devops.git//terraform/cloud/aws/s3"
 }
 
-dependencies {
-  paths = ["../eks"]
-}
+# dependencies {
+#   paths = ["../infra"]
+# }
 
 include {
-  path = find_in_parent_folder()
+  path = find_in_parent_folders()
 }
 
-inputs {
-  cluster_name = "k8cluster-int"
+inputs = {
+  application = "k8cluster"
 }
