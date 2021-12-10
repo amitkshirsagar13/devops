@@ -9,9 +9,35 @@ jenkins:
         templates:
           - labelString: "generic-docker-slave"
             dockerTemplateBase:
-              image: "amitkshirsagar13/devops-jenkins-agent-docker:latest"
+              image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
               mounts:
-                - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+                # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+                - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+            remoteFs: "/home/jenkins"
+            connector:
+              attach:
+                user: "root"
+            instanceCapStr: "5"
+            retentionStrategy:
+              idleMinutes: 1
+          - labelString: "maven-docker-slave"
+            dockerTemplateBase:
+              image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
+              mounts:
+                # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+                - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+            remoteFs: "/home/jenkins"
+            connector:
+              attach:
+                user: "root"
+            instanceCapStr: "5"
+            retentionStrategy:
+              idleMinutes: 1
+          - labelString: "terraform-docker-slave"
+            dockerTemplateBase:
+              image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
+              mounts:
+                # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
                 - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
             remoteFs: "/home/jenkins"
             connector:

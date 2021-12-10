@@ -1,4 +1,4 @@
-FROM amitkshirsagar13/devops-jenkins-agent-docker:latest
+FROM amitkshirsagar13/devops-jenkins-agent-generic:latest
 
 USER root
 
