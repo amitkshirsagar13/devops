@@ -226,6 +226,27 @@ jobs:
         }
       }
 
+      pipelineJob('terraform-s3') {
+        def repo = 'https://github.com/amitkshirsagar13/devops.git'
+        description("Pipeline for jte-declarative")
+        displayName("Sample-Service-jte-declarative")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { 
+                  url(repo) 
+                  credentials('github-ci-user')
+                }
+                branches('master', '**/feature*')
+                scriptPath('cicd/pipeline/aws/terraform.pipeline')
+                extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+              }
+            }
+          }
+        }
+      }
+
 credentials:
   system:
     domainCredentials:
