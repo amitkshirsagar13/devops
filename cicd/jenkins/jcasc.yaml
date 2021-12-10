@@ -217,7 +217,7 @@ jobs:
                   url(repo) 
                   credentials('github-ci-user')
                 }
-                branches('master', '**/feature*')
+                branches('main', '**/feature*')
                 scriptPath('Jenkinsfile.jte-declarative')
                 extensions { }  // required as otherwise it may try to tag the repo, which you may not want
               }
@@ -228,8 +228,8 @@ jobs:
 
       pipelineJob('terraform-s3') {
         def repo = 'https://github.com/amitkshirsagar13/devops.git'
-        description("Pipeline for jte-declarative")
-        displayName("Sample-Service-jte-declarative")
+        description("Pipeline for Terraform S3 Demo")
+        displayName("Terraform S3 Demo")
         definition {
           cpsScm {
             scm {
