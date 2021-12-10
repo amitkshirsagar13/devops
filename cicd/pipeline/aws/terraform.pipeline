@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'terraform-slave' }
+  agent { label 'terraform-docker-slave' }
 
   parameters {
     choice(name: 'Environment', choices: ['Integration','Staging','E2E','Production'], description: '')
@@ -34,7 +34,7 @@ pipeline {
           """
           dir("devops/terraform/cloud/aws/s3") {
             sh """
-            terraform Init
+            terraform init
             """
             sh """
             terraform plan

@@ -7,6 +7,8 @@ RUN apk add shadow
 RUN rc-update add docker boot
 
 RUN apk add --no-cache \
+  openssh-client \
+  zip unzip \
   git \
   curl wget
 
