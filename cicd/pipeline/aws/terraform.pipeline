@@ -12,6 +12,8 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "eu-west-1"
+    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
   }
 
   stages {
@@ -33,12 +35,16 @@ pipeline {
 
           """
           dir("devops/terraform/cloud/aws/s3") {
-            sh """
-            terraform init
-            """
-            sh """
-            terraform plan
-            """
+
+            sh 'terraform init'
+            
+            withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                              string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+
+                sh 'terraform plan -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY'
+                sh 'terraform apply -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY -auto-approve'
+
+            }
           }
         }
       }
