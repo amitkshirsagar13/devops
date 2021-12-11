@@ -8,6 +8,16 @@ variable "team" {
   default = "k8cluster"
 }
 
+variable "http" {
+  type = number
+  default = 80
+}
+
+variable "https" {
+  type = number
+  default = 443
+}
+
 variable "level" {
   type = string
   default = "int"

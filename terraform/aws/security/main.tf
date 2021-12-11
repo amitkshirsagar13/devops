@@ -1,10 +1,16 @@
 resource "aws_security_group" "instance" {
   name = "${var.team}-${var.name}-instance-${var.application}"
 
-  # inbound HTTP from anywhere
+  # inbound HTTP/HTTPS from anywhere
   ingress {
-    from_port   = var.server_port
-    to_port     = var.server_port
+    from_port   = var.http
+    to_port     = var.http
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = var.https
+    to_port     = var.https
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
