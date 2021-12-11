@@ -54,21 +54,6 @@ pipeline {
         }
       }
     }
-        
-    stage("Terraform Request") {
-      steps {
-        script {
-          terraformEnv = env.Environment
-          terraformRegion = env.Region
-          terraformModule = env.Module
-          terraformAction = env.Action
-          sh """
-            echo Terraform $terraformEnv Module $terraformModule with $terraformAction
-          """
-          terraformPath = "terragrunt/aws/" + terraformEnv + "/" + terraformRegion + "/" + terraformModule
-        }
-      }
-    }
     
     stage("Terraform Init") {
       steps {
