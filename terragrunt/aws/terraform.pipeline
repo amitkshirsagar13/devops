@@ -1,0 +1,67 @@
+pipeline {
+  agent { label 'terraform-docker-slave' }
+
+  parameters {
+    choice(name: 'Environment', choices: ['Integration','Staging','E2E','Production'], description: '')
+    choice(name: 'Timeout', choices: ['60','120','180','360'], description: 'Time to wait in minutes before EC2 auto shutdown')
+  }
+
+  options {
+    ansiColor('xterm')
+  }
+
+  environment {
+    AWS_DEFAULT_REGION = "eu-west-1"
+    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+  }
+
+  stages {
+    stage("Init") {
+      steps {
+        script {
+          userInfo_Id = userInfo('USERID')
+          userInfo_Name = userInfo('USER')
+          userInfo_Email = userInfo('EMAIL')
+          sh """
+            echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
+            rm -rf devops
+            git clone https://github.com/amitkshirsagar13/devops.git
+          """
+          region = env.AWS_DEFAULT_REGION
+          sh """
+            echo region $region
+            echo '\033[34mHello\033[0m \033[33mcolorful\033[0m \033[35mworld!\033[0m'
+
+          """
+          dir("devops/terraform/cloud/aws/s3") {
+
+            sh 'terraform init'
+            
+            withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                              string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+
+                sh 'terraform plan -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY'
+                sh 'terraform apply -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY -auto-approve'
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+def userInfo(var) {
+  wrap([$class: 'BuildUser']) {
+    if (var == 'USER') {
+      return env.BUILD_USER
+    }
+    if (var == 'USERID') {
+      return env.BUILD_USER
+    }
+    if (var == 'EMAIL') {
+      return env.BUILD_USER_EMAIL
+    }
+  }
+}
