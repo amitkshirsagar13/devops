@@ -1,3 +1,7 @@
+import "region" {
+  config_path = "../region.hcl"
+}
+
 terraform {
   source = "git::https://github.com/amitkshirsagar13/devops.git//terraform/aws/security"
 }
@@ -5,10 +9,6 @@ terraform {
 # dependencies {
 #   paths = ["../infra"]
 # }
-
-import "region" {
-  config_path = "../region.hcl"
-}
 
 include {
   path = find_in_parent_folders()
