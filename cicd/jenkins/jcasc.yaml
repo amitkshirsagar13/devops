@@ -226,6 +226,27 @@ jobs:
         }
       }
 
+      pipelineJob('terraform-bastion') {
+        def repo = 'https://github.com/amitkshirsagar13/devops.git'
+        description("Pipeline for Terraform Bastion Demo")
+        displayName("Terraform Bastion")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { 
+                  url(repo) 
+                  credentials('github-ci-user')
+                }
+                branches('main', '**/feature*')
+                scriptPath('cicd/pipeline/aws/bastion/bastion.pipeline')
+                extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+              }
+            }
+          }
+        }
+      }
+
       pipelineJob('terraform-s3') {
         def repo = 'https://github.com/amitkshirsagar13/devops.git'
         description("Pipeline for Terraform S3 Demo")
@@ -238,8 +259,8 @@ jobs:
                   url(repo) 
                   credentials('github-ci-user')
                 }
-                branches('master', '**/feature*')
-                scriptPath('cicd/pipeline/aws/terraform.pipeline')
+                branches('main', '**/feature*')
+                scriptPath('cicd/pipeline/aws/s3/terraform.pipeline')
                 extensions { }  // required as otherwise it may try to tag the repo, which you may not want
               }
             }
