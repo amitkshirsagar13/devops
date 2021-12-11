@@ -1,3 +1,16 @@
+terraform {
+  before_hook "before_hook" {
+    commands     = ["apply", "plan"]
+    execute      = ["echo", "terragrunt - Running Terraform"]
+  }
+
+  after_hook "after_hook" {
+    commands     = ["apply", "plan"]
+    execute      = ["echo", "terragrunt - Finished running Terraform"]
+    run_on_error = true
+  }
+}
+
 generate "provider" {
   path = "provider.tf"
   if_exists = "overwrite_terragrunt"
