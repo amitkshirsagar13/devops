@@ -11,6 +11,7 @@ include {
 }
 
 inputs = {
+  application = "platform-s3"
   tags = {
     application = "platform-s3"
   }
