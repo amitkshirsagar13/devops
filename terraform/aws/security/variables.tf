@@ -1,13 +1,3 @@
-variable "name" {
-  type = string
-  default = "dev"
-}
-
-variable "team" {
-  type = string
-  default = "k8cluster"
-}
-
 variable "http" {
   type = number
   default = 80
@@ -16,6 +6,16 @@ variable "http" {
 variable "https" {
   type = number
   default = 443
+}
+
+variable "name" {
+  type = string
+  default = "dev"
+}
+
+variable "team" {
+  type = string
+  default = "k8cluster"
 }
 
 variable "level" {
