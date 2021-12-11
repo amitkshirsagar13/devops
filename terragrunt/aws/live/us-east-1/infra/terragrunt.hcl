@@ -11,5 +11,8 @@ include {
 }
 
 inputs = {
-  application = "s3"
+  application = "infra-s3"
+  tags = {
+    application = "infra-s3"
+  }
 }
