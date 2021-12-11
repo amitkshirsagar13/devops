@@ -1,3 +1,4 @@
 inputs = {
-  application = "killer"
+  application = "killer-parent"
+  level = "live-parent"
 }

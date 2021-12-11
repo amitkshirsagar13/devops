@@ -1,6 +1,6 @@
 variable "level" {
   type = string
-  default = "live"
+  default = "live-var"
 }
 variable "aws_access_key" {
   default = "prod-fake"
