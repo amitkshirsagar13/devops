@@ -19,5 +19,5 @@ output "aws_access_key" {
 }
 
 output "tags" {
-  value = "${aws_s3_bucket.bucket.tags}"
+  value = "${merge(aws_s3_bucket.bucket.tags, var.tags)}"
 }
