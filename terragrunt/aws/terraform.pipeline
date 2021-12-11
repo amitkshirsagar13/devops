@@ -40,6 +40,11 @@ pipeline {
           sh """
             echo Terraform $terraformEnv Module $terraformModule with $terraformAction
           """
+          dir("terragrunt/aws") {
+            terraformInit(terraformEnv)
+            terraformPlan(terraformEnv)
+            terraformApply(terraformEnv)
+          }
         }
       }
     }
