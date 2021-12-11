@@ -2,8 +2,8 @@ pipeline {
   agent { label 'terraform-docker-slave' }
 
   parameters {
-    choice(name: 'Environment', choices: ['Integration','Staging','E2E','Production'], description: '')
-    choice(name: 'Timeout', choices: ['60','120','180','360'], description: 'Time to wait in minutes before EC2 auto shutdown')
+    choice(name: 'Environment', choices: ['int','live','E2E','Production'], description: '')
+    choice(name: 'Module', choices: ['All', 'eks'], description: 'Time to wait in minutes before EC2 auto shutdown')
   }
 
   options {
