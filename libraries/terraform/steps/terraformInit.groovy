@@ -1,4 +1,4 @@
-void call(action, module) {
-  println "Init Terraform ${action} for ${module}"
+void call(action, modulePath) {
+  println "Init Terraform ${action} for ${modulePath}"
 }
 

@@ -1,3 +1,3 @@
-void call(action, module) {
-  println "Terraform ${action} for ${module}"
+void call(action, modulePath) {
+  println "Terraform ${action} for ${modulePath}"
 }
