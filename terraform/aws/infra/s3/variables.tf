@@ -13,6 +13,11 @@ variable "level" {
   default = "int"
 }
 
+variable "versioning" {
+  type = bool
+  default = false
+}
+
 variable "application" {
   type = string
   default = "demo"
