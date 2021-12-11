@@ -4,6 +4,7 @@ libraries {
   }
   git
   jenkins
+  terraform
 }
 
 application_environments {
