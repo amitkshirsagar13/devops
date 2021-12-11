@@ -1,5 +1,5 @@
 locals {
-  common_config = read_terragrunt_config("common.hcl")
+  common_config = read_terragrunt_config("../../../common.hcl")
 }
 
 inputs = merge(
