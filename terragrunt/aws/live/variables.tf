@@ -8,3 +8,7 @@ variable "aws_access_key" {
 variable "aws_secret_key" {
   default = "prod-fake"
 }
+variable "team" {
+  type = string
+  default = "k8cluster-var"
+}
