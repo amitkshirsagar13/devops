@@ -1,5 +1,5 @@
-resource "aws_security_group" "instance" {
-  name = "${var.team}-${var.name}-instance-${var.application}"
+resource "aws_security_group" "sg" {
+  name = "sg-${var.team}-${var.name}-${var.application}"
 
   # inbound HTTP/HTTPS from anywhere
   ingress {

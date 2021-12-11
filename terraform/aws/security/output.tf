@@ -1,17 +1,13 @@
-output "s3_bucket_id" {
-    value = "${aws_s3_bucket.bucket.id}"
+output "sg_id" {
+    value = "${aws_security_group.sg.id}"
 }
-output "s3_bucket_arn" {
-    value = "${aws_s3_bucket.bucket.arn}"
+
+output "sg_arn" {
+    value = "${aws_security_group.sg.arn}"
 }
-output "s3_bucket_domain_name" {
-    value = "${aws_s3_bucket.bucket.bucket_domain_name}"
-}
-output "s3_hosted_zone_id" {
-    value = "${aws_s3_bucket.bucket.hosted_zone_id}"
-}
-output "s3_bucket_region" {
-    value = "${aws_s3_bucket.bucket.region}"
+
+output "sg_region" {
+    value = "${aws_security_group.sg.region}"
 }
 
 output "aws_access_key" {
@@ -19,5 +15,5 @@ output "aws_access_key" {
 }
 
 output "tags" {
-  value = "${merge(aws_s3_bucket.bucket.tags, var.tags)}"
+  value = "${merge(aws_instance.bucket.tags, var.tags)}"
 }
