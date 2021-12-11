@@ -17,7 +17,7 @@ pipeline {
   }
 
   stages {
-    stage("Init") {
+    stage("Prepare") {
       steps {
         script {
           userInfo_Id = userInfo('USERID')
@@ -25,43 +25,9 @@ pipeline {
           userInfo_Email = userInfo('EMAIL')
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
-            rm -rf devops
-            git clone https://github.com/amitkshirsagar13/devops.git
           """
-          region = env.AWS_DEFAULT_REGION
-          sh """
-            echo region $region
-            echo '\033[34mHello\033[0m \033[33mcolorful\033[0m \033[35mworld!\033[0m'
-
-          """
-          dir("devops/terraform/cloud/aws/s3") {
-
-            sh 'terraform init'
-            
-            withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
-                              string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
-
-                sh 'terraform plan -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY'
-                sh 'terraform apply -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY -auto-approve'
-
-            }
-          }
         }
       }
-    }
-  }
-}
-
-def userInfo(var) {
-  wrap([$class: 'BuildUser']) {
-    if (var == 'USER') {
-      return env.BUILD_USER
-    }
-    if (var == 'USERID') {
-      return env.BUILD_USER
-    }
-    if (var == 'EMAIL') {
-      return env.BUILD_USER_EMAIL
     }
   }
 }
