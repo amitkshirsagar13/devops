@@ -9,7 +9,6 @@ void call(action, modulePath) {
         pwd
         ls -ltr
       """
-
       sh 'terragrunt plan -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY'
     }
   }
