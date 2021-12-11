@@ -305,25 +305,17 @@ jobs:
 #   description("Terraform Environment PreBuild")
 #   displayName("Terraform Environment PreBuild")
 #   definition {
-#     properties {
-#       templateConfigFolderProperty {
-#         tier{
-#           configurationProvider {
-#             scmPipelineConfigurationProvider {
-#               baseDir("library")
-#               scm{
-#                 git {
-#                   remote { 
-#                     url(repo) 
-#                     credentials('github-ci-user')
-#                   }
-#                   branches('main', '**/feature*')
-#                   scriptPath('terragrunt/aws/terraform.pipeline')
-#                   extensions { }  // required as otherwise it may try to tag the repo, which you may not want
-#                 }
-#               }
-#             }
+#     scmPipelineConfigurationProvider {
+#       baseDir("library")
+#       scm {
+#         git {
+#           remote { 
+#             url(repo) 
+#             credentials('github-ci-user')
 #           }
+#           branches('main', '**/feature*')
+#           scriptPath('terragrunt/aws/terraform.pipeline')
+#           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
 #         }
 #       }
 #     }
