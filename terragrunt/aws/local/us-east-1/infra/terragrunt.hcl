@@ -6,6 +6,10 @@ terraform {
 #   paths = ["../infra"]
 # }
 
+import "region" {
+  config_path = "../region.hcl"
+}
+
 include {
   path = find_in_parent_folders()
 }
