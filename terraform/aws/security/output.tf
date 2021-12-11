@@ -13,7 +13,3 @@ output "sg_region" {
 output "aws_access_key" {
     value = "${var.aws_access_key}"
 }
-
-output "tags" {
-  value = "${merge(aws_instance.bucket.tags, var.tags)}"
-}
