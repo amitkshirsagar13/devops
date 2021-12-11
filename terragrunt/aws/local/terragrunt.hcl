@@ -1,9 +1,8 @@
 locals {
-  root_config   = read_terragrunt_config("../../../root.hcl")
-  common_config = read_terragrunt_config("../../common.hcl")
-  region_config = read_terragrunt_config("../region.hcl")
+  root_config = read_terragrunt_config("../root.hcl")
 }
 
 inputs = merge(
+  local.root_config.inputs,
   yamldecode(file("env.yml")),
 )
