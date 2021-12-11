@@ -7,9 +7,7 @@ void call(action, modulePath) {
       // sh 'terraform plan -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY'
       sh """
         pwd
-        echo $PATH
-        which terragrunt
-        which terraform
+        ls -ltr
       """
 
       sh 'terragrunt plan -var aws_access_key=$AWS_ACCESS_KEY_ID -var aws_access_key=$AWS_SECRET_ACCESS_KEY'
