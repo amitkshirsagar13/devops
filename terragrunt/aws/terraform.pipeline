@@ -4,7 +4,7 @@ pipeline {
   parameters {
     choice(name: 'Environment', choices: ['int','stg','e2e','live'], description: 'Environment level cluster')
     choice(name: 'Region', choices: ['global','us-east-1','us-east-2'], description: 'Cluster Region')
-    choice(name: 'Module', choices: ['all', 'eks', s3], description: 'Modules to execute')
+    choice(name: 'Module', choices: ['all', 'infra', 'eks', 's3'], description: 'Modules to execute')
     choice(name: 'Action', choices: ['plan', 'apply', 'destroy'], description: 'Terraform Action')
   }
 
