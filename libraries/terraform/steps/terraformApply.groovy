@@ -1,7 +1,7 @@
 void call(action, modulePath) {
   stage("Terraform Apply") {
     println "Terraform ${action} for ${modulePath}"
-    if (action == 'plan' || action == 'apply') {
+    if (action ==~ /(plan|apply)/) {
       steps {
         dir("${modulePath}") {
           withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
