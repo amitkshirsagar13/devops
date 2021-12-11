@@ -1,8 +1,5 @@
 locals {
-  root_config = read_terragrunt_config(find_in_parent_folders("root.hcl"))
-}
-
-locals {
+  root = read_terragrunt_config(find_in_parent_folders("root.hcl"))
   # Load the data from common.hcl
   common = read_terragrunt_config(find_in_parent_folders("common.hcl"))
 }
@@ -11,6 +8,6 @@ locals {
 generate = local.common.generate
 
 inputs = merge(
-  local.root_config.inputs,
+  local.root.inputs,
   yamldecode(file("env.yml")),
 )
