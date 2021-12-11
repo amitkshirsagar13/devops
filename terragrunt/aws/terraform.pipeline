@@ -51,9 +51,6 @@ pipeline {
             echo Terraform $terraformEnv Module $terraformModule with $terraformAction
           """
           terraformPath = "terragrunt/aws/" + terraformEnv + "/" + terraformRegion + "/" + terraformModule
-          terraformInit(terraformAction, terraformPath)
-          terraformPlan(terraformAction, terraformPath)
-          terraformApply(terraformAction, terraformPath)
         }
       }
     }
