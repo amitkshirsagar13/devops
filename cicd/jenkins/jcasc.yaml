@@ -52,8 +52,13 @@ jenkins:
       users:
         - id: "admin"
           password: "admin"
+          email: "amitkshirsagar13@gmail.com"
         - id: "dev"
           password: "dev"
+          email: "poonamkshirsagar13@gmail.com"
+        - id: "devops"
+          password: "devops"
+          email: "amoghkshirsagar13@gmail.com"
   authorizationStrategy:
     globalMatrix:
       permissions:
