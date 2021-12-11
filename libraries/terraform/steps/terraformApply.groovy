@@ -1,4 +1,3 @@
-void call(data) {
-  println "Apply Terraform ${data}"
+void call(action, module) {
+  println "Terraform ${action} for ${module}"
 }
-
