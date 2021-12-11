@@ -28,13 +28,6 @@ pipeline {
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
           """
-        }
-      }
-    }
-
-    stage("Git Clone") {
-      steps {
-        script {
           clone("https://github.com/amitkshirsagar13/devops.git")
         }
       }
