@@ -2,8 +2,9 @@ pipeline {
   agent { label 'terraform-docker-slave' }
 
   parameters {
-    choice(name: 'Environment', choices: ['int','live','E2E','Production'], description: '')
-    choice(name: 'Module', choices: ['All', 'eks'], description: 'Time to wait in minutes before EC2 auto shutdown')
+    choice(name: 'Environment', choices: ['int','stg','e2e','live'], description: 'Environment level cluster')
+    choice(name: 'Module', choices: ['all', 'eks'], description: 'Modules to execute')
+    choice(name: 'Action', choices: ['plan', 'apply', 'destroy'], description: 'Terraform Action')
   }
 
   options {
@@ -25,6 +26,19 @@ pipeline {
           userInfo_Email = userInfo('EMAIL')
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
+          """
+        }
+      }
+    }
+    
+    stage("Evaluate Scripts") {
+      steps {
+        script {
+          terraformEnv = env.Environment
+          terraformModule = env.Module
+          terraformAction = env.Action
+          sh """
+            echo Terraform $terraformEnv Module $terraformModule with $terraformAction
           """
         }
       }
