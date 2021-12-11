@@ -20,7 +20,7 @@ resource "aws_security_group" "sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["192.168.1.1/24"]
+    cidr_blocks = ["192.168.1.0/24"]
   }
 
   // Terraform removes the default rule
