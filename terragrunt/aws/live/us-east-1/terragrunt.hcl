@@ -1,5 +1,5 @@
 inputs = merge(
-  yamldecode(file("${get_terragrunt_dir()}/env.yml")),
+  yamldecode(file("env.yml")),
   {
     level = "live-parent"
   }
