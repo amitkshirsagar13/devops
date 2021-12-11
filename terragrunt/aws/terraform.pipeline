@@ -43,7 +43,11 @@ pipeline {
           sh """
             echo Terraform $terraformEnv Module $terraformModule with $terraformAction
           """
-          terraformPath = "terragrunt/aws/" + terraformEnv + "/" + terraformRegion + "/" + terraformModule
+          terraformPath = "terragrunt/aws/" + terraformEnv + "/" + terraformRegion
+
+          if ( terraformModule != 'all') {
+            terraformPath = terraformPath + "/" + terraformModule
+          }
         }
       }
     }
@@ -62,7 +66,7 @@ pipeline {
       }
       steps {
         script {
-          terraformPlan(terraformAction, terraformPath)
+          terraformPlan(terraformModule, terraformAction, terraformPath)
         }
       }
     }
@@ -73,7 +77,7 @@ pipeline {
       }
       steps {
         script {
-          terraformApply(terraformAction, terraformPath)
+          terraformApply(terraformModule, terraformAction, terraformPath)
         }
       }
     }
