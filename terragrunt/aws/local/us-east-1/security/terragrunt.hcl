@@ -23,4 +23,3 @@ inputs = merge(
     }
   }
 )
-  
