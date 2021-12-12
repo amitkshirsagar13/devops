@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "bucket" {
   versioning {
     enabled = var.versioning
   }
-  tags = var.tags
+  tags = local.tags
 }
 
 locals {
