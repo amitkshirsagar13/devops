@@ -3,7 +3,7 @@ void call(action, modulePath) {
     println "Init Terraform ${action} for ${modulePath}"
     dir("${modulePath}") {
       sh "whoami"
-      sh "cat ~/.terraformrc"
+      sh "ls -ltra /root"
       sh "terraform init"
     }
   }
