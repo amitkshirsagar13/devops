@@ -14,7 +14,7 @@ pipeline {
     }
 
     environment {
-        AWS_DEFAULT_REGION = "eu-east-1"
+        AWS_DEFAULT_REGION = "us-east-1"
     }
 
     stages {
@@ -120,22 +120,22 @@ def jsonObj() {
                     {
                         "Environments": {
                             "Integration": {
-                                "rdsUrl": "intrds.random2.eu-east-1.rds.amazonaws.com",
+                                "rdsUrl": "intrds.random2.us-east-1.rds.amazonaws.com",
                                 "envAlias": "Integration",
                                 "local_port": "3105"
                             },
                             "Staging": {
-                                "rdsUrl": "stgrds.random1.eu-east-1.rds.amazonaws.com",
+                                "rdsUrl": "stgrds.random1.us-east-1.rds.amazonaws.com",
                                 "envAlias": "Stg",
                                 "local_port": "3106"
                             },
                             "E2E": {
-                                "rdsUrl": "e2erds.random3.eu-east-1.rds.amazonaws.com",
+                                "rdsUrl": "e2erds.random3.us-east-1.rds.amazonaws.com",
                                 "envAlias": "E2E",
                                 "local_port": "3107"
                             },
                             "Production": {
-                                "rdsUrl": "prodrds.random4.eu-east-1.rds.amazonaws.com",
+                                "rdsUrl": "prodrds.random4.us-east-1.rds.amazonaws.com",
                                 "envAlias": "Production",
                                 "local_port": "3109"
                             }

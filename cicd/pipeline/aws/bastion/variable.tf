@@ -1,5 +1,5 @@
 variable "region" {
-    default = "eu-east-1"
+    default = "us-east-1"
 }
 terraform {}
 variable "ssh_pub_key" {
