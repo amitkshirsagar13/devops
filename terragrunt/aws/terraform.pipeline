@@ -88,7 +88,7 @@ pipeline {
       }
       steps {
         script {
-          terraformApply(terraformModule, terraformAction, terraformPath)
+          terraformDestroy(terraformModule, terraformAction, terraformPath)
         }
       }
     }
