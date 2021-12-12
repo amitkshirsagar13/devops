@@ -1,7 +1,7 @@
 FROM amitkshirsagar13/devops-jenkins-agent-generic:latest
 
 USER root
-COPY terraform.rc ~/.terraformrc
+COPY terraform.rc /root/.terraformrc
 
 ENV TERRAFORM_VERSION=1.1.0
 ENV TERRAFORM_PROVIDER_VERSION=3.69.0
@@ -21,7 +21,3 @@ RUN rm -rf /var/tmp/ && \
 
 RUN curl -o /usr/local/bin/terragrunt -fsSL "https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64" \
   && chmod +x /usr/local/bin/terragrunt
-
-USER jenkins
-
-COPY terraform.rc ~/.terraformrc
