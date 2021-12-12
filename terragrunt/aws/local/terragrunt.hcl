@@ -1,5 +1,5 @@
 locals {
-  common = read_terragrunt_config("common.hcl")
+  common = read_terragrunt_config(find_in_parent_folders("common.hcl"))
 }
 
 generate = local.common.generate
