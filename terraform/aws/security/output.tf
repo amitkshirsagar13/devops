@@ -10,6 +10,6 @@ output "sg_arn" {
     value = "${aws_security_group.sg.arn}"
 }
 
-output "aws_access_key" {
-    value = "${var.aws_access_key}"
+output "access_key" {
+    value = "${var.access_key}"
 }
