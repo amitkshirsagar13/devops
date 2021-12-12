@@ -3,6 +3,7 @@ provider_installation {
     path    = "/usr/share/terraform/providers"
     include = ["registry.terraform.io/hashicorp/*"]
   }
+  
   direct {
     exclude = []
   }
