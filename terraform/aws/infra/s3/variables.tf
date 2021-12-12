@@ -28,10 +28,10 @@ variable "description" {
   default = "test"
 }
 
-variable "aws_access_key" {
+variable "access_key" {
   default = "fake"
 }
-variable "aws_secret_key" {
+variable "secret_key" {
   default = "fake"
 }
 variable "region" {
