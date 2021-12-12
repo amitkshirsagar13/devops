@@ -3,7 +3,7 @@ terraform {
 }
 
 locals {
-  # region = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  region = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 }
 
 # dependencies {
@@ -15,7 +15,7 @@ include {
 }
 
 inputs = merge(
-  # local.region.inputs,
+  local.region.inputs,
   {
     application = "platform-sg",
     tags = {
