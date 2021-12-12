@@ -1,14 +1,23 @@
-generate "provider" {
-  path = "provider.tf"
-  if_exists = "overwrite_terragrunt"
-  contents = <<EOF
-  provider "aws" {
-    access_key = "fake-provider"
-    secret_key = "fake-provider"
+terraform {
+  before_hook "before_hook" {
+    commands     = ["apply", "plan"]
+    execute      = ["echo", "Parent - Running Terraform"]
   }
-  EOF
+
+  after_hook "after_hook" {
+    commands     = ["apply", "plan"]
+    execute      = ["echo", "Parent - Finished running Terraform"]
+    run_on_error = true
+  }
 }
 
+locals {
+  common = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+}
+
+generate = local.common.generate
+
 inputs = merge(
-  yamldecode(file("env.yml"))
+  yamldecode(file("env.yml")),
+  local.common.inputs,
 )
