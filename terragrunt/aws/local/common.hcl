@@ -4,6 +4,7 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
   provider "aws" {
+    version = "~> 3.0"
     access_key = "fake-provider-common"
     secret_key = "fake-provider-common"
     skip_credentials_validation = true
