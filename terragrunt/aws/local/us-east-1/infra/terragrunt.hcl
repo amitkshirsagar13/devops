@@ -22,4 +22,4 @@ inputs = merge(
       application = "infra"
     }
   },
-}
+)
