@@ -1,16 +1,3 @@
-terraform {
-  before_hook "before_hook" {
-    commands     = ["apply", "plan"]
-    execute      = ["echo", "common - Running Terraform"]
-  }
-
-  after_hook "after_hook" {
-    commands     = ["apply", "plan"]
-    execute      = ["echo", "common - Finished running Terraform"]
-    run_on_error = true
-  }
-}
-
 # Set the generate config dynamically to the generate config in account.hcl
 generate "provider" {
   path = "provider.tf"
