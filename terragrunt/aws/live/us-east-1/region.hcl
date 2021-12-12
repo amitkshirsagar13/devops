@@ -5,6 +5,6 @@ locals {
 inputs = merge(
   local.account.inputs,
   {
-    region = "ap-south-1"
+    region = "us-east-1"
   },
 )
