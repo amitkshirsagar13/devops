@@ -81,5 +81,16 @@ pipeline {
         }
       }
     }
+
+    stage("Terraform Destroy") {
+      when {
+        expression { action == 'destroy' }
+      }
+      steps {
+        script {
+          terraformApply(terraformModule, terraformAction, terraformPath)
+        }
+      }
+    }
   }
 }
