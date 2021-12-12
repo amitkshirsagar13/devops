@@ -13,7 +13,7 @@ include {
 inputs = merge(
   local.region.inputs,
   {
-  application = "infra-s3"
+  application = "infra-s3",
   tags = {
     application = "infra-s3"
   }
