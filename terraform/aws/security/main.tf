@@ -3,7 +3,6 @@ resource "aws_security_group" "sg" {
 
   # inbound HTTP/HTTPS from anywhere
   ingress {
-    name        = "ingress-http"
     from_port   = var.http
     to_port     = var.http
     protocol    = "tcp"
@@ -11,7 +10,6 @@ resource "aws_security_group" "sg" {
   }
 
   ingress {
-    name        = "ingress-https"
     from_port   = var.https
     to_port     = var.https
     protocol    = "tcp"
@@ -20,7 +18,6 @@ resource "aws_security_group" "sg" {
 
   # inbound ssh from anywhere
   ingress {
-    name        = "ingress-ssh"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
