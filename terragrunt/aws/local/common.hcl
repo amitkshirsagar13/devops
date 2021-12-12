@@ -5,8 +5,8 @@ generate "provider" {
   contents = <<EOF
   provider "aws" {
     version = "~> 3.0"
-    access_key = "fake-provider-common"
-    secret_key = "fake-provider-common"
+    aws_access_key = "fake-provider-common"
+    aws_secret_key = "fake-provider-common"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     skip_requesting_account_id  = true

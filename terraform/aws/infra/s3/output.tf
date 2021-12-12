@@ -14,8 +14,8 @@ output "s3_bucket_region" {
     value = "${aws_s3_bucket.bucket.region}"
 }
 
-output "access_key" {
-    value = "${var.access_key}"
+output "aws_access_key" {
+    value = "${var.aws_access_key}"
 }
 
 output "tags" {
