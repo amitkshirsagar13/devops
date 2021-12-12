@@ -26,7 +26,6 @@ resource "aws_security_group" "sg" {
 
   // Terraform removes the default rule
   egress {
-    name        = "egress-all"
    from_port    = 0
    to_port      = 0
    protocol     = "-1"
