@@ -62,7 +62,7 @@ pipeline {
     
     stage("Terraform Plan") {
       when {
-        expression { action == 'plan' || action == 'apply' }
+        expression { action == 'plan' || action == 'apply'  || action == 'destroy' }
       }
       steps {
         script {
