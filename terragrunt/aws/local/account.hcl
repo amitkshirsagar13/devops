@@ -4,7 +4,6 @@ locals {
 
 inputs = merge(
   local.root.inputs,
-  local.common.inputs,
   {
     account_id = 0000000
   },
