@@ -11,8 +11,8 @@ include {
 }
 
 inputs = {
-  application = "platform-sg"
+  application = "platform"
   tags = {
-    application = "platform-sg"
+    application = "platform"
   }
 }
