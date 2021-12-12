@@ -8,29 +8,29 @@ variable "https" {
   default = 443
 }
 
-variable "name" {
-  type = string
-  default = "dev"
-}
-
-variable "team" {
-  type = string
-  default = "k8cluster"
-}
-
 variable "level" {
   type = string
   default = "int"
 }
 
-variable "versioning" {
-  type = bool
-  default = false
+variable "team" {
+  type = string
+  default = "amn"
 }
 
 variable "application" {
   type = string
-  default = "demo"
+  default = "monolith"
+}
+
+variable "type" {
+  type = string
+  default = "web"
+}
+
+variable "versioning" {
+  type = bool
+  default = false
 }
 
 variable "description" {

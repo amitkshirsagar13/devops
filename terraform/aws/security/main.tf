@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  name = "ec2-${var.level}-${var.region}-${var.team}-${var.application}-${var.name}"
+  name = "ec2-${var.level}-${var.team}-${var.application}-${var.type}"
 
   # inbound HTTP/HTTPS from anywhere
   ingress {
@@ -41,12 +41,10 @@ resource "aws_security_group" "sg" {
 
 locals {
   tags = {
-    Name = "${var.team}-${var.level}-${var.region}-${var.name}"
-    name = "${var.name}"
+    Name = "${var.team}-${var.level}-${var.region}-${var.type}"
     level = "${var.level}"
-    region = "${var.region}"
     team = "${var.team}"
     application = "${var.application}"
-    description = "${var.description}"
+    type = "${var.type}"
   }
 }
