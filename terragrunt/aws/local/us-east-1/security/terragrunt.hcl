@@ -21,5 +21,5 @@ inputs = merge(
     tags = {
       application = "platform-sg"
     }
-  }
+  },
 )

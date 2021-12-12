@@ -16,5 +16,5 @@ inputs = merge(
   application = "infra-s3",
   tags = {
     application = "infra-s3"
-  }
+  },
 }
