@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  name = "sg-${var.level}-${var.region}-${var.team}-${var.application}-${var.name}"
+  name = "ec2-${var.level}-${var.region}-${var.team}-${var.application}-${var.name}"
 
   # inbound HTTP/HTTPS from anywhere
   ingress {
