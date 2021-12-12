@@ -3,8 +3,11 @@ generate "provider" {
   path = "provider.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
-  provider "aws" {
-    version = "~> 3.0"
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 3.0"
+    }
   }
   EOF
 }

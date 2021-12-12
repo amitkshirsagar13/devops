@@ -3,8 +3,14 @@ generate "provider" {
   path = "provider.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+  
   provider "aws" {
-    version = "~> 3.0"
     access_key = "fake-access-common"
     secret_key = "fake-secret-common"
     skip_credentials_validation = true
