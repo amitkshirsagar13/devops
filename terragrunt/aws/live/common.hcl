@@ -5,8 +5,8 @@ generate "provider" {
   contents = <<EOF
   provider "aws" {
     version = "~> 3.0"
-    access_key = "AKIAVIM7ULIMUEALUZ7K"
-    secret_key = "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"
+    access_key = var.access_key
+    secret_key = var.secret_key
   }
   EOF
 }
