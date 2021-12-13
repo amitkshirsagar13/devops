@@ -4,7 +4,7 @@ pipeline {
   parameters {
     choice(name: 'Environment', choices: ['local','int','stg','e2e','live'], description: 'Environment level cluster')
     choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
-    choice(name: 'Module', choices: ['all','infra','eks','s3','security'], description: 'Modules to execute')
+    choice(name: 'Module', choices: ['security','infra','eks','s3','all'], description: 'Modules to execute')
     choice(name: 'Action', choices: ['plan','apply','destroy'], description: 'Terraform Action')
     choice(name: 'Approve', choices: ['yes','no'], description: 'Terraform Action')
   }
@@ -15,10 +15,8 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
-    uAwsKey = "${Environment}_AWS_ACCESS_KEY_ID"
-    uAwsSecret = "${Environment}_AWS_SECRET_ACCESS_KEY"
-    AWS_ACCESS_KEY_ID     = credentials("${uAwsKey}")
-    AWS_SECRET_ACCESS_KEY = credentials("${uAwsSecret}")
+    AWS_ACCESS_KEY_ID     = credentials("${LOCAL_AWS_ACCESS_KEY_ID}")
+    AWS_SECRET_ACCESS_KEY = credentials("${LOCAL_AWS_ACCESS_KEY_ID}")
   }
 
   stages {
