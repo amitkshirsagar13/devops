@@ -43,8 +43,11 @@ pipeline {
           terraformRegion = env.Region
           terraformModule = env.Module
           terraformAction = env.Action
+          key = env.KEY
+          awsKey = env.AWS_ACCESS_KEY_ID
           sh """
             echo Terraform $terraformEnv Module $terraformModule with $terraformAction
+            echo aws $key $awsKey
           """
           terraformPath = "terragrunt/aws/" + terraformEnv + "/" + terraformRegion
 
