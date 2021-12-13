@@ -15,8 +15,8 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
-    KEY = "LOCAL_AWS_ACCESS_KEY_ID"
-    SECRET = "LOCAL_AWS_ACCESS_KEY_ID"
+    KEY = "${Environment}_AWS_ACCESS_KEY_ID"
+    SECRET = "${Environment}_AWS_ACCESS_KEY_ID"
     AWS_ACCESS_KEY_ID     = credentials("${KEY}")
     AWS_SECRET_ACCESS_KEY = credentials("${SECRET}")
   }
@@ -28,8 +28,11 @@ pipeline {
           userInfo_Id = userInfo('USERID')
           userInfo_Name = userInfo('USER')
           userInfo_Email = userInfo('EMAIL')
+          key = env.KEY
+          awsKey = env.AWS_ACCESS_KEY_ID
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
+            echo aws $key $awsKey
           """
           clone("https://github.com/amitkshirsagar13/devops.git")
         }
@@ -43,11 +46,8 @@ pipeline {
           terraformRegion = env.Region
           terraformModule = env.Module
           terraformAction = env.Action
-          key = env.KEY
-          awsKey = env.AWS_ACCESS_KEY_ID
           sh """
             echo Terraform $terraformEnv Module $terraformModule with $terraformAction
-            echo aws $key $awsKey
           """
           terraformPath = "terragrunt/aws/" + terraformEnv + "/" + terraformRegion
 
