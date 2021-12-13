@@ -15,9 +15,9 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
-    env.UENV = "${env.Environment.toUpperCase()}"
-    AWS_ACCESS_KEY_ID     = credentials("${UENV}_AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = credentials("${UENV}_AWS_ACCESS_KEY_ID")
+    UENV = "${env.Environment.toUpperCase()}"
+    AWS_ACCESS_KEY_ID     = credentials("${env.Environment.toUpperCase()}_AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = credentials("${env.Environment.toUpperCase()}_AWS_ACCESS_KEY_ID")
   }
 
   stages {
