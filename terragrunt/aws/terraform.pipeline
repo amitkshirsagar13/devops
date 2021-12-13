@@ -39,11 +39,13 @@ pipeline {
       steps {
         script {
           terraformEnv = env.Environment
+          terraformUEnv = env.UENV
           terraformRegion = env.Region
           terraformModule = env.Module
           terraformAction = env.Action
           sh """
             echo Terraform $terraformEnv Module $terraformModule with $terraformAction
+            echo $terraformUEnv
           """
           terraformPath = "terragrunt/aws/" + terraformEnv + "/" + terraformRegion
 
