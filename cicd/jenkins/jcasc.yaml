@@ -347,13 +347,43 @@ credentials:
               secret: "${jenkins-tokens/github-ci-token}"
           - string:
               scope: "GLOBAL"
-              id: "AWS_ACCESS_KEY_ID"
-              description: "AWS_ACCESS_KEY_ID"
+              id: "LIVE_AWS_ACCESS_KEY_ID"
+              description: "LIVE_AWS_ACCESS_KEY_ID"
               secret: "jenkins-fake-access-key"
           - string:
               scope: "GLOBAL"
-              id: "AWS_SECRET_ACCESS_KEY"
-              description: "AWS_SECRET_ACCESS_KEY"
+              id: "LIVE_AWS_SECRET_ACCESS_KEY"
+              description: "LIVE_AWS_SECRET_ACCESS_KEY"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
+              id: "INT_AWS_ACCESS_KEY_ID"
+              description: "INT_AWS_ACCESS_KEY_ID"
+              secret: "jenkins-fake-access-key"
+          - string:
+              scope: "GLOBAL"
+              id: "INT_AWS_SECRET_ACCESS_KEY"
+              description: "INT_AWS_SECRET_ACCESS_KEY"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
+              id: "STG_AWS_ACCESS_KEY_ID"
+              description: "STG_AWS_ACCESS_KEY_ID"
+              secret: "jenkins-fake-access-key"
+          - string:
+              scope: "GLOBAL"
+              id: "STG_AWS_SECRET_ACCESS_KEY"
+              description: "STG_AWS_SECRET_ACCESS_KEY"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
+              id: "E2E_AWS_ACCESS_KEY_ID"
+              description: "E2E_AWS_ACCESS_KEY_ID"
+              secret: "jenkins-fake-access-key"
+          - string:
+              scope: "GLOBAL"
+              id: "E2E_AWS_SECRET_ACCESS_KEY"
+              description: "E2E_AWS_SECRET_ACCESS_KEY"
               secret: "jenkins-fake-secret-key"
 
 
