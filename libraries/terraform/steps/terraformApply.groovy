@@ -3,9 +3,9 @@ void call(module, action, modulePath) {
     println "Terraform ${action} for ${modulePath}"
     dir("${modulePath}") {
       if (module == "all") {
-        sh 'terragrunt run-all apply -auto-approve'
+        sh 'terragrunt run-all apply -auto-approve -out terraplan'
       } else {
-        sh 'terragrunt apply -auto-approve'
+        sh 'terragrunt apply -auto-approve -out terraplan'
       }
     }
   }

@@ -3,9 +3,9 @@ void call(module, action, modulePath) {
     println "Terraform ${action} for ${modulePath}"
     dir("${modulePath}") {
       if (module == "all") {
-        sh 'terragrunt run-all plan'
+        sh 'terragrunt run-all plan -out terraplan'
       } else {
-        sh 'terragrunt plan'
+        sh 'terragrunt plan -out terraplan'
       }
     }
   }
