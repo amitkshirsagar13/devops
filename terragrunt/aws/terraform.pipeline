@@ -2,7 +2,7 @@ pipeline {
   agent { label 'terraform-docker-slave' }
 
   parameters {
-    choice(name: 'Environment', choices: ['local','int','stg','e2e','live'], description: 'Environment level cluster')
+    choice(name: 'Environment', choices: ['LOCAL','INT','STG','E2E','LIVE'], description: 'Environment level cluster')
     choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
     choice(name: 'Module', choices: ['all','infra','eks','s3','security'], description: 'Modules to execute')
     choice(name: 'Action', choices: ['plan','apply','destroy'], description: 'Terraform Action')
