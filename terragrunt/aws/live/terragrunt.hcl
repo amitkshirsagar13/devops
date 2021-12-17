@@ -12,7 +12,7 @@ terraform {
 
   after_hook "after_hook_show_plan_json" {
     commands     = ["plan"]
-    execute      = ["sh", "-c", "terraform show -json plan > plan.json"]
+    execute      = ["sh", "-c", "terraform show -json plan"]
     run_on_error = true
   }
 
