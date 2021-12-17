@@ -78,9 +78,19 @@ pipeline {
     }
     
     stage('Approval') {
+      approval = env.Action
+      when {
+        expression { action == 'apply'  && action == 'destroy' }
+      }
       steps {
         script {
-          def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+          if(approval == 'no') {
+            timeout(time:5, unit:'MINUTES') {
+              def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+            }
+          } else {
+            sh "Auto Approval Enabled, hence proceeding"
+          }
         }
       }
     }
