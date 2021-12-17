@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "k8clusters-terraform-state"
+    bucket         = "k8clusters-terraform-state-live"
     key            = "state/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = false
