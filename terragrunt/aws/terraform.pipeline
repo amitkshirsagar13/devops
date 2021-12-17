@@ -26,7 +26,7 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials("$KEY")
         AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
       }
-      
+
       steps {
         script {
           userInfo_Id = userInfo('USERID')
@@ -81,7 +81,7 @@ pipeline {
     
     stage('Approval') {
       when {
-        expression { action == 'apply'  && action == 'destroy' }
+        expression { action == 'apply' || action == 'destroy' }
       }
       steps {
         script {
