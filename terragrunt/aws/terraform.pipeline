@@ -18,22 +18,22 @@ pipeline {
     ENVKEY = "${Level.toUpperCase()}"
     KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
     SECRET = "${ENVKEY}_AWS_SECRET_ACCESS_KEY"
-    AWS_ACCESS_KEY_ID     = credentials("${KEY}")
-    AWS_SECRET_ACCESS_KEY = credentials("${SECRET}")
   }
 
   stages {
     stage("Prepare") {
+      environment {
+        AWS_ACCESS_KEY_ID     = credentials("$KEY")
+        AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
+      }
+      
       steps {
         script {
           userInfo_Id = userInfo('USERID')
           userInfo_Name = userInfo('USER')
           userInfo_Email = userInfo('EMAIL')
-          key = env.KEY
-          envKey = env.ENVKEY
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
-            echo aws $key $envKey
           """
           clone("https://github.com/amitkshirsagar13/devops.git")
         }
