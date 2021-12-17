@@ -15,9 +15,9 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
-    envKey = "${Level.toUpperCase()}"
-    KEY = "${envKey.toUpperCase()}_AWS_ACCESS_KEY_ID"
-    SECRET = "${envKey.toUpperCase()}_AWS_SECRET_ACCESS_KEY"
+    ENVKEY = params.Level.toUpperCase()
+    KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
+    SECRET = "${ENVKEY}_AWS_SECRET_ACCESS_KEY"
     AWS_ACCESS_KEY_ID     = credentials("${KEY}")
     AWS_SECRET_ACCESS_KEY = credentials("${SECRET}")
   }
@@ -30,7 +30,7 @@ pipeline {
           userInfo_Name = userInfo('USER')
           userInfo_Email = userInfo('EMAIL')
           key = env.KEY
-          envKey = env.envKey
+          envKey = env.ENVKEY
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
             echo aws $key $envKey
