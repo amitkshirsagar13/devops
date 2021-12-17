@@ -5,9 +5,9 @@ void call(module, action, modulePath) {
                   string(credentialsId: "$SECRET", variable: 'AWS_SECRET_ACCESS_KEY')]) {
       dir("${modulePath}") {
         if (module == "all") {
-          sh 'terragrunt run-all destroy terraplan -auto-approve'
+          sh 'terragrunt run-all destroy -auto-approve'
         } else {
-          sh 'terragrunt destroy terraplan -auto-approve'
+          sh 'terragrunt destroy -auto-approve'
         }
       }
     }

@@ -1,12 +1,24 @@
 terraform {
   before_hook "before_hook" {
-    commands     = ["apply", "plan"]
+    commands     = ["apply", "plan", "destroy"]
     execute      = ["echo", "Parent - Running Terraform"]
   }
 
   after_hook "after_hook" {
-    commands     = ["apply", "plan"]
+    commands     = ["apply", "plan", "destroy"]
     execute      = ["echo", "Parent - Finished running Terraform"]
+    run_on_error = true
+  }
+
+  after_hook "after_hook_show_plan_json" {
+    commands     = ["plan"]
+    execute      = ["sh", "-c", "terraform show -json plan > plan.json"]
+    run_on_error = true
+  }
+
+  after_hook "after_hook_show_plan" {
+    commands     = ["plan"]
+    execute      = ["sh", "-c", "terraform show plan"]
     run_on_error = true
   }
 }
