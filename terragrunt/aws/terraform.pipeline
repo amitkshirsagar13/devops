@@ -84,7 +84,7 @@ pipeline {
       }
       steps {
         script {
-          approval = env.Approval
+          approval = env.Approve
           sh "Auto Approval: $approval"
           if(approval == 'no') {
             timeout(time:5, unit:'MINUTES') {
