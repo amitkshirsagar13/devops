@@ -1,11 +1,4 @@
 terraform {
-  backend "s3" {
-    bucket         = "k8clusters-terraform-state-live"
-    key            = "state/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = false
-  }
-
   before_hook "before_hook" {
     commands     = ["apply", "plan", "destroy"]
     execute      = ["echo", "Parent - Running Terraform"]
@@ -33,6 +26,16 @@ terraform {
   //   execute      = ["sh", "-c", "terragrunt show plan"]
   //   run_on_error = true
   // }
+}
+
+remote_state {
+  backend = "s3"
+  config = {
+    bucket         = "k8clusters-terraform-state-live"
+    key            = "${path_relative_to_include()}/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = false
+  }
 }
 
 locals {
