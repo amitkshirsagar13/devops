@@ -85,12 +85,12 @@ pipeline {
       steps {
         script {
           approval = env.Approve
-          sh "Auto Approval: $approval"
+          sh "echo Auto Approval: $approval"
           if(approval == "no") {
-            // timeout(time:5, unit:'MINUTES') {
-            //  def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-            // }
-            sh """echo Auto Approval Disabled, hence proceeding"""
+            sh """echo Auto Approval Disabled, hence waiting"""
+            timeout(time:5, unit:'MINUTES') {
+              def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+            }
           } else {
             sh """echo Auto Approval Enabled, hence proceeding"""
           }
