@@ -15,7 +15,7 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
-    envKey = env.Level.toUpperCase()
+    envKey = "${Level.toUpperCase()}"
     KEY = "${envKey.toUpperCase()}_AWS_ACCESS_KEY_ID"
     SECRET = "${envKey.toUpperCase()}_AWS_SECRET_ACCESS_KEY"
     AWS_ACCESS_KEY_ID     = credentials("${KEY}")
