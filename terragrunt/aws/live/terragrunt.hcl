@@ -12,13 +12,13 @@ terraform {
 
   after_hook "after_hook_show_plan_json" {
     commands     = ["plan"]
-    execute      = ["sh", "-c", "terraform show -json plan"]
+    execute      = ["sh", "-c", "terragrunt show -json plan"]
     run_on_error = true
   }
 
   after_hook "after_hook_show_plan" {
     commands     = ["plan"]
-    execute      = ["sh", "-c", "terraform show plan"]
+    execute      = ["sh", "-c", "terragrunt show plan"]
     run_on_error = true
   }
 }
