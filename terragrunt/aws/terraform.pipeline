@@ -61,6 +61,7 @@ pipeline {
     stage("Terraform Init") {
       steps {
         script {
+          approval = env.Action
           terraformInit(terraformAction, terraformPath)
         }
       }
@@ -78,7 +79,6 @@ pipeline {
     }
     
     stage('Approval') {
-      approval = env.Action
       when {
         expression { action == 'apply'  && action == 'destroy' }
       }
