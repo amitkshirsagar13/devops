@@ -7,7 +7,7 @@ generate "provider" {
     required_providers {
       aws = {
         source = "hashicorp/aws"
-        version = "v3.70.0"
+        version = "v3.69.0"
       }
     }
   }
