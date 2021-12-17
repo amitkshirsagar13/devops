@@ -3,7 +3,7 @@ void call(module, action, modulePath) {
     println "Terraform ${action} for ${modulePath}"
 
     planCmd = "plan"
-    if (module == "all") {
+    if (module == "destroy") {
       planCmd = "plan -destroy"
     }
     withCredentials([string(credentialsId: "$KEY", variable: 'AWS_ACCESS_KEY_ID'),
