@@ -10,10 +10,11 @@ terraform {
     run_on_error = true
   }
 
-  after_hook "show" {
-    commands = ["plan"]
-    execute  = ["terraform", "show", "-no-color", "-json", "plan.tfplan"]
-  }
+  // after_hook "show" {
+  //   commands = ["plan"]
+  //   execute  = ["terraform", "show", "-no-color", "-json", "plan.tfplan"]
+  // }
+  
   // after_hook "after_hook_show_plan_json" {
   //   commands     = ["plan"]
   //   execute      = ["sh", "-c", "terragrunt show -json plan"]
