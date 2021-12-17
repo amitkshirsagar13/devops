@@ -18,8 +18,8 @@ pipeline {
     env.envKey = env.Environment.toUpperCase()
     KEY = "${Environment.toUpperCase()}_AWS_ACCESS_KEY_ID"
     SECRET = "${Environment.toUpperCase()}_AWS_SECRET_ACCESS_KEY"
-    AWS_ACCESS_KEY_ID     = credentials("${KEY.toUpperCase()}")
-    AWS_SECRET_ACCESS_KEY = credentials("${SECRET.toUpperCase()}")
+    AWS_ACCESS_KEY_ID     = credentials("${KEY}")
+    AWS_SECRET_ACCESS_KEY = credentials("${SECRET}")
   }
 
   stages {
