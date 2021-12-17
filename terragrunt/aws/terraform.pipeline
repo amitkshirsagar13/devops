@@ -5,6 +5,10 @@ pipeline {
     choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
     choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
     choice(name: 'Module', choices: ['security','infra','eks','s3','all'], description: 'Modules to execute')
+    
+    checkboxParameter(name: 'Platforms1', format: 'JSON',
+                pipelineSubmitContent: '{"CheckboxParameter": [{"key": "nt","value": "nt"},{"key": "linux","value": "linux"},{"key": "unix","value": "unix"}]}', description: '')
+        
     choice(name: 'Action', choices: ['plan','apply','destroy'], description: 'Terraform Action')
     choice(name: 'Approve', choices: ['yes','no'], description: 'Terraform Action')
   }
