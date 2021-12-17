@@ -1,0 +1,33 @@
+pipeline {
+  agent { label 'terraform-docker-slave' }
+
+  parameters {
+    choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
+    choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
+    choice(name: 'Module', choices: ['security','infra','eks','s3','all'], description: 'Modules to execute')
+    choice(name: 'Action', choices: ['plan','apply','destroy'], description: 'Terraform Action')
+    choice(name: 'Approve', choices: ['yes','no'], description: 'Terraform Action')
+  }
+
+  options {
+    ansiColor('xterm')
+  }
+
+  environment {
+    AWS_DEFAULT_REGION = "us-east-1"
+    ENVKEY = "${Level.toUpperCase()}"
+    KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
+    SECRET = "${ENVKEY}_AWS_SECRET_ACCESS_KEY"
+  }
+
+  stage("Terraform Request") {
+    steps {
+      script {
+        sh """
+          echo ENVKEY $ENVKEY KEY $KEY SECRET $SECRET
+        """
+      }
+    }
+  }
+
+}
