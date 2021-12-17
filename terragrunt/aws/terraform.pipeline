@@ -90,7 +90,7 @@ pipeline {
             // timeout(time:5, unit:'MINUTES') {
             //  def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
             // }
-            sh """Auto Approval Enabled, hence proceeding"""
+            sh """Auto Approval Disabled, hence proceeding"""
           } else {
             sh """Auto Approval Enabled, hence proceeding"""
           }
