@@ -49,3 +49,4 @@ resource-disposer:latest
 terraform:latest
 build-user-vars-plugin:latest
 ansicolor:latest
+ extended-choice-parameter:latest
