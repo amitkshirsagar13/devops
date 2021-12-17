@@ -86,7 +86,7 @@ pipeline {
         script {
           approval = env.Approve
           sh "echo Auto Approval: $approval"
-          if(approval == "no") {
+          if(approval == 'no') {
             sh """echo Auto Approval Disabled, hence waiting"""
             timeout(time:5, unit:'MINUTES') {
               def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
