@@ -1,6 +1,4 @@
 pipeline {
-  agent { label 'terraform-docker-slave' }
-
   parameters {
     choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
     choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
@@ -18,8 +16,6 @@ pipeline {
     ENVKEY = "${Level.toUpperCase()}"
     KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
     SECRET = "${ENVKEY}_AWS_SECRET_ACCESS_KEY"
-    AWS_ACCESS_KEY_ID     = credentials("${KEY}")
-    AWS_SECRET_ACCESS_KEY = credentials("${SECRET}")
   }
 
   stages {
