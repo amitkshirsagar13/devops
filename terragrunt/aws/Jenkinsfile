@@ -20,11 +20,11 @@ pipeline {
   }
 
   stages {
-    environment {
-      AWS_ACCESS_KEY_ID     = credentials("$KEY")
-      AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
-    }
     stage("Terraform Request") {
+      environment {
+        AWS_ACCESS_KEY_ID     = credentials("$KEY")
+        AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
+      }
       steps {
         script {
           sh """
