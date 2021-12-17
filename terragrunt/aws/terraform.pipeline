@@ -15,6 +15,7 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
+    envKey = env.Environment.toUpperCase()
     KEY = "local_AWS_ACCESS_KEY_ID"
     SECRET = "local_AWS_SECRET_ACCESS_KEY"
     AWS_ACCESS_KEY_ID     = credentials("${KEY.toUpperCase()}")
@@ -29,10 +30,10 @@ pipeline {
           userInfo_Name = userInfo('USER')
           userInfo_Email = userInfo('EMAIL')
           key = env.KEY
-          awsKey = env.AWS_ACCESS_KEY_ID
+          envKey = env.envKey
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
-            echo aws $key $awsKey
+            echo aws $key $envKey
           """
           clone("https://github.com/amitkshirsagar13/devops.git")
         }
