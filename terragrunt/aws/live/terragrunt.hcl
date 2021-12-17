@@ -1,4 +1,11 @@
 terraform {
+  backend "s3" {
+    bucket         = "k8clusters-terraform-state"
+    key            = "state/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = false
+  }
+
   before_hook "before_hook" {
     commands     = ["apply", "plan", "destroy"]
     execute      = ["echo", "Parent - Running Terraform"]
@@ -14,7 +21,7 @@ terraform {
   //   commands = ["plan"]
   //   execute  = ["terraform", "show", "-no-color", "-json", "plan.tfplan"]
   // }
-  
+
   // after_hook "after_hook_show_plan_json" {
   //   commands     = ["plan"]
   //   execute      = ["sh", "-c", "terragrunt show -json plan"]
