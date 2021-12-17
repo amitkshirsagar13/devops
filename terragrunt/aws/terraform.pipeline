@@ -18,6 +18,8 @@ pipeline {
     ENVKEY = "${Level.toUpperCase()}"
     KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
     SECRET = "${ENVKEY}_AWS_SECRET_ACCESS_KEY"
+    AWS_ACCESS_KEY_ID     = credentials("$KEY")
+    AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
   }
 
   stages {
@@ -67,10 +69,6 @@ pipeline {
         expression { action == 'plan' || action == 'apply'  || action == 'destroy' }
       }
       steps {
-        environment {
-          AWS_ACCESS_KEY_ID     = credentials("$KEY")
-          AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
-        }
         script {
           terraformPlan(terraformModule, terraformAction, terraformPath)
         }
@@ -102,10 +100,6 @@ pipeline {
         expression { action == 'apply' }
       }
       steps {
-        environment {
-          AWS_ACCESS_KEY_ID     = credentials("$KEY")
-          AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
-        }
         script {
           terraformApply(terraformModule, terraformAction, terraformPath)
         }
@@ -117,10 +111,6 @@ pipeline {
         expression { action == 'destroy' }
       }
       steps {
-        environment {
-          AWS_ACCESS_KEY_ID     = credentials("$KEY")
-          AWS_SECRET_ACCESS_KEY = credentials("$SECRET")
-        }
         script {
           terraformDestroy(terraformModule, terraformAction, terraformPath)
         }
