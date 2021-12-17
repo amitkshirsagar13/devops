@@ -2,8 +2,7 @@ void call(module, action, modulePath) {
   stage("Terraform Plan") {
     println "Terraform ${action} for ${modulePath}"
 
-    
-    if (module == 'destroy') {
+    if (action == 'destroy') {
       planCmd = "plan -destroy"
     } else {
       planCmd = "plan"
