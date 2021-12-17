@@ -16,6 +16,7 @@ void call(module, action, modulePath) {
         } else {
           sh "terragrunt $planCmd -out=terraplan"
         }
+        sh "terragrunt show plan"
       }
     }
   }
