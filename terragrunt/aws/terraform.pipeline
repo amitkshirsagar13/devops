@@ -2,7 +2,7 @@ pipeline {
   agent { label 'terraform-docker-slave' }
 
   parameters {
-    choice(name: 'Environment', choices: ['local','int','stg','e2e','live'], description: 'Environment level cluster')
+    choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Environment level cluster')
     choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
     choice(name: 'Module', choices: ['security','infra','eks','s3','all'], description: 'Modules to execute')
     choice(name: 'Action', choices: ['plan','apply','destroy'], description: 'Terraform Action')
@@ -15,9 +15,9 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
-    envKey = env.Environment.toUpperCase()
-    KEY = "${Environment.toUpperCase()}_AWS_ACCESS_KEY_ID"
-    SECRET = "${Environment.toUpperCase()}_AWS_SECRET_ACCESS_KEY"
+    envKey = env.Level.toUpperCase()
+    KEY = "${Level.toUpperCase()}_AWS_ACCESS_KEY_ID"
+    SECRET = "${Level.toUpperCase()}_AWS_SECRET_ACCESS_KEY"
     AWS_ACCESS_KEY_ID     = credentials("${KEY}")
     AWS_SECRET_ACCESS_KEY = credentials("${SECRET}")
   }
@@ -43,7 +43,7 @@ pipeline {
     stage("Terraform Request") {
       steps {
         script {
-          terraformEnv = env.Environment
+          terraformEnv = env.Level
           terraformRegion = env.Region
           terraformModule = env.Module
           terraformAction = env.Action
