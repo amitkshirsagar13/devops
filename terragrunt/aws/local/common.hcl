@@ -29,3 +29,20 @@ generate "provider" {
   }
   EOF
 }
+
+# Set the generate config dynamically to the generate config in account.hcl
+generate "backend" {
+  path = "backend.tf"
+  if_exists = "overwrite_terragrunt"
+  contents = <<EOF
+  terraform {
+    backend "s3" {
+      bucket         = "k8clusters-terraform-state-local"
+      key            = "${path_relative_to_include()}/terraform.tfstate"
+      region         = "us-east-1"
+      encrypt        = true
+      dynamodb_table = "local-terraform-lock-table"
+    }
+  }
+  EOF
+}
