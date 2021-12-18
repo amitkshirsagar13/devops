@@ -57,6 +57,13 @@ pipeline {
     stage("Terraform Init") {
       steps {
         script {
+          debug = env.Debug
+          sh "echo Debug: $debug"
+          if(debug == 'yes') {
+            environment {
+              TF_LOG = "TRACE"
+            }
+          }
           terraformInit(terraformAction, terraformPath)
         }
       }
