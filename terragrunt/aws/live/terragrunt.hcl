@@ -1,3 +1,15 @@
+remote_state {
+  backend = "s3"
+
+  config = {
+    encrypt        = true
+    bucket         = "my_bucket"
+    key            = "${path_relative_to_include()}/terraform.tfstate"
+    region         = "ap-southeast-1"
+    dynamodb_table = "tf-locks"
+  }
+}
+
 terraform {
   before_hook "before_hook" {
     commands     = ["apply", "plan", "destroy"]
