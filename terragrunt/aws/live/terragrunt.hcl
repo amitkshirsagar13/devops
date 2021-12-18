@@ -2,11 +2,11 @@ remote_state {
   backend = "s3"
 
   config = {
-    encrypt        = true
-    bucket         = "my_bucket"
+    encrypt        = false
+    bucket         = "k8clusters-terraform-state-live"
     key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "ap-southeast-1"
-    dynamodb_table = "tf-locks"
+    region         = "us-east-1"
+    // dynamodb_table = "tf-locks"
   }
 }
 
