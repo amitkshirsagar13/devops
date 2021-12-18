@@ -7,6 +7,7 @@ pipeline {
     choice(name: 'Module', choices: ['security','infra','eks','s3','all'], description: 'Modules to execute')
     choice(name: 'Action', choices: ['plan','apply','destroy'], description: 'Terraform Action')
     choice(name: 'Approve', choices: ['no','yes'], description: 'Terraform Action')
+    choice(name: 'Debug', choices: ['no','yes'], description: 'Terraform Debug')
   }
 
   options {
