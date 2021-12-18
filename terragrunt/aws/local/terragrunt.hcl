@@ -28,7 +28,7 @@ remote_state {
   config = {
     bucket         = "k8clusters-terraform-state-local"
     key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "us-east-1"
+    region         = "sa-east-1"
     encrypt        = true
     dynamodb_table = "local-terraform-lock-table"
   }
