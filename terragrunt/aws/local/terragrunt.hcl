@@ -39,7 +39,5 @@ remote_state {
     region         = "sa-east-1"
     encrypt        = true
     dynamodb_table = "local-terraform-lock-table"
-
-
   }
 }
