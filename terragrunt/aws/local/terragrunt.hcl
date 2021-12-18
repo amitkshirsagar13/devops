@@ -26,10 +26,20 @@ remote_state {
   backend = "s3"
 
   config = {
+    endpoint                    = "http://localhost:4566"
+    dynamodb_endpoint           = "http://localhost:4566"
+    
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    force_path_style            = true
+
     bucket         = "k8clusters-terraform-state-local"
+
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "sa-east-1"
     encrypt        = true
     dynamodb_table = "local-terraform-lock-table"
+
+
   }
 }
