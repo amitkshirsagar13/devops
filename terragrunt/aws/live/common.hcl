@@ -23,7 +23,7 @@ generate "backend" {
     bucket         = "k8clusters-terraform-state-live"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "us-east-1"
-    encrypt        = false
+    encrypt        = true
     // dynamodb_table = "stage-terraform-lock-table"
   }
   EOF
