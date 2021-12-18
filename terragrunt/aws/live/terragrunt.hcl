@@ -1,15 +1,4 @@
 terraform {
-  remote_state {
-    backend = "s3"
-    config {
-      bucket = "k8clusters-terraform-state-live"
-      key = "${path_relative_to_include()}/terraform.tfstate"
-      region = "us-east-1"
-      encrypt = false
-      // lock_table = "terragrunt-examples-lock-table"      
-    } 
-  }
-
   before_hook "before_hook" {
     commands     = ["apply", "plan", "destroy"]
     execute      = ["echo", "Parent - Running Terraform"]
