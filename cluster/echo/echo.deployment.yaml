@@ -206,9 +206,9 @@ spec:
       - path: /echo
         pathType: Prefix
         backend:
-          service: 
+          service:
             name: echo-service-read
-            port: 
+            port:
               number: 8080
   # http://echo-write.dm-labs.local/echo1
   # http://echo-write.dm-labs.local/echo2
@@ -220,12 +220,12 @@ spec:
         backend:
           service: 
             name: echo-service-write
-            port: 
+            port:
               number: 8081
       - path: /echo2
         pathType: Prefix
         backend:
-          service: 
+          service:
             name: echo-service-write
-            port: 
+            port:
               number: 8082

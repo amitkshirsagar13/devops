@@ -190,7 +190,7 @@ jobs:
                 }
               }
             '''.stripIndent())
-            sandbox()     
+            sandbox()
           }
         }
       }
@@ -203,8 +203,8 @@ jobs:
           cpsScm {
             scm {
               git {
-                remote { 
-                  url(repo) 
+                remote {
+                  url(repo)
                   credentials('github-ci-user')
                 }
                 branches('master', '**/feature*')
@@ -224,8 +224,8 @@ jobs:
           cpsScm {
             scm {
               git {
-                remote { 
-                  url(repo) 
+                remote {
+                  url(repo)
                   credentials('github-ci-user')
                 }
                 branches('main', '**/feature*')
@@ -245,8 +245,8 @@ jobs:
           cpsScm {
             scm {
               git {
-                remote { 
-                  url(repo) 
+                remote {
+                  url(repo)
                   credentials('github-ci-user')
                 }
                 branches('main', '**/feature*')
@@ -266,8 +266,8 @@ jobs:
           cpsScm {
             scm {
               git {
-                remote { 
-                  url(repo) 
+                remote {
+                  url(repo)
                   credentials('github-ci-user')
                 }
                 branches('main', '**/feature*')
@@ -287,8 +287,8 @@ jobs:
           cpsScm {
             scm {
               git {
-                remote { 
-                  url(repo) 
+                remote {
+                  url(repo)
                   credentials('github-ci-user')
                 }
                 branches('main', '**/feature*')
@@ -309,8 +309,8 @@ jobs:
 #       baseDir("library")
 #       scm {
 #         git {
-#           remote { 
-#             url(repo) 
+#           remote {
+#             url(repo)
 #             credentials('github-ci-user')
 #           }
 #           branches('main', '**/feature*')
@@ -397,7 +397,7 @@ credentials:
               secret: "jenkins-fake-secret-key"
 
 
-              
+
           ########
           # SSH Keys
           ########
