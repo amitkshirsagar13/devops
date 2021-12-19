@@ -218,7 +218,7 @@ spec:
       - path: /echo1
         pathType: Prefix
         backend:
-          service: 
+          service:
             name: echo-service-write
             port:
               number: 8081

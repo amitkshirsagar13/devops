@@ -47,7 +47,7 @@ spec:
         env:
           - name: ELASTICSEARCH_HOSTS
             value: http://es.monitoring:9200
-          # - name: SERVER_BASEPATH 
+          # - name: SERVER_BASEPATH
           #   value: /kibana
         ports:
         - containerPort: 5601

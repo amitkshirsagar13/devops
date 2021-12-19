@@ -7,7 +7,7 @@ void call(module, action, modulePath) {
     } else {
       planCmd = "plan"
     }
-    
+
     withCredentials([string(credentialsId: "$KEY", variable: 'AWS_ACCESS_KEY_ID'),
                       string(credentialsId: "$SECRET", variable: 'AWS_SECRET_ACCESS_KEY')]) {
       dir("${modulePath}") {
