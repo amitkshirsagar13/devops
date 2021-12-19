@@ -26,8 +26,8 @@ remote_state {
   backend = "s3"
 
   config = {
-    endpoint                    = "http://localhost:4566"
-    dynamodb_endpoint           = "http://localhost:4566"
+    endpoint                    = "http://host.docker.internal:4566"
+    dynamodb_endpoint           = "http://host.docker.internal:4566"
     
     skip_credentials_validation = true
     skip_metadata_api_check     = true
