@@ -11,6 +11,13 @@ generate "provider" {
       }
     }
   }
+
+  provider "helm" {
+    kubernetes {
+      config_path = "~/.kube/config"
+    }
+  }
+
   EOF
 }
 

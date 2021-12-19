@@ -12,6 +12,12 @@ generate "provider" {
     }
   }
 
+  provider "helm" {
+    kubernetes {
+      config_path = "~/.kube/config"
+    }
+  }
+
   provider "aws" {
     access_key = "fake-access-common"
     secret_key = "fake-secret-common"
