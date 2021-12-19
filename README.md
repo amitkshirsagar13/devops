@@ -1,3 +1,12 @@
+#
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/amitkshirsagar13/devops?style=for-the-badge&logo=github)](https://www.codefactor.io/repository/github/amitkshirsagar13/devops)
+[![GitHub Last Update](https://img.shields.io/github/last-commit/amitkshirsagar13/devops?style=for-the-badge&logo=github)](https://github.com/amitkshirsagar13/devops)
+[![GitHub issues](https://img.shields.io/github/issues/amitkshirsagar13/devops?style=for-the-badge&logo=github)](https://github.com/amitkshirsagar13/devops/issues)
+
+[![DockerHub](https://img.shields.io/docker/automated/amitkshirsagar13/devops-jenkins?style=for-the-badge&logo=docker)](https://hub.docker.com/repository/docker/amitkshirsagar13/devops-jenkins)
+[![DockerHub](https://img.shields.io/docker/image-size/amitkshirsagar13/devops-jenkins?style=for-the-badge&logo=docker)](https://hub.docker.com/repository/docker/ealen/echo-server)
+[![DockerHub](https://img.shields.io/docker/pulls/amitkshirsagar13/devops-jenkins?style=for-the-badge&logo=docker)](https://hub.docker.com/repository/docker/amitkshirsagar13/devops-jenkins)
+
 # devops
 ### Build jenkins images
 ```

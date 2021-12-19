@@ -14,6 +14,7 @@ generate "provider" {
 
   provider "helm" {
     kubernetes {
+      host     = "https://cluster_endpoint:port"
       config_path = "~/.kube/config"
     }
   }
