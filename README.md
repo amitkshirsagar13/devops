@@ -24,6 +24,16 @@
 
 ### Terraform
 
+
+
+#### Helm Deployments commands
+
+```
+helm install echo-service --namespace echo ./echo-service
+helm upgrade echo-service --namespace echo ./echo-service
+helm delete echo-service
+```
+
 ### Terragrunt
 
 ### Cloud
