@@ -18,7 +18,7 @@ inputs = merge(
   local.region.inputs,
   {
     application = "platform",
-    yamldecode(file("values.yaml")),
+    yamldecode(file("values.yml")),
     tags = {
       application = "platform"
     }
