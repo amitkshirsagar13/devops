@@ -40,6 +40,18 @@ spec:
             name: prometheus-operator-kube-state-metrics
             port:
               number: 8080
+  # http://prom-operator.local
+  - host: prom-operator.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-operator-prometheus
+            port:
+              number: 9090
+              
 EOF
 ```
 
