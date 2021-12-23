@@ -12,9 +12,9 @@ void call(module, action, modulePath) {
                       string(credentialsId: "$SECRET", variable: 'AWS_SECRET_ACCESS_KEY')]) {
       dir("${modulePath}") {
         if (module == "all") {
-          sh "terragrunt run-all $planCmd -lock=false -out=terraplan"
+          sh "terragrunt run-all $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN"
         } else {
-          sh "terragrunt $planCmd -lock=false -out=terraplan"
+          sh "terragrunt $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN"
         }
         // sh "terragrunt show plan"
       }
