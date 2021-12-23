@@ -2,7 +2,6 @@ terraform {
   experiments = [module_variable_optional_attrs] 
 }
 
-
 variable "echo-service" {
   type = object({
     namespace     = optional(string)
