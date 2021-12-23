@@ -18,11 +18,11 @@ inputs = merge(
   local.region.inputs,
   {
     application = "platform",
-    echo-service.autoscaling = true,
-    echo-service.namespace = "echo",
-    echo-service.minReplicas = 1,
-    echo-service.maxReplicas = 3,
-    echo-service.replicaCount = 2,
+    "echo-service.autoscaling" = true,
+    "echo-service.namespace" = "echo",
+    "echo-service.minReplicas" = 1,
+    "echo-service.maxReplicas" = 3,
+    "echo-service.replicaCount" = 2,
     tags = {
       application = "platform"
     }
