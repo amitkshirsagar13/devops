@@ -16,7 +16,7 @@ include {
 
 inputs = merge(
   local.region.inputs,
-  yamldecode(file("values.yml")),
+  // yamldecode(file("values.yml")),
   {
     application = "platform",
     echo-service-autoscaling= true,
