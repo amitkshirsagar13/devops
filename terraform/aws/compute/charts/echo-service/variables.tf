@@ -25,11 +25,11 @@
 
 variable "echo-service" {
   type = object({
-    namespace     = string
-    replicaCount  = number
-    autoscaling   = bool
-    minReplicas   = number
-    maxReplicas   = number
+    namespace     = optional(string)
+    replicaCount  = optional(number)
+    autoscaling   = optional(bool)
+    minReplicas   = optional(number)
+    maxReplicas   = optional(number)
   })
   default = {
     namespace     = "echo"
