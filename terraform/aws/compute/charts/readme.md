@@ -51,12 +51,23 @@ spec:
             name: prometheus-operator-prometheus
             port:
               number: 9090
+  # http://prom-alert.local
+  - host: prom-alert.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-operator-alertmanager
+            port:
+              number: 9093
 EOF
 ```
 
 ### Update hosts file
 ```
-127.0.0.1 echo-service.local prom.local prom-kube.local
+127.0.0.1 echo-service.local prom.local prom-kube.local prom-alert.local
 ```
 
 ### Prometheus-Operator
