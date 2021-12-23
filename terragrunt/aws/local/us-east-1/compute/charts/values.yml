@@ -3,4 +3,4 @@ echo-service:
   namespace: "echo"
   minReplicas: 1
   maxReplicas: 3
-  replicaCount: 2
+  replicaCount: 5
