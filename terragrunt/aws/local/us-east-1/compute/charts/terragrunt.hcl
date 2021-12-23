@@ -16,12 +16,12 @@ include {
 
 inputs = merge(
   local.region.inputs,
-  // yamldecode(file("values.yml")),
-  {
-    autoscaling = true,
-    namespace = "echo",
-    minReplicas = 1,
-    maxReplicas = 4,
-    replicaCount = 2,
-  },
+  yamldecode(file("values.yml")),
+  // {
+  //   autoscaling = true,
+  //   namespace = "echo",
+  //   minReplicas = 1,
+  //   maxReplicas = 4,
+  //   replicaCount = 2,
+  // },
 )
