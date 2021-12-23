@@ -154,6 +154,7 @@ jobs:
           }
         }
       }
+      
       pipelineJob('generic-docker-slave-test') {
         description("Need to have defined docker cloud plugin with label generic-docker-slave agent")
         definition {
