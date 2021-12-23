@@ -14,9 +14,9 @@ void call(module, action, modulePath) {
       dir("${modulePath}") {
         sh "export TF_VAR_KUBE_TOKEN=$KUBE_TOKEN"
         if (module == "all") {
-          sh "terragrunt run-all $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN -var TF_VAR_KUBE_TOKEN=$KUBE_TOKEN"
+          sh "terragrunt run-all $planCmd -lock=false -out=terraplan"
         } else {
-          sh "terragrunt $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN -var TF_VAR_KUBE_TOKEN=$KUBE_TOKEN"
+          sh "terragrunt $planCmd -lock=false -out=terraplan"
         }
         // sh "terragrunt show plan"
       }

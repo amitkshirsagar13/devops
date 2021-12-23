@@ -6,9 +6,9 @@ void call(module, action, modulePath) {
                       string(credentialsId: "kubernetes-jenkins-robot", variable: 'KUBE_TOKEN')]) {
       dir("${modulePath}") {
         if (module == "all") {
-          sh "terragrunt run-all apply -lock=false -auto-approve -var KUBE_TOKEN=$KUBE_TOKEN"
+          sh "terragrunt run-all apply -lock=false -auto-approve"
         } else {
-          sh "terragrunt apply -lock=false -auto-approve -var KUBE_TOKEN=$KUBE_TOKEN"
+          sh "terragrunt apply -lock=false -auto-approve"
         }
       }
     }
