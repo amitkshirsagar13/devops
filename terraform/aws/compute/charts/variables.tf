@@ -13,10 +13,10 @@ variable "echo-service" {
   })
 }
 
-locals {
-  namespace     = "${var.echo-service.namespace}"
-  replicaCount  = "${var.echo-service.replicaCount}"
-  autoscaling   = "${var.echo-service.autoscaling}"
-  minReplicas   = "${var.echo-service.minReplicas}"
-  maxReplicas   = "${var.echo-service.maxReplicas}"
-}
+// locals {
+//   namespace     = "${var.echo-service.namespace}"
+//   replicaCount  = "${var.echo-service.replicaCount}"
+//   autoscaling   = "${var.echo-service.autoscaling}"
+//   minReplicas   = "${var.echo-service.minReplicas}"
+//   maxReplicas   = "${var.echo-service.maxReplicas}"
+// }
