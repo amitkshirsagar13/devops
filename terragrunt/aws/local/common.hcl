@@ -11,13 +11,11 @@ generate "provider" {
       }
     }
   }
-  variable "KUBE_TOKEN" {
-    type = string
-  }
+  
   provider "helm" {
     kubernetes {
       host     = "https://host.docker.internal:6443"
-      token    = "${var.KUBE_TOKEN}"
+      token    = "${KUBE_TOKEN}"
     }
   }
 
