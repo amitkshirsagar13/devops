@@ -2,15 +2,11 @@ resource "helm_release" "echo-service" {
   name       = "echo-service"
   create_namespace = true
   chart      = "tools/echo-service"
+  namespace  = "${var.echo-service["namespace"]}"
 
   values = [
     file("echo-service/values.yaml")
   ]
-
-  set {
-    name  = "namespace"
-    value = "${var.echo-service["namespace"]}"
-  }
 
   set {
     name  = "replicaCount"
