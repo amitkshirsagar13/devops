@@ -14,7 +14,7 @@ generate "provider" {
 
   provider "helm" {
     kubernetes {
-      host     = "https://host.docker.internal:6443"
+      host     = "https://kubernetes.docker.internal:6443"
       token    = "eyJhbGciOiJSUzI1NiIsImtpZCI6IkI0Z25BMEdTaXlDRTd6cFVQcVFqT3RsVGxseDNtaFNuUW5UWXBlN2w5encifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJlY2hvIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImplbmtpbnMtcm9ib3QtdG9rZW4tY3M1ZnoiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiamVua2lucy1yb2JvdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6Ijc0M2IxZWQ2LTI0YjEtNDI1ZC1hZTc1LTBjNGU0ZGMxODQ1YiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDplY2hvOmplbmtpbnMtcm9ib3QifQ.GcSA8k7fe_7ZHgjNqbr4_NwQ4YO_Dk3L3mTiY_ulwV6xOVbVvEbKgDimzEZyjL5onas_Ie_17oN5QRdmSyq7dkfnMfcuOBUu8XCz0xYYCIMa3rmK9cPTuklSp0QnddqAAIwCyiTv1T_BZkW5UaNcwCcX1HQkVUEj60DcL8hH8y6dCpCEV5U0-Woz-hzjc6lBKWCXn0wlRuG49ca-RdRr4qeIWd3pd_evHOqxkPT7lTxmVtXE7nPIXFT4HHeq-ZClliN7deeN6lCkxht5LJE2o6l0L5CfVY2IsRcJgR30H391rwhTwe3xF3lsZqktZITpj9d3KTFIJ2L9F_NJymMoKg"
     }
   }
