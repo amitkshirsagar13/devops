@@ -22,11 +22,3 @@ variable "maxReplicas" {
   type = number
   default = 3
 }
-
-locals {
-  namespace     = "${var.namespace}"
-  replicaCount  = "${var.replicaCount}"
-  autoscaling   = "${var.autoscaling}"
-  minReplicas   = "${var.minReplicas}"
-  maxReplicas   = "${var.maxReplicas}"
-}

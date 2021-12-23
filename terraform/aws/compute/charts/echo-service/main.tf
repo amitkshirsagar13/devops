@@ -2,7 +2,6 @@ resource "helm_release" "echo-service" {
   name       = "echo-service"
   create_namespace = true
   chart      = "tools/echo-service"
-  // namespace  = "${var.echo-service.namespace}"
   namespace  = "${var.namespace}"
 
   values = [
