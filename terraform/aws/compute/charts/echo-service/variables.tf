@@ -1,27 +1,27 @@
-variable "namespace" {
-  type = string
-  default = var.echo-service["namespace"]
-}
+// variable "namespace" {
+//   type = string
+//   default = var.echo-service["namespace"]
+// }
 
-variable "replicaCount" {
-  type = number
-  default = var.echo-service["replicaCount"]
-}
+// variable "replicaCount" {
+//   type = number
+//   default = var.echo-service["replicaCount"]
+// }
 
-variable "autoscaling" {
-  type = bool
-  default = var.echo-service["autoscaling"]
-}
+// variable "autoscaling" {
+//   type = bool
+//   default = var.echo-service["autoscaling"]
+// }
 
-variable "minReplicas" {
-  type = number
-  default = var.echo-service["minReplicas"]
-}
+// variable "minReplicas" {
+//   type = number
+//   default = var.echo-service["minReplicas"]
+// }
 
-variable "maxReplicas" {
-  type = number
-  default = var.echo-service["maxReplicas"]
-}
+// variable "maxReplicas" {
+//   type = number
+//   default = var.echo-service["maxReplicas"]
+// }
 
 variable "echo-service" {
   type = map
