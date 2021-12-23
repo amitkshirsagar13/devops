@@ -18,14 +18,10 @@ inputs = merge(
   local.region.inputs,
   // yamldecode(file("values.yml")),
   {
-    application = "platform",
     autoscaling = true,
     namespace = "echo",
     minReplicas = 1,
     maxReplicas = 4,
     replicaCount = 2,
-    tags = {
-      application = "platform"
-    }
   },
 )
