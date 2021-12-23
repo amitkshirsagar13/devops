@@ -362,6 +362,12 @@ credentials:
               secret: "jenkins-fake-secret-key"
           - string:
               scope: "GLOBAL"
+              id: "LOCAL_KUBE_HOST"
+              description: "LOCAL_KUBE_HOST"
+              secret: "https://kubernetes.docker.internal:6443"
+              
+          - string:
+              scope: "GLOBAL"
               id: "LIVE_AWS_ACCESS_KEY_ID"
               description: "LIVE_AWS_ACCESS_KEY_ID"
               secret: "jenkins-fake-access-key"
