@@ -4,14 +4,18 @@ USER root
 
 ENV TERRAFORM_VERSION=1.1.0
 ENV TERRAFORM_PROVIDER_VERSION=3.69.0
+ENV HELM_PROVIDER_VERSION=2.4.1
 
 RUN apk --no-cache update && \
   curl -sL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o /tmp/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-  curl -sL https://releases.hashicorp.com/terraform-provider-aws/${TERRAFORM_PROVIDER_VERSION}/terraform-provider-aws_${TERRAFORM_PROVIDER_VERSION}_linux_amd64.zip -o /tmp/terraform-provider-aws_${TERRAFORM_PROVIDER_VERSION}_linux_amd64.zip
+  curl -sL https://releases.hashicorp.com/terraform-provider-aws/${TERRAFORM_PROVIDER_VERSION}/terraform-provider-aws_${TERRAFORM_PROVIDER_VERSION}_linux_amd64.zip -o /tmp/terraform-provider-aws_${TERRAFORM_PROVIDER_VERSION}_linux_amd64.zip && \
+  curl -sL https://releases.hashicorp.com/terraform-provider-helm/${HELM_PROVIDER_VERSION}/terraform-provider-helm_${HELM_PROVIDER_VERSION}_linux_amd64.zip -o /tmp/terraform-provider-helm_${HELM_PROVIDER_VERSION}_linux_amd64.zip
 
 RUN unzip /tmp/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
   mkdir -p /usr/share/terraform/providers/registry.terraform.io/hashicorp/aws/${TERRAFORM_PROVIDER_VERSION}/linux_amd64 && \
-  unzip /tmp/terraform-provider-aws_${TERRAFORM_PROVIDER_VERSION}_linux_amd64.zip -d /usr/share/terraform/providers/registry.terraform.io/hashicorp/aws/${TERRAFORM_PROVIDER_VERSION}/linux_amd64
+  unzip /tmp/terraform-provider-aws_${TERRAFORM_PROVIDER_VERSION}_linux_amd64.zip -d /usr/share/terraform/providers/registry.terraform.io/hashicorp/aws/${TERRAFORM_PROVIDER_VERSION}/linux_amd64 && \
+  mkdir -p /usr/share/terraform/providers/registry.terraform.io/hashicorp/helm/${HELM_PROVIDER_VERSION}/linux_amd64 && \
+  unzip /tmp/terraform-provider-helm_${HELM_PROVIDER_VERSION}_linux_amd64.zip -d /usr/share/terraform/providers/registry.terraform.io/hashicorp/aws/${HELM_PROVIDER_VERSION}/linux_amd64
 
 RUN rm -rf /var/tmp/ && \
   rm -rf /tmp/* && \
