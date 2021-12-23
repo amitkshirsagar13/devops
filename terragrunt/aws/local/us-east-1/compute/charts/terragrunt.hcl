@@ -19,11 +19,11 @@ inputs = merge(
   // yamldecode(file("values.yml")),
   {
     application = "platform",
-    autoscaling= true,
-    namespace= "echo",
-    minReplicas= 1,
-    maxReplicas= 4,
-    replicaCount= 2,
+    autoscaling = true,
+    namespace = "echo",
+    minReplicas = 1,
+    maxReplicas = 4,
+    replicaCount = 2,
     tags = {
       application = "platform"
     }
