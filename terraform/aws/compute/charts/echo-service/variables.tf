@@ -1,32 +1,32 @@
-variable "echo-service-namespace" {
+variable "namespace" {
   type = string
   default = "echo"
 }
 
-variable "echo-service-replicaCount" {
+variable "replicaCount" {
   type = number
   default = 1
 }
 
-variable "echo-service-autoscaling" {
+variable "autoscaling" {
   type = bool
   default = false
 }
 
-variable "echo-service-minReplicas" {
+variable "minReplicas" {
   type = number
   default = 1
 }
 
-variable "echo-service-maxReplicas" {
+variable "maxReplicas" {
   type = number
   default = 3
 }
 
 locals {
-  namespace     = "${var.echo-service-namespace}"
-  replicaCount  = "${var.echo-service-replicaCount}"
-  autoscaling   = "${var.echo-service-autoscaling}"
-  minReplicas   = "${var.echo-service-minReplicas}"
-  maxReplicas   = "${var.echo-service-maxReplicas}"
+  namespace     = "${var.namespace}"
+  replicaCount  = "${var.replicaCount}"
+  autoscaling   = "${var.autoscaling}"
+  minReplicas   = "${var.minReplicas}"
+  maxReplicas   = "${var.maxReplicas}"
 }
