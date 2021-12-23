@@ -1,24 +1,24 @@
-variable "namespace" {
+variable "echo-service.namespace" {
   type = string
-  default = "default"
+  default = "echo"
 }
 
-variable "replicaCount" {
+variable "echo-service.replicaCount" {
   type = number
   default = 1
 }
 
-variable "autoscaling" {
+variable "echo-service.autoscaling" {
   type = bool
   default = false
 }
 
-variable "minReplicas" {
+variable "echo-service.minReplicas" {
   type = number
   default = 1
 }
 
-variable "maxReplicas" {
+variable "echo-service.maxReplicas" {
   type = number
   default = 3
 }
