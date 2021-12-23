@@ -23,6 +23,9 @@ variable "maxReplicas" {
   default = 3
 }
 
+terraform {
+  experiments = [module_variable_optional_attrs] 
+}
 
 
 variable "echo-service" {
