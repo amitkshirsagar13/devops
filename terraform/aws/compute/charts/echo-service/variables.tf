@@ -1,48 +1,32 @@
-// variable "namespace" {
-//   type = string
-//   default = jsondecode(var.echo-service)["namespace"]
-// }
-
-// variable "replicaCount" {
-//   type = number
-//   default = jsondecode(var.echo-service)["replicaCount"]
-// }
-
-// variable "autoscaling" {
-//   type = bool
-//   default = jsondecode(var.echo-service)["autoscaling"]
-// }
-
-// variable "minReplicas" {
-//   type = number
-//   default = jsondecode(var.echo-service)["minReplicas"]
-// }
-
-// variable "maxReplicas" {
-//   type = number
-//   default = jsondecode(var.echo-service)["maxReplicas"]
-// }
-
-// terraform {
-//   experiments = [module_variable_optional_attrs]
-// }
-
-variable "echo-service" {
+variable "echo-service-namespace" {
   type = string
-  // default = {
-  //   namespace     = "echo"
-  //   replicaCount  = 1
-  //   autoscaling   = false
-  //   minReplicas   = 1
-  //   maxReplicas   = 3
-  // }
+  default = "echo"
 }
 
+variable "echo-service-replicaCount" {
+  type = number
+  default = 1
+}
+
+variable "echo-service-autoscaling" {
+  type = bool
+  default = false
+}
+
+variable "echo-service-minReplicas" {
+  type = number
+  default = 1
+}
+
+variable "echo-service-maxReplicas" {
+  type = number
+  default = 3
+}
 
 locals {
-  namespace     = jsondecode("${var.echo-service}")["namespace"]
-  replicaCount  = jsondecode("${var.echo-service}")["replicaCount"]
-  autoscaling   = jsondecode("${var.echo-service}")["autoscaling"]
-  minReplicas   = jsondecode("${var.echo-service}")["minReplicas"]
-  maxReplicas   = jsondecode("${var.echo-service}")["maxReplicas"]
+  namespace     = "${var.echo-service-namespace}"
+  replicaCount  = "${var.echo-service-replicaCount}"
+  autoscaling   = "${var.echo-service-autoscaling}"
+  minReplicas   = "${var.echo-service-minReplicas}"
+  maxReplicas   = "${var.echo-service-maxReplicas}"
 }
