@@ -26,10 +26,10 @@
 variable "echo-service" {
   type = map
   default = {
-    "namespace"  = "echo"
-    "replicaCount" = 1
-    "autoscaling" = false
-    "minReplicas" = 1
-    "maxReplicas" = 3
+    namespace  = "echo"
+    replicaCount = "1"
+    autoscaling = "false"
+    minReplicas = "1"
+    maxReplicas = "3"
   }
 }
