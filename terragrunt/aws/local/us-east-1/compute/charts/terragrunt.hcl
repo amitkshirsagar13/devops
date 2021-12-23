@@ -18,7 +18,7 @@ inputs = merge(
   local.region.inputs,
   {
     application = "platform",
-    replicaCount = 1,
+    replicaCount = 3,
     tags = {
       application = "platform"
     }
