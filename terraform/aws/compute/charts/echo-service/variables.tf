@@ -2,7 +2,7 @@ terraform {
   experiments = [module_variable_optional_attrs] 
 }
 
-variable "chart" {
+variable "echo-service" {
   type = object({
     namespace     = optional(string)
     replicaCount  = optional(number)
@@ -13,9 +13,9 @@ variable "chart" {
 }
 
 locals {
-  namespace     = "${var.chart.namespace}"
-  replicaCount  = "${var.chart.replicaCount}"
-  autoscaling   = "${var.chart.autoscaling}"
-  minReplicas   = "${var.chart.minReplicas}"
-  maxReplicas   = "${var.chart.maxReplicas}"
+  namespace     = "${var.echo-service.namespace}"
+  replicaCount  = "${var.echo-service.replicaCount}"
+  autoscaling   = "${var.echo-service.autoscaling}"
+  minReplicas   = "${var.echo-service.minReplicas}"
+  maxReplicas   = "${var.echo-service.maxReplicas}"
 }

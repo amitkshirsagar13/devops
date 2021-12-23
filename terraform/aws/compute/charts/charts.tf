@@ -7,5 +7,5 @@
 
 module "echo-service" {
   source  = "./echo-service"
-  chart = var.echo-service
+  echo-service = var.echo-service
 }
