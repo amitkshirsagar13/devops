@@ -51,7 +51,6 @@ spec:
             name: prometheus-operator-prometheus
             port:
               number: 9090
-              
 EOF
 ```
 
@@ -60,6 +59,9 @@ EOF
 127.0.0.1 echo-service.local prom.local prom-kube.local
 ```
 
-### Default User/Password
-
+### Prometheus-Operator
+```
+kubectl create namespace ame
+helm install -name prometheus-operator stable/prometheus-operator
+```
  - Grafana| `admin` | `prom-operator`
