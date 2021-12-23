@@ -52,6 +52,13 @@ variable "maxReplicas" {
 
 variable "echo-service" {
   type = string
+  // type = object({
+  //   namespace     = optional(string)
+  //   replicaCount  = optional(number)
+  //   autoscaling   = optional(bool)
+  //   minReplicas   = optional(number)
+  //   maxReplicas   = optional(number)
+  // })
 }
 
 
