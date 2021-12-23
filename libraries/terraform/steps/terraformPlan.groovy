@@ -9,7 +9,8 @@ void call(module, action, modulePath) {
     }
 
     withCredentials([string(credentialsId: "$KEY", variable: 'AWS_ACCESS_KEY_ID'),
-                      string(credentialsId: "$SECRET", variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                      string(credentialsId: "$SECRET", variable: 'AWS_SECRET_ACCESS_KEY'),
+                      string(credentialsId: "kubernetes-jenkins-robot", variable: 'KUBE_TOKEN')]) {
       dir("${modulePath}") {
         if (module == "all") {
           sh "terragrunt run-all $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN"
