@@ -11,11 +11,16 @@ generate "provider" {
       }
     }
   }
-  
+
+  data "aws_eks_cluster_auth" "c" {
+    name = var.k8s_name
+    token = "${KUBE_TOKEN}"
+  }
+
   provider "helm" {
     kubernetes {
       host     = "https://host.docker.internal:6443"
-      token    = "${KUBE_TOKEN}"
+      token    = data.aws_eks_cluster_auth.c.token
     }
   }
 
