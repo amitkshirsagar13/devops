@@ -24,12 +24,18 @@
 // }
 
 variable "echo-service" {
-  type = map
+  type = object({
+    namespace     = string
+    replicaCount  = number
+    autoscaling   = bool
+    minReplicas   = number
+    maxReplicas   = number
+  })
   default = {
-    namespace  = "echo"
-    replicaCount = "1"
-    autoscaling = "false"
-    minReplicas = "1"
-    maxReplicas = "3"
+    namespace     = "echo"
+    replicaCount  = 1
+    autoscaling   = false
+    minReplicas   = 1
+    maxReplicas   = 3
   }
 }
