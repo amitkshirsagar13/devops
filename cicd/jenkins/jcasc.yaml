@@ -357,6 +357,11 @@ credentials:
               secret: "jenkins-fake-secret-key"
           - string:
               scope: "GLOBAL"
+              id: "LOCAL_JENKINS_KUBE_TOKEN"
+              description: "LOCAL_JENKINS_KUBE_TOKEN"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
               id: "LIVE_AWS_ACCESS_KEY_ID"
               description: "LIVE_AWS_ACCESS_KEY_ID"
               secret: "jenkins-fake-access-key"
@@ -364,6 +369,11 @@ credentials:
               scope: "GLOBAL"
               id: "LIVE_AWS_SECRET_ACCESS_KEY"
               description: "LIVE_AWS_SECRET_ACCESS_KEY"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
+              id: "LIVE_JENKINS_KUBE_TOKEN"
+              description: "LIVE_JENKINS_KUBE_TOKEN"
               secret: "jenkins-fake-secret-key"
           - string:
               scope: "GLOBAL"
@@ -377,6 +387,11 @@ credentials:
               secret: "jenkins-fake-secret-key"
           - string:
               scope: "GLOBAL"
+              id: "INT_JENKINS_KUBE_TOKEN"
+              description: "INT_JENKINS_KUBE_TOKEN"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
               id: "STG_AWS_ACCESS_KEY_ID"
               description: "STG_AWS_ACCESS_KEY_ID"
               secret: "jenkins-fake-access-key"
@@ -387,6 +402,11 @@ credentials:
               secret: "jenkins-fake-secret-key"
           - string:
               scope: "GLOBAL"
+              id: "STG_JENKINS_KUBE_TOKEN"
+              description: "STG_JENKINS_KUBE_TOKEN"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
               id: "E2E_AWS_ACCESS_KEY_ID"
               description: "E2E_AWS_ACCESS_KEY_ID"
               secret: "jenkins-fake-access-key"
@@ -394,6 +414,11 @@ credentials:
               scope: "GLOBAL"
               id: "E2E_AWS_SECRET_ACCESS_KEY"
               description: "E2E_AWS_SECRET_ACCESS_KEY"
+              secret: "jenkins-fake-secret-key"
+          - string:
+              scope: "GLOBAL"
+              id: "E2E_JENKINS_KUBE_TOKEN"
+              description: "E2E_JENKINS_KUBE_TOKEN"
               secret: "jenkins-fake-secret-key"
 
 
