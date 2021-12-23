@@ -20,6 +20,7 @@ pipeline {
     ENVKEY = "${Level.toUpperCase()}"
     KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
     SECRET = "${ENVKEY}_AWS_SECRET_ACCESS_KEY"
+    KUBETOKEN = "${ENVKEY}_JENKINS_KUBE_TOKEN"
   }
 
   stages {
