@@ -16,9 +16,9 @@ include {
 
 inputs = merge(
   local.region.inputs,
+  yamldecode(file("values.yml")),
   {
     application = "platform",
-    yamldecode(file("values.yml")),
     tags = {
       application = "platform"
     }
