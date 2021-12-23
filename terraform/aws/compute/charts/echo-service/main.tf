@@ -2,10 +2,10 @@ resource "helm_release" "echo-service" {
   name       = "echo-service"
   create_namespace = true
   namespace  = "echo"
-  chart      = "../tools/echo-service"
+  chart      = "tools/echo-service"
 
   values = [
-    file("./echo-service.yaml")
+    file("echo-service/values.yaml")
   ]
 
   set {
