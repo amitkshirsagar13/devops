@@ -15,7 +15,7 @@ generate "provider" {
   provider "helm" {
     kubernetes {
       host     = "https://host.docker.internal:6443"
-      config_path = "~/.kube/config"
+      token    = "${KUBE_TOKEN}"
     }
   }
 
