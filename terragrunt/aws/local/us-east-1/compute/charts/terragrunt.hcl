@@ -18,6 +18,7 @@ inputs = merge(
   local.region.inputs,
   {
     application = "platform",
+    
     tags = {
       application = "platform"
     }
