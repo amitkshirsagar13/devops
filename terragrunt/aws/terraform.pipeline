@@ -18,10 +18,10 @@ pipeline {
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
     ENVKEY = "${Level.toUpperCase()}"
+    KUBEHOST = "${ENVKEY}_KUBE_HOST"
+    KUBETOKEN = "${ENVKEY}_JENKINS_KUBE_TOKEN"
     KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
     SECRET = "${ENVKEY}_AWS_SECRET_ACCESS_KEY"
-    KUBETOKEN = "${ENVKEY}_JENKINS_KUBE_TOKEN"
-    KUBEHOST = "${ENVKEY}_KUBE_HOST"
   }
 
   stages {

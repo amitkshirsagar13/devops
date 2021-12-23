@@ -111,7 +111,49 @@ jobs:
           }
         }
       }
-
+      
+      pipelineJob('kubernetes-connectivity-test') {
+        description("Test Kubernetes connectivity and setup")
+        definition {
+          cps {
+            script('''
+              pipeline {
+                agent { label 'generic-docker-slave' }
+                parameters {
+                  choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
+                }
+                environment {
+                  ENVKEY = "${Level.toUpperCase()}"
+                  KUBEHOST = "${ENVKEY}_KUBE_HOST"
+                  KUBETOKEN = "${ENVKEY}_JENKINS_KUBE_TOKEN"
+                }
+                stages {
+                  stage('List pods') {
+                    steps {
+                      withCredentials([string(credentialsId: "$KUBEHOST", variable: 'KUBE_HOST'),
+                                        string(credentialsId: "$KUBETOKEN", variable: 'KUBE_TOKEN')]) {
+                        withKubeConfig([credentialsId: "$KUBETOKEN",
+                                        serverUrl: "${KUBE_HOST}",
+                                        namespace: 'echo'
+                                        ]) {
+                          sh 'kubectl get pods'
+                        }
+                        withKubeConfig([credentialsId: "$KUBETOKEN",
+                                        serverUrl: "${KUBE_HOST}",
+                                        namespace: 'kube-system'
+                                        ]) {
+                          sh 'kubectl get pods'
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            '''.stripIndent())
+            sandbox()
+          }
+        }
+      }
       pipelineJob('generic-docker-slave-test') {
         description("Need to have defined docker cloud plugin with label generic-docker-slave agent")
         definition {
