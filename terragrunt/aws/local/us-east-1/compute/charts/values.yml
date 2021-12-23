@@ -2,5 +2,5 @@ echo-service:
   autoscaling: true
   namespace: "echo"
   minReplicas: 1
-  maxReplicas: 4
+  maxReplicas: 5
   replicaCount: 2
