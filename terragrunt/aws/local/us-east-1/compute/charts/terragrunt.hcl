@@ -19,11 +19,11 @@ inputs = merge(
   {
     application = "platform",
     echo-service = {
-      autoscaling = "true",
+      autoscaling = true,
       namespace = "echo",
-      minReplicas = "1",
-      maxReplicas = "3",
-      replicaCount = "2"
+      minReplicas = 1,
+      maxReplicas = 3,
+      replicaCount = 2
     },
     tags = {
       application = "platform"
