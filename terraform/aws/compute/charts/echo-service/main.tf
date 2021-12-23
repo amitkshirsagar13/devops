@@ -2,7 +2,7 @@ resource "helm_release" "echo-service" {
   name       = "echo-service"
   create_namespace = true
   chart      = "tools/echo-service"
-  namespace  = "${var.namespace}"
+  namespace  = "${local.namespace}"
 
   values = [
     file("echo-service/values.yaml")
@@ -10,21 +10,21 @@ resource "helm_release" "echo-service" {
 
   set {
     name  = "replicaCount"
-    value = "${var.replicaCount}"
+    value = "${local.replicaCount}"
   }
 
   set {
     name  = "autoscaling.enabled"
-    value = "${var.autoscaling}"
+    value = "${local.autoscaling}"
   }
 
   set {
     name  = "autoscaling.minReplicas"
-    value = "${var.minReplicas}"
+    value = "${local.minReplicas}"
   }
 
   set {
     name  = "autoscaling.maxReplicas"
-    value = "${var.maxReplicas}"
+    value = "${local.maxReplicas}"
   }
 }

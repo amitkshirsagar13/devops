@@ -22,3 +22,25 @@ variable "maxReplicas" {
   type = number
   default = 3
 }
+
+
+
+variable "echo-service" {
+  type = string
+  // type = object({
+  //   namespace     = optional(string)
+  //   replicaCount  = optional(number)
+  //   autoscaling   = optional(bool)
+  //   minReplicas   = optional(number)
+  //   maxReplicas   = optional(number)
+  // })
+}
+
+
+locals {
+  namespace     = jsondecode("${var.echo-service}")["namespace"]
+  replicaCount  = jsondecode("${var.echo-service}")["replicaCount"]
+  autoscaling   = jsondecode("${var.echo-service}")["autoscaling"]
+  minReplicas   = jsondecode("${var.echo-service}")["minReplicas"]
+  maxReplicas   = jsondecode("${var.echo-service}")["maxReplicas"]
+}
