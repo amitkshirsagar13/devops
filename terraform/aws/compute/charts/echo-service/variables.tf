@@ -22,6 +22,9 @@
 //   type = number
 //   default = var.echo-service["maxReplicas"]
 // }
+terraform {
+  experiments = [module_variable_optional_attrs]
+}
 
 variable "echo-service" {
   type = object({
