@@ -5,7 +5,7 @@ resource "helm_release" "echo-service" {
   chart      = "../tools/echo-service"
 
   values = [
-    file("echo-service.yaml")
+    file("./echo-service.yaml")
   ]
 
   set {
