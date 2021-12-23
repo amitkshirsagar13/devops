@@ -18,7 +18,6 @@ void call(module, action, modulePath) {
         } else {
           sh "terragrunt $planCmd -lock=false -out=terraplan"
         }
-        // sh "terragrunt show plan"
       }
     }
   }
