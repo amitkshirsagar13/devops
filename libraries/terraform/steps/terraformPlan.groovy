@@ -12,10 +12,11 @@ void call(module, action, modulePath) {
                       string(credentialsId: "$SECRET", variable: 'AWS_SECRET_ACCESS_KEY'),
                       string(credentialsId: "kubernetes-jenkins-robot", variable: 'KUBE_TOKEN')]) {
       dir("${modulePath}") {
+        sh "export TF_VAR_KUBE_TOKEN=$KUBE_TOKEN"
         if (module == "all") {
-          sh "terragrunt run-all $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN"
+          sh "terragrunt run-all $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN -var TF_VAR_KUBE_TOKEN=$KUBE_TOKEN"
         } else {
-          sh "terragrunt $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN"
+          sh "terragrunt $planCmd -lock=false -out=terraplan -var KUBE_TOKEN=$KUBE_TOKEN -var TF_VAR_KUBE_TOKEN=$KUBE_TOKEN"
         }
         // sh "terragrunt show plan"
       }
