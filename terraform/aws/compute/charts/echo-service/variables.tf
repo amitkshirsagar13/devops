@@ -40,9 +40,9 @@ variable "echo-service" {
 
 
 locals {
-  namespace     = jsondecode(var.echo-service)["namespace"]
-  replicaCount  = jsondecode(var.echo-service)["replicaCount"]
-  autoscaling   = jsondecode(var.echo-service)["autoscaling"]
-  minReplicas   = jsondecode(var.echo-service)["minReplicas"]
-  maxReplicas   = jsondecode(var.echo-service)["maxReplicas"]
+  namespace     = jsondecode("${var.echo-service}")["namespace"]
+  replicaCount  = jsondecode("${var.echo-service}")["replicaCount"]
+  autoscaling   = jsondecode("${var.echo-service}")["autoscaling"]
+  minReplicas   = jsondecode("${var.echo-service}")["minReplicas"]
+  maxReplicas   = jsondecode("${var.echo-service}")["maxReplicas"]
 }
