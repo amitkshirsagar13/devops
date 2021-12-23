@@ -18,7 +18,7 @@ inputs = merge(
   local.region.inputs,
   {
     application = "platform",
-    echo-service {
+    echo-service = {
       autoscaling = true,
       namespace = "echo",
       minReplicas = 1,
