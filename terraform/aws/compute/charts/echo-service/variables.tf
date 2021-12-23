@@ -1,24 +1,35 @@
-variable "echo-service.namespace" {
+variable "namespace" {
   type = string
-  default = "echo"
+  default = var.echo-service["namespace"]
 }
 
-variable "echo-service.replicaCount" {
+variable "replicaCount" {
   type = number
-  default = 1
+  default = var.echo-service["replicaCount"]
 }
 
-variable "echo-service.autoscaling" {
+variable "autoscaling" {
   type = bool
-  default = false
+  default = var.echo-service["autoscaling"]
 }
 
-variable "echo-service.minReplicas" {
+variable "minReplicas" {
   type = number
-  default = 1
+  default = var.echo-service["minReplicas"]
 }
 
-variable "echo-service.maxReplicas" {
+variable "maxReplicas" {
   type = number
-  default = 3
+  default = var.echo-service["maxReplicas"]
+}
+
+variable "echo-service" {
+  type = map
+  default = {
+    "namespace"  = "echo"
+    "replicaCount" = 1
+    "autoscaling" = false
+    "minReplicas" = 1
+    "maxReplicas" = 3
+  }
 }
