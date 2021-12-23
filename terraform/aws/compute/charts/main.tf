@@ -16,21 +16,21 @@ resource "helm_release" "echo-service" {
 
   set {
     name  = "replicaCount"
-    value = "${replicaCount}"
+    value = "${var.replicaCount}"
   }
 
   set {
     name  = "autoscaling.minReplicas"
-    value = "${minReplicas}"
+    value = "${var.minReplicas}"
   }
 
   set {
     name  = "autoscaling.maxReplicas"
-    value = "${maxReplicas}"
+    value = "${var.maxReplicas}"
   }
 
   set {
     name  = "autoscaling.enabled"
-    value = "${autoscaling}"
+    value = "${var.autoscaling}"
   }
 }
