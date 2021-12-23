@@ -55,7 +55,7 @@ pipeline {
             }
           }
           if ( terraformModule != 'all') {
-            terraformPath = terraformPath + "/" + terraformModule + terraformFolder
+            terraformPath = terraformPath + "/" + terraformModule + terraformSubModule
           }
         }
       }
