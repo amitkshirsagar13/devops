@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/amitkshirsagar13/devops.git
     targetRevision: HEAD
-    path: cicd\argocd\apps\echo-app
+    path: cluster\echo
     directory:
       recurse: true
   destination:
