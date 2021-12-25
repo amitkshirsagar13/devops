@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/amitkshirsagar13/devops.git
     targetRevision: HEAD
-    path: cluster\echo
+    path: cluster/echo
     directory:
       recurse: true
   destination:
