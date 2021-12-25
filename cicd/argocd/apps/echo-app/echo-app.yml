@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: echo-app
+  namespace: echo
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/amitkshirsagar13/devops.git
+    targetRevision: HEAD
+    path: cicd/argocd/apps/echo-app
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: echo
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
