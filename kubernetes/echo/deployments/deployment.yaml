@@ -119,7 +119,7 @@ metadata:
   name: echo-pv-claim-read
   namespace: echo
 spec:
-  storageClassName: manual
+  storageClassName: hostpath
   accessModes:
     - ReadWriteOnce
   resources:
