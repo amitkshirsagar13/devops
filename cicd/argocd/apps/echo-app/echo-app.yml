@@ -6,9 +6,9 @@ metadata:
 spec:
   project: echo
   source:
-    repoURL: https://github.com/marcel-dempers/docker-development-youtube-series.git
+    repoURL: https://github.com/amitkshirsagar13/devops.git
     targetRevision: HEAD
-    path: argo/example-app
+    path: cluster/echo
     directory:
       recurse: true
   destination:
