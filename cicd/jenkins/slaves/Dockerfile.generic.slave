@@ -2,9 +2,8 @@ FROM jenkins/agent:alpine
 
 USER root
 
-RUN apk add --update docker openrc
-RUN apk add shadow
-RUN rc-update add docker boot
+RUN apk update && apk add --no-cache docker-cli openrc shadow
+# RUN rc-update add docker boot
 
 RUN apk add --no-cache \
   openssh-client \
@@ -17,5 +16,7 @@ RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin/kubectl
 RUN kubectl version --client
 
+RUN addgroup docker
 RUN usermod -aG docker jenkins
+
 USER jenkins
