@@ -166,17 +166,15 @@ jobs:
               pipeline {
                 agent { label 'generic-docker-slave' }
                 parameters {
-                  choice(name: 'ErrorBuild', choices: ['no','yes')
+                  choice(name: 'ErrorBuild', choices: ['no','yes'], description: 'Error Build to test pipeline')
                 }
                 environment {
                   ERRORBUILD = "${ErrorBuild.toUpperCase()}"
                 }
                 stages {
                   stage('Location') {
+                    agent { label 'maven-docker-slave' }
                     steps {
-                      script {
-                        agentName = "maven-docker-slave"
-                      }
                       sh """
                         hostname
                         pwd
@@ -189,6 +187,7 @@ jobs:
                   stage('Checking') {
                     steps {
                       script {
+                        agentName = "generic-docker-slave"
                         println agentLabel
                         println agentName
                       }
@@ -217,12 +216,15 @@ jobs:
                           label agentName
                         }
                         steps {
-                          sh """
-                            sleep 90
-                            docker ps
-                          """
-                          if(approval == 'no') {
-                            error 'Error in group2 processing'
+                          script {
+                            sh """
+                              sleep 90
+                              docker ps
+                            """
+                            errorBuild = env.ErrorBuild
+                            if(errorBuild == 'yes') {
+                              error 'Error in group2 processing'
+                            }
                           }
                         }
                       }
@@ -230,7 +232,6 @@ jobs:
                   }
                   stage('Final') {
                     agent { label agentLabel }
-
                     steps {
                       script {
                         println agentLabel
