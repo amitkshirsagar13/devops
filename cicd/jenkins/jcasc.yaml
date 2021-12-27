@@ -165,11 +165,17 @@ jobs:
 
               pipeline {
                 agent { label 'generic-docker-slave' }
+                parameters {
+                  choice(name: 'ErrorBuild', choices: ['no','yes')
+                }
+                environment {
+                  ERRORBUILD = "${ErrorBuild.toUpperCase()}"
+                }
                 stages {
                   stage('Location') {
                     steps {
                       script {
-                        agentName = "generic-docker-slave"
+                        agentName = "maven-docker-slave"
                       }
                       sh """
                         hostname
@@ -215,7 +221,9 @@ jobs:
                             sleep 90
                             docker ps
                           """
-                          error 'Error in group2 processing'
+                          if(approval == 'no') {
+                            error 'Error in group2 processing'
+                          }
                         }
                       }
                     }, failFast: true)
