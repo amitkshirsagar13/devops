@@ -1,6 +1,3 @@
-#!/bin/sh
-kubectl create namespace ci
-cat > jenkins-robot.yml << EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -36,8 +33,3 @@ subjects:
 - kind: ServiceAccount
   name: jenkins-robot
   namespace: ci
-EOF
-kubectl apply -f jenkins-robot.yml
-JENKINS_ROBOT=`kubectl -n ci get serviceaccount jenkins-robot -o go-template --template='{{range .secrets}}{{.name}}{{"\n"}}{{end}}'`
-echo `kubectl -n ci get secrets $JENKINS_ROBOT -o go-template --template '{{index .data "token"}}' | base64 -d`
-
