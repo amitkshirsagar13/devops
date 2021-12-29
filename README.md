@@ -8,6 +8,15 @@
 [![DockerHub](https://img.shields.io/docker/pulls/amitkshirsagar13/devops-jenkins?style=for-the-badge&logo=docker)](https://hub.docker.com/repository/docker/amitkshirsagar13/devops-jenkins)
 
 # devops
+### Enable Vault
+```
+just start-vault
+http://vault.local:8200/
+```
+
+- Create Root token and keys
+- Create Secret at 
+
 ### Build jenkins images
   - [Jenkins ReadMe](./cicd/jenkins/readme.md)
     

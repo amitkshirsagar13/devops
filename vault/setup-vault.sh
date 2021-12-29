@@ -35,4 +35,5 @@ services:
 
 EOF
 
-docker-compose up
+docker compose -f vault/docker-compose.yml up 
+
