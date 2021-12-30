@@ -130,7 +130,7 @@ jobs:
                   stages {
                     stage('List pods') {
                       steps {
-                          sh "echo $ENVKEY $KUBEHOST $KUBETOKEN"
+                        sh "echo $ENVKEY $KUBEHOST $KUBETOKEN"
                         withCredentials([string(credentialsId: "$KUBEHOST", variable: 'KUBE_HOST'),
                                           string(credentialsId: "$KUBETOKEN", variable: 'KUBE_TOKEN')]) {
                           withKubeConfig([credentialsId: "$KUBETOKEN",
