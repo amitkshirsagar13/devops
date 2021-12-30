@@ -23,6 +23,7 @@ rules:
   - secrets
   - services
   - configmaps
+  - serviceaccounts
   - persistentvolumeclaims
   verbs:
   - get
