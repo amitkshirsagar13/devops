@@ -170,7 +170,7 @@ jobs:
                   choice(name: 'ErrorBuild', choices: ['no','yes'], description: 'Error Build to test pipeline')
                 }
                 environment {
-                  ERRORBUILD = "${ErrorBuild.toUpperCase()}"
+                  ERRORBUILD = "$ErrorBuild".toUpperCase()
                 }
                 stages {
                   stage('Location') {
