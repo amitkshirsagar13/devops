@@ -121,6 +121,7 @@ jobs:
                   agent { label 'generic-docker-slave' }
                   parameters {
                     choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
+                    choice(name: 'Namespaces', choices: ['apps','echo','kube-system'], description: 'Cluster Namespaces to list pods')
                   }
                   environment {
                     ENVKEY = "$Level".toUpperCase()
