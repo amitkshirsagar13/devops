@@ -1,6 +1,10 @@
 #!/bin/sh
-kubectl create namespace ci
 cat > jenkins-robot.yml << EOF
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ci
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
