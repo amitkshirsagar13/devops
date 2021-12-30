@@ -18,27 +18,19 @@ metadata:
 rules:
 - apiGroups:
   - ""
+  - apps
+  - extensions
+  - networking.k8s.io
   resources:
   - pods
   - secrets
   - services
   - configmaps
-  - serviceaccounts
-  - persistentvolumeclaims
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - extensions
-  - apps
-  resources:
   - deployments
   - replicasets
+  - serviceaccounts
+  - persistentvolumeclaims
+  - ingresses
   verbs:
   - get
   - list
