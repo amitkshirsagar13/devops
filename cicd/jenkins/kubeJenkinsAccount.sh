@@ -26,6 +26,7 @@ rules:
   - secrets
   - services
   - configmaps
+  - namespaces
   - deployments
   - replicasets
   - serviceaccounts
