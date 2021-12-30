@@ -18,7 +18,26 @@ metadata:
 rules:
 - apiGroups:
   - ""
-  resources: ["*"]
+  resources:
+  - pods
+  - secrets
+  - services
+  - configmaps
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - extensions
+  - apps
+  resources:
+  - deployments
+  - replicasets
   verbs:
   - get
   - list
