@@ -80,6 +80,10 @@ jenkins:
         namespace: "ci"
         podRetention: "never"
         serviceAccount: "jenkins-robot"
+        volumes:
+        - hostPathVolume:
+            hostPath: "/var/run/docker.sock"
+            mountPath: "/var/run/docker.sock"
         yamlMergeStrategy: "override"
       - containers:
         - name: "jnlp"
@@ -98,6 +102,10 @@ jenkins:
         namespace: "ci"
         podRetention: "never"
         serviceAccount: "jenkins-robot"
+        volumes:
+        - hostPathVolume:
+            hostPath: "/var/run/docker.sock"
+            mountPath: "/var/run/docker.sock"
         yamlMergeStrategy: "override"
       - containers:
         - name: "jnlp"
@@ -116,6 +124,10 @@ jenkins:
         namespace: "ci"
         podRetention: "never"
         serviceAccount: "jenkins-robot"
+        volumes:
+        - hostPathVolume:
+            hostPath: "/var/run/docker.sock"
+            mountPath: "/var/run/docker.sock"
         yamlMergeStrategy: "override"
   securityRealm:
     local:
