@@ -9,6 +9,7 @@ variable "chart" {
     autoscaling   = optional(bool)
     minReplicas   = optional(number)
     maxReplicas   = optional(number)
+    ingressHost   = optional(string)
   })
 }
 
@@ -18,4 +19,5 @@ locals {
   autoscaling   = "${var.chart.autoscaling}"
   minReplicas   = "${var.chart.minReplicas}"
   maxReplicas   = "${var.chart.maxReplicas}"
+  ingressHost   = "${var.chart.ingressHost}"
 }
