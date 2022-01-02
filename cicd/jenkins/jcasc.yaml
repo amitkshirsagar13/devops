@@ -200,7 +200,7 @@ jobs:
           cps {
             script('''
                 pipeline {
-                  agent { label 'generic-docker-slave' }
+                  agent { label 'generic-kubernetes-slave' }
                   parameters {
                     choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
                     choice(name: 'Namespaces', choices: ['apps','echo','kube-system'], description: 'Cluster Namespaces to list pods')
@@ -303,7 +303,6 @@ jobs:
                           script {
                             sh """
                               sleep 90
-                              docker ps
                             """
                             errorBuild = env.ErrorBuild
                             if(errorBuild == 'yes') {
