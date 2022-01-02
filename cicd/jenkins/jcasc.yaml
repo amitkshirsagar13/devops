@@ -1,51 +1,124 @@
 jenkins:
+  slaveAgentPort: 50000
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
   clouds:
-    - docker:
-        name: "docker"
-        dockerApi:
-          dockerHost:
-            uri: "unix:///var/run/docker.sock"
-        templates:
-          - labelString: "generic-docker-slave"
-            dockerTemplateBase:
-              image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
-              mounts:
-                # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-                - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-            remoteFs: "/home/jenkins"
-            connector:
-              attach:
-                user: "root"
-            instanceCapStr: "5"
-            retentionStrategy:
-              idleMinutes: 1
-          - labelString: "maven-docker-slave"
-            dockerTemplateBase:
-              image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
-              mounts:
-                # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-                - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-            remoteFs: "/home/jenkins"
-            connector:
-              attach:
-                user: "root"
-            instanceCapStr: "5"
-            retentionStrategy:
-              idleMinutes: 1
-          - labelString: "terraform-docker-slave"
-            dockerTemplateBase:
-              image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
-              mounts:
-                # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-                - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-            remoteFs: "/home/jenkins"
-            connector:
-              attach:
-                user: "root"
-            instanceCapStr: "5"
-            retentionStrategy:
-              idleMinutes: 1
+  # - docker:
+  #     name: "docker"
+  #     dockerApi:
+  #       dockerHost:
+  #         uri: "unix:///var/run/docker.sock"
+  #     templates:
+  #       - labelString: "generic-docker-slave"
+  #         dockerTemplateBase:
+  #           image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
+  #           mounts:
+  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+  #         remoteFs: "/home/jenkins"
+  #         connector:
+  #           attach:
+  #             user: "root"
+  #         instanceCapStr: "5"
+  #         retentionStrategy:
+  #           idleMinutes: 1
+  #       - labelString: "maven-docker-slave"
+  #         dockerTemplateBase:
+  #           image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
+  #           mounts:
+  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+  #         remoteFs: "/home/jenkins"
+  #         connector:
+  #           attach:
+  #             user: "root"
+  #         instanceCapStr: "5"
+  #         retentionStrategy:
+  #           idleMinutes: 1
+  #       - labelString: "terraform-docker-slave"
+  #         dockerTemplateBase:
+  #           image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
+  #           mounts:
+  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+  #         remoteFs: "/home/jenkins"
+  #         connector:
+  #           attach:
+  #             user: "root"
+  #         instanceCapStr: "5"
+  #         retentionStrategy:
+  #           idleMinutes: 1
+  - kubernetes:
+      connectTimeout: 5
+      containerCapStr: "10"
+      credentialsId: "LOCAL_JENKINS_KUBE_TOKEN"
+      serverUrl: "https://kubernetes.docker.internal:6443"
+      skipTlsVerify: true
+      webSocket: true
+      directConnection: false
+      jenkinsUrl: "http://jenkins-service.ci.svc.cluster.local"
+      # jenkinsTunnel: "jenkins-service.ci.svc.cluster.local:50000"
+      maxRequestsPerHostStr: "32"
+      name: "local-kubernetes"
+      namespace: "ci"
+      readTimeout: 15
+      podLabels:
+      - key: "jenkins/jenkins-slave"
+        value: "true"
+      templates:
+      - containers:
+        - name: "jnlp"
+          args: "-f /dev/null"
+          command: "tail"
+          image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          workingDir: "/home/jenkins"
+        label: "generic-docker-slave"
+        name: "generic"
+        namespace: "ci"
+        podRetention: "never"
+        serviceAccount: "jenkins-robot"
+        yamlMergeStrategy: "override"
+      - containers:
+        - name: "jnlp"
+          args: "-f /dev/null"
+          command: "tail"
+          image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          workingDir: "/home/jenkins"
+        label: "maven-docker-slave"
+        name: "maven"
+        namespace: "ci"
+        podRetention: "never"
+        serviceAccount: "jenkins-robot"
+        yamlMergeStrategy: "override"
+      - containers:
+        - name: "jnlp"
+          args: "-f /dev/null"
+          command: "tail"
+          image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          workingDir: "/home/jenkins"
+        label: "terraform-docker-slave"
+        name: "terraform"
+        namespace: "ci"
+        podRetention: "never"
+        serviceAccount: "jenkins-robot"
+        yamlMergeStrategy: "override"
   securityRealm:
     local:
       allowsSignup: false
@@ -94,7 +167,6 @@ jenkins:
   #             failIfWorkDirIsMissing: false
   #             internalDir: "remoting"
   #             workDirPath: "/tmp"
-  # slaveAgentPort: 50000
   # agentProtocols:
   #   - "jnlp2"
 
@@ -146,6 +218,55 @@ jobs:
                                           ]) {
                             sh 'kubectl get pods'
                           }
+                        }
+                      }
+                    }
+                  }
+                }
+            '''.stripIndent())
+            sandbox()
+          }
+        }
+      }
+      
+      pipelineJob('agent-pod-connectivity-test') {
+        description("Test Kubernetes agent pod connectivity")
+        definition {
+          cps {
+            script('''
+                pipeline {
+                  agent {
+                    kubernetes {
+                      yaml '''
+                        apiVersion: v1
+                        kind: Pod
+                        spec:
+                          containers:
+                          - name: maven
+                            image: maven:alpine
+                            command:
+                            - cat
+                            tty: true
+                          - name: node
+                            image: node:16-alpine3.12
+                            command:
+                            - cat
+                            tty: true
+                        '''
+                    }
+                  }
+                  stages {
+                    stage('Run maven') {
+                      steps {
+                        container('maven') {
+                          sh 'mvn -version'
+                          sh ' echo Hello World > hello.txt'
+                          sh 'ls -last'
+                        }
+                        container('node') {
+                          sh 'npm version'
+                          sh 'cat hello.txt'
+                          sh 'ls -last'
                         }
                       }
                     }
@@ -413,7 +534,7 @@ credentials:
               scope: "GLOBAL"
               id: "LOCAL_JENKINS_KUBE_TOKEN"
               description: "LOCAL_JENKINS_KUBE_TOKEN"
-              secret: "jenkins-fake-secret-key"
+              secret: "eyJhbGciOiJSUzI1NiIsImtpZCI6IkwyNHU3SjRrcFNtOUc1NHhvb3piRUdPdFFMQUtNSVVDRThUcUI5RnVNOVkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJjaSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJqZW5raW5zLXJvYm90LXRva2VuLXc5c3I2Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImplbmtpbnMtcm9ib3QiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIzYWE0NjYwZi02MzVkLTRjMGMtYTBhOS0yZWMyYTQ5OGI5ODYiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6Y2k6amVua2lucy1yb2JvdCJ9.iW6s5oHQdonIiSreI4bBsCvVTNEJWagiqvTMXDJigCB4nSylm-cChua5pE3pqWHuYy03n-9w1D_wva_Oukthg5R4s21QDn4UYubcVN9CPRDZ2JTT3xUZ7RTKxKMpkuC6b4np4aYhjInBXrFC5uqolkYCYgZEH6IkKimFQgEsn8vcEQx8O1Ya4OTzkkanijR1h7mE58XWzvVcXSf-N1XEviDooBLnyt54yXTM8NjlDHcmi7MJ8FLI5zyTPm9zlr1hrXBaaJCg9FP0q8a7MkF467Eg87XDYeBcO-nWuyCY-ftovA0wM89yGM3oxXau6y47RO9w6CQYhU2Zn1TkWnqsNA"
           - string:
               scope: "GLOBAL"
               id: "LOCAL_KUBE_HOST"

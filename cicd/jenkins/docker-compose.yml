@@ -15,7 +15,6 @@ services:
     # group_add:
     #   - 994 #docker group id
     ports:
-      - 5000:5000
       - 3000:8080
       - 50000:50000
     secrets:

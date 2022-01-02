@@ -1,0 +1,118 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: ci
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      hostname: jenkins-master
+      containers:
+      - name: jenkins-master
+        image: amitkshirsagar13/devops-jenkins:latest
+        imagePullPolicy: Always
+        env:
+          - name: CASC_VAULT_FILE
+            value: /run/secrets/jcasc_vault
+        ports:
+        - name: master
+          containerPort: 8080
+        - name: agent
+          containerPort: 50000
+        volumeMounts:
+          - mountPath: "/var/jenkins_home"
+            name: jenkins-pv-storage
+          - name: dockersock
+            mountPath: "/var/run/docker.sock"
+        resources:
+          limits:
+            cpu: "1.0"
+            memory: "900Mi"
+          requests:
+            cpu: "0.15"
+            memory: "250Mi"
+      volumes:
+        - name: jenkins-pv-storage
+          persistentVolumeClaim:
+            claimName: jenkins-pv-claim
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+        - name: vault-secret
+          hostPath:
+            path: /run/desktop/mnt/host/c/opt/secrets/jcasc_vault
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pv-claim
+  namespace: ci
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-pv-storage
+spec:
+  storageClassName: hostpath
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /run/desktop/mnt/host/c/opt/data/jenkins
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: ci
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: master
+  - port: 50000
+    targetPort: 50000
+    protocol: TCP
+    name: agent
+  selector:
+    app: jenkins
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: ci
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  # http://jenkins.localtest.me
+  - host: jenkins.localtest.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: jenkins-service
+            port:
+              number: 80

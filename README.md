@@ -11,7 +11,7 @@
 ### Enable Vault
 ```
 just start-vault
-http://vault.local:8200/
+http://vault.localtest.me:8200/
 ```
 
 - Create Root token and keys
