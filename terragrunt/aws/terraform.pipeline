@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'terraform-docker-slave' }
+  agent { label 'terraform-kubernetes-slave' }
 
   parameters {
     choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
