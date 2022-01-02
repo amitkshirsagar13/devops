@@ -94,3 +94,5 @@ Below link is to youtube video, nice demo and explaination for JTE [Nice JTE Dem
   <img src="./img/jte-declarative.png" width="600">
 
 
+
+https://devopscube.com/jenkins-build-agents-kubernetes/
