@@ -1,74 +1,72 @@
 jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
   slaveAgentPort: 50000
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
   clouds:
-  # - docker:
-  #     name: "docker"
-  #     dockerApi:
-  #       dockerHost:
-  #         uri: "unix:///var/run/docker.sock"
-  #     templates:
-  #       - labelString: "generic-docker-slave"
-  #         dockerTemplateBase:
-  #           image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
-  #           mounts:
-  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-  #         remoteFs: "/home/jenkins"
-  #         connector:
-  #           attach:
-  #             user: "root"
-  #         instanceCapStr: "5"
-  #         retentionStrategy:
-  #           idleMinutes: 1
-  #       - labelString: "maven-docker-slave"
-  #         dockerTemplateBase:
-  #           image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
-  #           mounts:
-  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-  #         remoteFs: "/home/jenkins"
-  #         connector:
-  #           attach:
-  #             user: "root"
-  #         instanceCapStr: "5"
-  #         retentionStrategy:
-  #           idleMinutes: 1
-  #       - labelString: "terraform-docker-slave"
-  #         dockerTemplateBase:
-  #           image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
-  #           mounts:
-  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-  #         remoteFs: "/home/jenkins"
-  #         connector:
-  #           attach:
-  #             user: "root"
-  #         instanceCapStr: "5"
-  #         retentionStrategy:
-  #           idleMinutes: 1
+  - docker:
+      name: "docker"
+      dockerApi:
+        dockerHost:
+          uri: "unix:///var/run/docker.sock"
+      templates:
+        - labelString: "generic-docker-slave"
+          dockerTemplateBase:
+            image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
+            mounts:
+              # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+              - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+          remoteFs: "/home/jenkins"
+          connector:
+            attach:
+              user: "root"
+          instanceCapStr: "5"
+          retentionStrategy:
+            idleMinutes: 1
+        - labelString: "maven-docker-slave"
+          dockerTemplateBase:
+            image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
+            mounts:
+              # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+              - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+          remoteFs: "/home/jenkins"
+          connector:
+            attach:
+              user: "root"
+          instanceCapStr: "5"
+          retentionStrategy:
+            idleMinutes: 1
+        - labelString: "terraform-docker-slave"
+          dockerTemplateBase:
+            image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
+            mounts:
+              # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+              - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+          remoteFs: "/home/jenkins"
+          connector:
+            attach:
+              user: "root"
+          instanceCapStr: "5"
+          retentionStrategy:
+            idleMinutes: 1
   - kubernetes:
-      connectTimeout: 5
+      containerCap: 10
       containerCapStr: "10"
       credentialsId: "LOCAL_JENKINS_KUBE_TOKEN"
+      jenkinsUrl: "http://jenkins-service.ci.svc.cluster.local"
+      name: "kubernetes"
+      namespace: "ci"
       serverUrl: "https://kubernetes.docker.internal:6443"
       skipTlsVerify: true
-      webSocket: true
-      directConnection: false
-      jenkinsUrl: "http://jenkins-service.ci.svc.cluster.local"
-      # jenkinsTunnel: "jenkins-service.ci.svc.cluster.local:50000"
-      maxRequestsPerHostStr: "32"
-      name: "local-kubernetes"
-      namespace: "ci"
-      readTimeout: 15
       podLabels:
-      - key: "jenkins/jenkins-slave"
-        value: "true"
+      - key: "agent"
+        value: "jenkins"
       templates:
       - containers:
         - name: "jnlp"
-          args: "-f /dev/null"
-          command: "tail"
+          args: ""
+          command: ""
           image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
           livenessProbe:
             failureThreshold: 0
@@ -76,8 +74,8 @@ jenkins:
             periodSeconds: 0
             successThreshold: 0
             timeoutSeconds: 0
-          workingDir: "/home/jenkins"
-        label: "generic-docker-slave"
+          workingDir: "/home/jenkins/agent"
+        label: "generic-kubernetes-slave"
         name: "generic"
         namespace: "ci"
         podRetention: "never"
@@ -85,8 +83,8 @@ jenkins:
         yamlMergeStrategy: "override"
       - containers:
         - name: "jnlp"
-          args: "-f /dev/null"
-          command: "tail"
+          args: ""
+          command: ""
           image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
           livenessProbe:
             failureThreshold: 0
@@ -94,8 +92,8 @@ jenkins:
             periodSeconds: 0
             successThreshold: 0
             timeoutSeconds: 0
-          workingDir: "/home/jenkins"
-        label: "maven-docker-slave"
+          workingDir: "/home/jenkins/agent"
+        label: "maven-kubernetes-slave"
         name: "maven"
         namespace: "ci"
         podRetention: "never"
@@ -103,8 +101,8 @@ jenkins:
         yamlMergeStrategy: "override"
       - containers:
         - name: "jnlp"
-          args: "-f /dev/null"
-          command: "tail"
+          args: ""
+          command: ""
           image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
           livenessProbe:
             failureThreshold: 0
@@ -112,8 +110,8 @@ jenkins:
             periodSeconds: 0
             successThreshold: 0
             timeoutSeconds: 0
-          workingDir: "/home/jenkins"
-        label: "terraform-docker-slave"
+          workingDir: "/home/jenkins/agent"
+        label: "terraform-kubernetes-slave"
         name: "terraform"
         namespace: "ci"
         podRetention: "never"
@@ -229,65 +227,16 @@ jobs:
         }
       }
       
-      pipelineJob('agent-pod-connectivity-test') {
-        description("Test Kubernetes agent pod connectivity")
+      pipelineJob('generic-kubernetes-slave-test') {
+        description("Need to have defined kubernetes cloud plugin with label generic-kubernetes-slave agent")
         definition {
           cps {
             script('''
-                pipeline {
-                  agent {
-                    kubernetes {
-                      yaml '''
-                        apiVersion: v1
-                        kind: Pod
-                        spec:
-                          containers:
-                          - name: maven
-                            image: maven:alpine
-                            command:
-                            - cat
-                            tty: true
-                          - name: node
-                            image: node:16-alpine3.12
-                            command:
-                            - cat
-                            tty: true
-                        '''
-                    }
-                  }
-                  stages {
-                    stage('Run maven') {
-                      steps {
-                        container('maven') {
-                          sh 'mvn -version'
-                          sh ' echo Hello World > hello.txt'
-                          sh 'ls -last'
-                        }
-                        container('node') {
-                          sh 'npm version'
-                          sh 'cat hello.txt'
-                          sh 'ls -last'
-                        }
-                      }
-                    }
-                  }
-                }
-            '''.stripIndent())
-            sandbox()
-          }
-        }
-      }
-      
-      pipelineJob('generic-docker-slave-test') {
-        description("Need to have defined docker cloud plugin with label generic-docker-slave agent")
-        definition {
-          cps {
-            script('''
-              agentName = "generic-docker-slave"
+              agentName = "generic-kubernetes-slave"
               agentLabel = "${println 'Right Now the Agent Name is ' + agentName; return agentName}"
 
               pipeline {
-                agent { label 'generic-docker-slave' }
+                agent { label 'generic-kubernetes-slave' }
                 parameters {
                   choice(name: 'ErrorBuild', choices: ['no','yes'], description: 'Error Build to test pipeline')
                 }
@@ -296,7 +245,7 @@ jobs:
                 }
                 stages {
                   stage('Location') {
-                    agent { label 'maven-docker-slave' }
+                    agent { label 'maven-kubernetes-slave' }
                     steps {
                       sh """
                         hostname
@@ -310,7 +259,7 @@ jobs:
                   stage('Checking') {
                     steps {
                       script {
-                        agentName = "generic-docker-slave"
+                        agentName = "generic-kubernetes-slave"
                         println agentLabel
                         println agentName
                       }
@@ -475,6 +424,55 @@ jobs:
         }
       }
 
+  # pipelineJob('agent-pod-connectivity-test') {
+  #   description("Test Kubernetes agent pod connectivity")
+  #   definition {
+  #     cps {
+  #       script('''
+  #           pipeline {
+  #             agent {
+  #               kubernetes {
+  #                 yaml '''
+  #                   apiVersion: v1
+  #                   kind: Pod
+  #                   spec:
+  #                     containers:
+  #                     - name: maven
+  #                       image: maven:alpine
+  #                       command:
+  #                       - cat
+  #                       tty: true
+  #                     - name: node
+  #                       image: node:16-alpine3.12
+  #                       command:
+  #                       - cat
+  #                       tty: true
+  #                   '''
+  #               }
+  #             }
+  #             stages {
+  #               stage('Run maven') {
+  #                 steps {
+  #                   container('maven') {
+  #                     sh 'mvn -version'
+  #                     sh ' echo Hello World > hello.txt'
+  #                     sh 'ls -last'
+  #                   }
+  #                   container('node') {
+  #                     sh 'npm version'
+  #                     sh 'cat hello.txt'
+  #                     sh 'ls -last'
+  #                   }
+  #                 }
+  #               }
+  #             }
+  #           }
+  #       '''.stripIndent())
+  #       sandbox()
+  #     }
+  #   }
+  # }
+  
 # pipelineJob('terraform-live-PreBuild') {
 #   def repo = 'https://github.com/amitkshirsagar13/devops.git'
 #   description("Terraform Environment PreBuild")
