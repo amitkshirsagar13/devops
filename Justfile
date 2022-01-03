@@ -14,6 +14,12 @@ start-jenkins:
 gpush message:
   git add . && git commit -m "{{message}}" && git push
 
+cred-argo:
+  kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+cred-jen-kube:
+  kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
 start-vault:
   mkdir -p vault/volumes/config
   mkdir -p vault/volumes/file
