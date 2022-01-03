@@ -4,4 +4,4 @@ echo-service:
   minReplicas: 1
   maxReplicas: 2
   replicaCount: 3
-  ingressHost: echo.localtest.me
+  ingressHost: "echo.localtest.me"
