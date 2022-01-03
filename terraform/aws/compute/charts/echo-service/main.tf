@@ -28,4 +28,8 @@ resource "helm_release" "echo-service" {
     value = "${local.maxReplicas}"
   }
 
+  set {
+    name  = "ingress.hosts[0].host"
+    value = "${local.ingressHost}"
+  }
 }
