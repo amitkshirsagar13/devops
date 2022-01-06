@@ -23,7 +23,9 @@ rules:
   - networking.k8s.io
   resources:
   - pods
+  - status
   - secrets
+  - pods/log
   - services
   - configmaps
   - namespaces
