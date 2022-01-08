@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: static
+  labels:
+    app.kubernetes.io/name: static
+    app.kubernetes.io/instance: static
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-server
+  namespace: static
+spec:
+  selector:
+    matchLabels:
+      app: static-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: static-server
+        group: static
+    spec:
+      hostname: static-server
+      containers:
+      - name: static
+        image: amitkshirsagar13/static-404:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-service
+  namespace: static
+spec:
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: static
+  selector:
+    app: static-server
