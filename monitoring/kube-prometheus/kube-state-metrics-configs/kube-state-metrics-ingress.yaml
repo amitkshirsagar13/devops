@@ -1,0 +1,15 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: kube-state-metrics-ui
+#   namespace: kube-system
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+# spec:
+#   rules:
+#   - host: kube-state-metrics.localtest.me
+#     http:
+#       paths:
+#       - backend:
+#           serviceName: kube-state-metrics
+#           servicePort: 8080
