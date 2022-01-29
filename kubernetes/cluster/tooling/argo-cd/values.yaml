@@ -354,7 +354,7 @@ dex:
 
   metrics:
     # -- Deploy metrics service
-    enabled: false
+    enabled: true
     service:
       # -- Metrics service annotations
       annotations: {}
@@ -417,7 +417,7 @@ dex:
   ## Supported from Dex >= 2.28.0
   livenessProbe:
     # -- Enable Kubernetes liveness probe for Dex >= 2.28.0
-    enabled: false
+    enabled: true
     # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
     failureThreshold: 3
     # -- Number of seconds after the container has started before [probe] is initiated
@@ -430,7 +430,7 @@ dex:
     timeoutSeconds: 1
   readinessProbe:
     # -- Enable Kubernetes readiness probe for Dex >= 2.28.0
-    enabled: false
+    enabled: true
     # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
     failureThreshold: 3
     # -- Number of seconds after the container has started before [probe] is initiated
@@ -663,7 +663,7 @@ redis:
 
   metrics:
     # -- Deploy metrics service and redis-exporter sidecar
-    enabled: false
+    enabled: true
     image:
       # -- redis-exporter image repository
       repository: quay.io/bitnami/redis-exporter
@@ -752,11 +752,11 @@ server:
 
   autoscaling:
     # -- Enable Horizontal Pod Autoscaler ([HPA]) for the Argo CD server
-    enabled: false
+    enabled: true
     # -- Minimum number of replicas for the Argo CD server [HPA]
     minReplicas: 1
     # -- Maximum number of replicas for the Argo CD server [HPA]
-    maxReplicas: 5
+    maxReplicas: 3
     # -- Average CPU utilization percentage for the Argo CD server [HPA]
     targetCPUUtilizationPercentage: 50
     # -- Average memory utilization percentage for the Argo CD server [HPA]
