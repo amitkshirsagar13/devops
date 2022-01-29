@@ -1,43 +1,15 @@
 variable "name" {
   type = string
-  default = "dev"
+  default = "helm-repo"
 }
 
-variable "team" {
+variable "cluster" {
   type = string
-  default = "k8cluster"
+  default = "tooling"
 }
 
-variable "level" {
-  type = string
-  default = "int"
-}
-
-variable "versioning" {
-  type = bool
-  default = false
-}
-
-variable "application" {
-  type = string
-  default = "demo"
-}
-
-variable "description" {
-  type = string
-  default = "test"
-}
-
-variable "access_key" {
-  default = "fake"
-}
-variable "aws_secret_key" {
-  default = "fake"
-}
 variable "region" {
-  default = "us-east-1"
-}
-
-variable "tags" {
-  type= map
+  description = "Google Cloud region"
+  type        = string
+  default     = "europe-west2"
 }
