@@ -9,6 +9,18 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ```
 
 ## Install Cluster Tools
+### Tooling
+- argo-cd
+
+    Run below commands to install or update
+    ```
+    helm install argo-cd argo-cd -n tooling 
+
+    helm uninstall argo-cd -n tooling 
+    kubectl -n tooling get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+    ```
+
 ### Networking
 - gloo
 
