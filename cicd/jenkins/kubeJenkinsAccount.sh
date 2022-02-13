@@ -10,6 +10,7 @@ kind: ServiceAccount
 metadata:
   name: jenkins-robot
   namespace: ci
+automountServiceAccountToken: false
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole

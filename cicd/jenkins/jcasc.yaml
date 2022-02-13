@@ -54,7 +54,7 @@ jenkins:
       containerCap: 10
       containerCapStr: "10"
       credentialsId: "LOCAL_JENKINS_KUBE_TOKEN"
-      jenkinsUrl: "http://jenkins-service.ci.svc.cluster.local"
+      jenkinsUrl: "http://kubernetes.docker.internal:3000"
       name: "kubernetes"
       namespace: "ci"
       serverUrl: "https://kubernetes.docker.internal:6443"
