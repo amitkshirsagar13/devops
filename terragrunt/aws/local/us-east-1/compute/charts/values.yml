@@ -1,6 +1,9 @@
 echo-service:
-  autoscaling: false
+  chartRepo: "tools"
+  chartName: "echo-service"
   namespace: "echo"
+  name: "echo-service"
+  autoscaling: false
   minReplicas: 1
   maxReplicas: 2
   replicaCount: 3
