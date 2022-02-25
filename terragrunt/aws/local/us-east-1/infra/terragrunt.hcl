@@ -17,9 +17,6 @@ include {
 inputs = merge(
   local.region.inputs,
   {
-    application = "infra",
-    tags = {
-      application = "infra"
-    }
+    appName = "infra",
   },
 )

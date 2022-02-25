@@ -1,11 +1,11 @@
 locals {
   tags = {
-    Name = "${var.team}-${var.level}-${var.region}-${var.name}"
+    Name = concat(${var.appName}, "-", ${var.envName}, "-", ${var.region}, "-", ${var.team})
+    // Name = "${var.appName}-${var.envName}-${var.region}-${var.team}"
     name = "${var.name}"
     level = "${var.level}"
     region = "${var.region}"
     team = "${var.team}"
-    application = "${var.application}"
     description = "${var.description}"
   }
 }

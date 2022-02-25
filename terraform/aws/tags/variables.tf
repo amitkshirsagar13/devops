@@ -1,4 +1,4 @@
-variable "name" {
+variable "appName" {
   type= "string"
 }
 
@@ -6,15 +6,11 @@ variable "team" {
   type= "string"
 }
 
-variable "level" {
+variable "envName" {
   type= "string"
 }
 
 variable "region" {
-  type= "string"
-}
-
-variable "application" {
   type= "string"
 }
 

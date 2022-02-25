@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  name = "ec2-${var.level}-${var.team}-${var.application}-${var.type}"
+  name = "ec2-${var.appName}-${var.envName}-${var.region}-${var.team}"
 
   # inbound HTTP/HTTPS from anywhere
   ingress {
@@ -37,10 +37,10 @@ resource "aws_security_group" "sg" {
 
 locals {
   tags = {
-    Name = "${var.team}-${var.level}-${var.region}-${var.type}"
-    level = "${var.level}"
+    Name = concat(${var.appName}, "-", ${var.envName}, "-", ${var.region}, "-", ${var.team})
+    // Name = "${var.appName}-${var.envName}-${var.region}-${var.team}"
+    envName = "${var.envName}"
     team = "${var.team}"
-    application = "${var.application}"
-    type = "${var.type}"
+    appName = "${var.appName}"
   }
 }

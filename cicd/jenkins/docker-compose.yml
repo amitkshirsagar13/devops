@@ -6,7 +6,7 @@ services:
       CASC_VAULT_FILE: /run/secrets/jcasc_vault
     restart: always
     container_name: jenkins-master
-    image: amitkshirsagar13/devops-jenkins:latest
+    image: amitkshirsagar13/devops-jenkins:production
     hostname: jenkins-master
     user: root
     volumes:
@@ -21,6 +21,10 @@ services:
       - jcasc_vault
     extra_hosts:
         - "vault:192.168.1.131" #host and ip
+
+    
+
+
 
 secrets:
   jcasc_vault:

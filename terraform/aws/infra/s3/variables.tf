@@ -8,7 +8,7 @@ variable "team" {
   default = "k8cluster"
 }
 
-variable "level" {
+variable "envName" {
   type = string
   default = "int"
 }
@@ -18,7 +18,7 @@ variable "versioning" {
   default = false
 }
 
-variable "application" {
+variable "appName" {
   type = string
   default = "demo"
 }

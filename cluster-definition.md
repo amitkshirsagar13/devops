@@ -40,6 +40,10 @@ This environment will be rebuilt daily.
 - `prom.us-east-a.dev.localtest.me`
 - `alert.us-east-a.dev.localtest.me`
 
+
+### Application Naming
+ - `appName.envName.region.team.localtest.me`
+
 ### test
 This environment will be used by application teams to deploy applications to different namespaces for test purpose
 

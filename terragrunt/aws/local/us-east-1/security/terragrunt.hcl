@@ -17,9 +17,6 @@ include "root" {
 inputs = merge(
   local.region.inputs,
   {
-    application = "security",
-    tags = {
-      application = "security"
-    }
+    appName = "core",
   },
 )
