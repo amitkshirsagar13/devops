@@ -2,7 +2,7 @@ pipeline {
   agent { label 'terraform-kubernetes-slave' }
 
   parameters {
-    choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
+    choice(name: 'EnvName', choices: ['local','int','stg','e2e','live'], description: 'Cluster EnvName')
     choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
     choice(name: 'Module', choices: ['security','compute','infra','s3','all'], description: 'Modules to execute')
     choice(name: 'SubModule', choices: ['charts','eks','all'], description: 'Folders to execute')
@@ -17,7 +17,7 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = "us-east-1"
-    ENVKEY = "${Level.toUpperCase()}"
+    ENVKEY = "${EnvName.toUpperCase()}"
     KUBEHOST = "${ENVKEY}_KUBE_HOST"
     KUBETOKEN = "${ENVKEY}_JENKINS_KUBE_TOKEN"
     KEY = "${ENVKEY}_AWS_ACCESS_KEY_ID"
@@ -42,7 +42,7 @@ pipeline {
     stage("Terraform Request") {
       steps {
         script {
-          terraformEnv = env.Level
+          terraformEnv = env.EnvName
           terraformRegion = env.Region
           terraformModule = env.Module
           terraformSubModule = ''
