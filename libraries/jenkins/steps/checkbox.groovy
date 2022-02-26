@@ -1,3 +1,4 @@
+// checkbox
 import com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinition
 
 def checkBox (String name, String values, String defaultValue,

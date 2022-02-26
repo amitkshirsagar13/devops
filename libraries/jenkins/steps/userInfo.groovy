@@ -1,3 +1,4 @@
+// userInfo
 void call(key) {
   wrap([$class: 'BuildUser']) {
     if (key == 'USER') {
