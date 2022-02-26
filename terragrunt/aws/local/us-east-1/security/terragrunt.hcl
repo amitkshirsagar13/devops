@@ -1,5 +1,7 @@
 terraform {
-  source = "git::https://github.com/amitkshirsagar13/devops.git//terraform/aws/security"
+  // source = "git::https://github.com/amitkshirsagar13/devops.git//terraform/aws/security"
+  source = "git::https://github.com/amitkshirsagar13/devops.git//terraform/aws/infra/s3"
+
 }
 
 locals {
