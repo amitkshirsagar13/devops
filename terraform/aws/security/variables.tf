@@ -16,6 +16,7 @@ variable "region" {
 
 variable "description" {
   type= string
+  default = "description"
 }
 
 variable "http" {
