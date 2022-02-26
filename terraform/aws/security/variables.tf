@@ -1,21 +1,21 @@
 variable "appName" {
-  type= "string"
+  type= string
 }
 
 variable "team" {
-  type= "string"
+  type= string
 }
 
 variable "envName" {
-  type= "string"
+  type= string
 }
 
 variable "region" {
-  type= "string"
+  type= string
 }
 
 variable "description" {
-  type= "string"
+  type= string
 }
 
 variable "tags" {
