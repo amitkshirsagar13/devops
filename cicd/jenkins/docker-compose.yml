@@ -6,7 +6,7 @@ services:
       CASC_VAULT_FILE: /run/secrets/jcasc_vault
     restart: always
     container_name: jenkins-master
-    image: amitkshirsagar13/devops-jenkins:production
+    image: amitkshirsagar13/devops-jenkin:production
     hostname: jenkins-master
     user: root
     volumes:

@@ -12,7 +12,7 @@ build-jenkins:
   
 start-jenkins:
   docker rm -f jenkins-devops
-  docker compose -f cicd/jenkins/docker-compose.yml up
+  docker compose -f cicd/jenkins/docker-compose.yml up -d
 
 cred-argo:
   kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
