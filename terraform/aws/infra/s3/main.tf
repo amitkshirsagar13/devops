@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "bucket" {
 locals {
   tags = {
     Name = "${var.appName}-${var.envName}-${var.region}-${var.team}"
-    level = "${var.level}"
+    level = "${var.envName}"
     team = "${var.team}"
     appName = "${var.appName}"
     name = "${var.name}"
