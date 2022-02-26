@@ -8,7 +8,7 @@ create libName:
   mkdir -p libraries/{{libName}}/{src,resources,steps}
 
 build-jenkins:
-  docker build -t amitkshirsagar13/devops/jenkins:latest ./cicd/jenkins
+  docker build -t amitkshirsagar13/devops-jenkins:latest ./cicd/jenkins
   
 start-jenkins:
   docker rm -f jenkins-devops
@@ -19,6 +19,9 @@ cred-argo:
 
 cred-jen-kube:
   kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+kube-token-jenkins:
+  ./cicd/jenkins/kubeJenkinsAccount.sh
 
 start-vault:
   mkdir -p vault/volumes/config

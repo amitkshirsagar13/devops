@@ -5,51 +5,51 @@ jenkins:
   slaveAgentPort: 50000
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
   clouds:
-  - docker:
-      name: "docker"
-      dockerApi:
-        dockerHost:
-          uri: "unix:///var/run/docker.sock"
-      templates:
-        - labelString: "generic-docker-slave"
-          dockerTemplateBase:
-            image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
-            mounts:
-              # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-              - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-          remoteFs: "/home/jenkins"
-          connector:
-            attach:
-              user: "root"
-          instanceCapStr: "5"
-          retentionStrategy:
-            idleMinutes: 1
-        - labelString: "maven-docker-slave"
-          dockerTemplateBase:
-            image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
-            mounts:
-              # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-              - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-          remoteFs: "/home/jenkins"
-          connector:
-            attach:
-              user: "root"
-          instanceCapStr: "5"
-          retentionStrategy:
-            idleMinutes: 1
-        - labelString: "terraform-docker-slave"
-          dockerTemplateBase:
-            image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
-            mounts:
-              # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
-              - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
-          remoteFs: "/home/jenkins"
-          connector:
-            attach:
-              user: "root"
-          instanceCapStr: "5"
-          retentionStrategy:
-            idleMinutes: 1
+  # - docker:
+  #     name: "docker"
+  #     dockerApi:
+  #       dockerHost:
+  #         uri: "unix:///var/run/docker.sock"
+  #     templates:
+  #       - labelString: "generic-docker-slave"
+  #         dockerTemplateBase:
+  #           image: "amitkshirsagar13/devops-jenkins-agent-generic:latest"
+  #           mounts:
+  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+  #         remoteFs: "/home/jenkins"
+  #         connector:
+  #           attach:
+  #             user: "root"
+  #         instanceCapStr: "5"
+  #         retentionStrategy:
+  #           idleMinutes: 1
+  #       - labelString: "maven-docker-slave"
+  #         dockerTemplateBase:
+  #           image: "amitkshirsagar13/devops-jenkins-agent-maven:latest"
+  #           mounts:
+  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+  #         remoteFs: "/home/jenkins"
+  #         connector:
+  #           attach:
+  #             user: "root"
+  #         instanceCapStr: "5"
+  #         retentionStrategy:
+  #           idleMinutes: 1
+  #       - labelString: "terraform-docker-slave"
+  #         dockerTemplateBase:
+  #           image: "amitkshirsagar13/devops-jenkins-agent-terraform:latest"
+  #           mounts:
+  #             # - "type=bind,source=/var/jenkins/.m2,destination=/root/.m2"
+  #             - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+  #         remoteFs: "/home/jenkins"
+  #         connector:
+  #           attach:
+  #             user: "root"
+  #         instanceCapStr: "5"
+  #         retentionStrategy:
+  #           idleMinutes: 1
   - kubernetes:
       containerCap: 10
       containerCapStr: "10"
