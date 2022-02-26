@@ -18,10 +18,6 @@ variable "description" {
   type= string
 }
 
-variable "tags" {
-  type = map(string)
-}
-
 variable "http" {
   type = number
   default = 80
@@ -40,5 +36,5 @@ variable "secret_key" {
 }
 
 variable "tags" {
-  type= map
+  type = map(string)
 }
