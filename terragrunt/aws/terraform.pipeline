@@ -4,7 +4,7 @@ pipeline {
   parameters {
     choice(name: 'Level', choices: ['local','int','stg','e2e','live'], description: 'Cluster level')
     choice(name: 'Region', choices: ['us-east-1','us-east-2','global'], description: 'Cluster Region')
-    choice(name: 'Module', choices: ['compute','security','infra','s3','all'], description: 'Modules to execute')
+    choice(name: 'Module', choices: ['security','compute','infra','s3','all'], description: 'Modules to execute')
     choice(name: 'SubModule', choices: ['charts','eks','all'], description: 'Folders to execute')
     choice(name: 'Action', choices: ['plan','apply','destroy'], description: 'Terraform Action')
     choice(name: 'Approve', choices: ['no','yes'], description: 'Terraform Action')
