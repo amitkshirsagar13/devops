@@ -40,4 +40,5 @@ variable "region" {
 
 variable "tags" {
   type= map
+  default = {}
 }
