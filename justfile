@@ -14,6 +14,22 @@ start-jenkins:
   docker rm -f jenkins-devops
   docker compose -f cicd/jenkins/docker-compose.yml up -d
 
+start-localstack:
+  docker run -d --name localstack --restart always -p 4566:4566 -p 8001:8080 \
+    -v /mnt/c/Temp/LocalStack/:/tmp/localstack/data \
+    --env DEBUG=1 --env LOCALSTACK_DATA_DIR=/tmp/localstack/data --env DATA_DIR=/tmp/localstack/data \
+    --env LOCALSTACK_DEFAULT_REGION=sa-east-1 --env LOCALSTACK_TMPDIR=/tmp/localstack \
+    --env SERVICES=s3,dynamodb,sqs \
+    --cpus="0.5" --memory="1048m" \
+    localstack/localstack:0.14.0
+
+create-terraform-state:
+  aws --endpoint-url=http://localhost:4566 s3 mb s3://k8clusters-terraform-state-local
+  aws --endpoint-url=http://localhost:4566 dynamodb create-table --table-name local-terraform-lock-table \
+    --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+
 cred-argo:
   kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 

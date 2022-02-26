@@ -2,8 +2,8 @@
 
 - Create Terraform backup repository to store state
 ```
-aws --endpoint-url=http://localhost:4566 s3 mb s3://k8clusters-terraform-state-local
-aws --endpoint-url=http://localhost:4566 dynamodb create-table --table-name local-terraform-lock-table
+aws --endpoint-url=http://localstack.localtest.me:4566 s3 mb s3://k8clusters-terraform-state-local
+aws --endpoint-url=http://localstack.localtest.me:4566 dynamodb create-table --table-name local-terraform-lock-table
 ```
 
 - Configure terraform-live as below
