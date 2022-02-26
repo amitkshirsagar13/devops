@@ -37,8 +37,7 @@ resource "aws_security_group" "sg" {
 
 locals {
   tags = {
-    Name = concat(${var.appName}, "-", ${var.envName}, "-", ${var.region}, "-", ${var.team})
-    // Name = "${var.appName}-${var.envName}-${var.region}-${var.team}"
+    Name = "${var.appName}-${var.envName}-${var.region}-${var.team}"
     envName = "${var.envName}"
     team = "${var.team}"
     appName = "${var.appName}"
