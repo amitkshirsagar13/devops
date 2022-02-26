@@ -8,8 +8,7 @@ resource "aws_s3_bucket" "bucket" {
 
 locals {
   tags = {
-    Name = concat(${var.appName}, "-", ${var.envName}, "-", ${var.region}, "-", ${var.team})
-    // Name = "${var.appName}-${var.envName}-${var.region}-${var.team}"
+    Name = "${var.appName}-${var.envName}-${var.region}-${var.team}"
     level = "${var.level}"
     team = "${var.team}"
     appName = "${var.appName}"
