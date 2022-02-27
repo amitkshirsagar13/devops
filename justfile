@@ -9,6 +9,9 @@ create libName:
 
 build-jenkins:
   docker build -t amitkshirsagar13/devops-jenkins:latest ./cicd/jenkins
+  docker tag amitkshirsagar13/devops-jenkins:latest amitkshirsagar13/devops-jenkins:production
+  docker push amitkshirsagar13/devops-jenkins:latest
+  docker push amitkshirsagar13/devops-jenkins:production
   
 start-jenkins:
   docker rm -f jenkins-devops
