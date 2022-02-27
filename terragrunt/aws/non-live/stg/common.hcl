@@ -28,11 +28,11 @@ generate "backend" {
   contents = <<EOF
   terraform {
     backend "s3" {
-      bucket         = "k8clusters-terraform-state-int"
+      bucket         = "k8clusters-terraform-state-stg"
       key            = "${path_relative_to_include()}/terraform.tfstate"
       region         = "us-east-1"
       encrypt        = true
-      dynamodb_table = "int-terraform-lock-table"
+      dynamodb_table = "stg-terraform-lock-table"
     }
   }
   EOF
