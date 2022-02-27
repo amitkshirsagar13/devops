@@ -35,9 +35,15 @@ pipeline {
           userInfo_Id = userInfo('USERID')
           userInfo_Name = userInfo('USER')
           userInfo_Email = userInfo('EMAIL')
+
           sh """
             echo ID: $userInfo_Id Name: $userInfo_Name Email: $userInfo_Email
           """
+          itemList = env.ItemList
+          sh """
+            echo itemList: $itemList
+          """
+
           clone("https://github.com/amitkshirsagar13/devops.git")
         }
       }
