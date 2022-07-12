@@ -1,5 +1,5 @@
 terraform {
-  source = "git::https://github.com/amitkshirsagar13/devops.git//terraform/aws/compute/charts"
+  source = "git::https://github.com/amitkshirsagar13/terraform.git//aws/compute/charts"
 }
 
 locals {

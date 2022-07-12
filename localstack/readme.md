@@ -1,0 +1,23 @@
+### Local Stack Services
+
+- apigateway
+- cloudfront
+- cloudwatch
+- dynamodb
+- ec2
+- eks
+- elb
+- iam
+- kms
+- lambda
+- rds
+- route53
+- route53domains
+- route53resolver
+- s3
+- sns
+- sqs
+- stepfunctions
+- waf
+- waf-regional
+- wafv2

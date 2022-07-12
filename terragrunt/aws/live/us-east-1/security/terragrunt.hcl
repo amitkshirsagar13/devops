@@ -1,5 +1,5 @@
 terraform {
-  source = "git::https://github.com/amitkshirsagar13/devops.git//terraform/aws/security"
+  source = "git::https://github.com/amitkshirsagar13/terraform.git//aws/security"
 }
 
 locals {
