@@ -3,22 +3,22 @@ ENV JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
 # Install Plugins
 COPY workflow-plugins.txt /usr/share/jenkins/ref/workflow-plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/workflow-plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/workflow-plugins.txt
 
 COPY pipeline-plugins.txt /usr/share/jenkins/ref/pipeline-plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/pipeline-plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/pipeline-plugins.txt
 
 COPY git-plugins.txt /usr/share/jenkins/ref/git-plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/git-plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/git-plugins.txt
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 
 COPY user-auth.plugins.txt /usr/share/jenkins/ref/user-auth.plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/user-auth.plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/user-auth.plugins.txt
 
 COPY job-plugins.txt /usr/share/jenkins/ref/job-plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/job-plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/job-plugins.txt
 
 
 # Add JCasC
@@ -33,5 +33,5 @@ COPY secrets /var/secrets/seed_secrets
 
 # RUN addgroup --gid 2222 --system docker
 # RUN usermod -aG docker 
-
+RUN chown -R 1000:1000 /var/jenkins_home
 EXPOSE 8080

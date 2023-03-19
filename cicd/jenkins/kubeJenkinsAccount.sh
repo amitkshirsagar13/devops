@@ -3,13 +3,13 @@ cat > jenkins-robot.yml << EOF
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ci
+  name: cicd
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: jenkins-robot
-  namespace: ci
+  namespace: cicd
 automountServiceAccountToken: false
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -55,7 +55,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: jenkins-robot
-  namespace: ci
+  namespace: cicd
 EOF
 kubectl apply -f jenkins-robot.yml
 JENKINS_ROBOT=`kubectl -n ci get serviceaccount jenkins-robot -o go-template --template='{{range .secrets}}{{.name}}{{"\n"}}{{end}}'`
